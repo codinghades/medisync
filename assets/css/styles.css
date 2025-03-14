@@ -1,0 +1,14 @@
+:root {
+    --primary-bg: #F8F9FA;
+    --primary-color: #1B1F3B;
+    --primary-text: #1B1F3B;
+    --accent-color: #C49B3B;
+    --shadow-color: rgba(209, 209, 209, 0.5);
+}
+body{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+}
