@@ -64,3 +64,6 @@ form input[type="submit"]{
     color: white;
     border-radius: 10px;
 }
+form input[type="email"]:hover, input[type="password"]:hover, input[type="text"]:hover, input[type="tel"]:hover, select:hover{
+    background-color: var(--highlight-color);
+}

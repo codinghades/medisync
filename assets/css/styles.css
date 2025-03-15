@@ -4,6 +4,7 @@
     --primary-text: #1B1F3B;
     --accent-color: #C49B3B;
     --shadow-color: rgba(209, 209, 209, 0.5);
+    --highlight-color: #e0e6ed;
 }
 body{
     box-sizing: border-box;
