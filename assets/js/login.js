@@ -15,9 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const email = document.getElementById("loginEmailInput").value.trim();
-        const password = document.getElementById("loginPasswordInput").value.trim();
-
         const formData = new FormData(this);
 
         fetch("../auth/login.php", {
@@ -25,14 +22,20 @@ document.addEventListener("DOMContentLoaded", function () {
             body: formData
         })
         .then(response => response.text())
-        .then(data => {
-            if (data.trim() === "success") {
+        .then(role => {
+            role = role.trim();
+            if (role === "patient") {
                 showNotification("Login Successful!", "success");
                 setTimeout(() => {
                     window.location.href = "../pages/dashboard.php";
                 }, 2000);
+            } else if (role === "admin") {
+                showNotification("Login Successful!", "success");
+                setTimeout(() => {
+                    window.location.href = "../admin/dashboard.php";
+                }, 2000);
             } else {
-                showNotification("Invalid email or password!", "error");
+                showNotification(role, "error");
             }
         })
         .catch(() => {
