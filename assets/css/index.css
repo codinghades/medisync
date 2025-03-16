@@ -6,6 +6,7 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 .hidden {
     visibility: hidden;
@@ -66,4 +67,29 @@ form input[type="submit"]{
 }
 form input[type="email"]:hover, input[type="password"]:hover, input[type="text"]:hover, input[type="tel"]:hover, select:hover{
     background-color: var(--highlight-color);
+}
+
+.notification{
+    padding: 0 100px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.success {
+    background-color: green;
+    color: white;
+    display: block;
+}
+
+.error {
+    background-color: red;
+    color: white;
+    display: block;
 }

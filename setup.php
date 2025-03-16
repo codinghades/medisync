@@ -1,5 +1,5 @@
 <?php
-include 'config/database.php';
+include 'config/databaseSetup.php';
 
 function executeSQLFile($conn, $filename) {
     if (!file_exists($filename)) {
