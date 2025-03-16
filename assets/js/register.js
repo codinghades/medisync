@@ -44,10 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function checkEmailExists(email, callback) {
+        const formData = new FormData(document.getElementById("registerForm"));
         fetch("../auth/checkEmail.php", {
             method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: `email=${encodeURIComponent(email)}`
+            body: formData
         })
         .then(response => response.text())
         .then(data => {
