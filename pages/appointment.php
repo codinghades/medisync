@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../assets/css/appointment.css">
     <link rel="stylesheet" href="../assets/css/patientSidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Appointment</title>
 </head>
 <body>
     <div class="mainAppointment">
