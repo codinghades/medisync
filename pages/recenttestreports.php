@@ -13,7 +13,7 @@
     <h1 class="text-2xl font-bold mb-6">Patient Test Results</h1>
 
     <div class="mb-4">
-      <p><span class="font-semibold">Patient Name:</span> John Doe</p>
+      <p><span class="font-semibold">Patient Name:</span> Anthony Mautog</p>
       <p><span class="font-semibold">Patient ID:</span> 123456</p>
       <p><span class="font-semibold">Date of Test:</span> March 17, 2025</p>
     </div>
