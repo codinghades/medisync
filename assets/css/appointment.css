@@ -1,32 +1,61 @@
 @import url('styles.css');
-.mainAppointment{
-    margin-left: 220px;
-    height: 40.6rem;
-    display: flex;
-}
 
-.mainAppointment .left{
-    width: 70%;
-    padding: 1rem;
+body{
     background-color: white;
 }
 
-.mainAppointment .right{
-    background-color: var(--primary-color);
-    width: 30%;
+.mainAppointment{
+    background-color: #e0e6ed;
+    height: 38.4rem;
+    margin-left: 220px;
+    padding: 1rem;
+}
+
+.mainAppointment .appointment{
+    background-color: white;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
+.appointment .input{
+    border: 1px solid black;
+    margin-bottom: 20px;
+    padding: .5rem 1rem;
     display: flex;
-    flex-direction: column;
+    border-radius: 5px;
 }
 
-.right .bookAppointment{
-    height: 50%;
-    padding: 1rem;
-    color: white;
+.top .firstRow, .secondRow{
+    display: flex;
+    gap: 7rem;
 }
 
+.appointment .inputReason{
+    width: 30rem;
+    height: 9rem;
+}
 
-.right .myAppointment{
-    padding: 1rem;
-    height: 50%;
+.btnSubmit{
+    all: none;
+    padding: .7rem 2rem;
+    text-align: center;
+    width: 7.2rem;
+    background-color: #1b1f3b;
     color: white;
+    border-radius: 6px;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.btnSubmit:hover{
+    background-color: #434b88;
+}
+
+.submitText{
+    margin-left: 240px;
+    background-color: rgb(52, 179, 52);
+    padding: 1rem;
+    width: 20rem;
+    color: white;
+    border-radius: 10px;
 }

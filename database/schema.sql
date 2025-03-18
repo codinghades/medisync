@@ -9,3 +9,14 @@ CREATE TABLE IF NOT EXISTS users (
     role VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE appointments (
+    id INT AUTO_INCREMENT PRIMARY KEY,  
+    name VARCHAR(255) NOT NULL,        
+    date DATE NOT NULL,               
+    contact VARCHAR(15) NOT NULL,      
+    time TIME NOT NULL,                
+    appointment_type VARCHAR(255) NOT NULL,  
+    reason TEXT NOT NULL,              
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
+);
