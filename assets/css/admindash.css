@@ -1,0 +1,45 @@
+@import url('styles.css');
+.Container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-inline-start: 13%;
+}
+.mainContainer1{
+    display: flex;
+    justify-content: space-evenly;
+}
+.rightbar{
+    background-color: #1B1F3B;
+    width: 30%;
+    height: 690px;
+    padding: 20px;
+}
+.middlebar{
+    background-color: #e0e6ed;
+    width: 70%;
+    height: 690px;
+}
+.box{
+    border: solid 5px#C49B3B;
+    width: 20%;
+    height: 150px;
+    text-align: center;
+    font-weight: 900;
+}
+.box1{
+    border: solid 5px#e0e6ed;
+    width: 95%;
+    height: 250px;
+    text-align: center;
+    font-weight: 900;
+}
+h1{
+    margin-inline-start: 8%;
+    font-weight: 900;
+}
+h2{
+    margin-inline-start: 8%;
+    color: #e0e6ed;
+    font-weight: 900;
+    font-size: 30px;
+}
