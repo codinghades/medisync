@@ -10,7 +10,7 @@
 </head>
 <body class="bg-gray-100 p-10">
   <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md">
-    <h1 class="text-2xl font-bold mb-6">Patient Test Results</h1>
+    <h1 class="text-2xl font-bold mb-6">Recent Test Result</h1>
 
     <div class="mb-4">
       <p><span class="font-semibold">Patient Name:</span> Anthony Mautog</p>
