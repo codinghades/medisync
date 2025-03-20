@@ -1,17 +1,18 @@
 :root {
     --primary-bg: #F8F9FA;
+    --white: #f1f1f1;
     --primary-color: #1B1F3B;
     --primary-text: #1B1F3B;
     --accent-color: #C49B3B;
     --shadow-color: rgba(209, 209, 209, 0.5);
     --highlight-color: #e0e6ed;
 }
-body{
+*{
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
-    background-color: var(--primary-bg);
-    color: var(--primary-text);
     padding: 0;
     margin: 0;
 }
+
+@import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
