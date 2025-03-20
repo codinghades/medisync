@@ -14,7 +14,6 @@
 }
 
 .mainContainer {
-    min-height: 100vh;
     background-color: #f5f5f5;
 }
 
@@ -84,7 +83,7 @@ h2 {
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    width: 90%;
+    width: 95%;
 }
 
 .filter-form {
@@ -152,7 +151,7 @@ h2 {
 
 .appointments-table-container {
     margin-inline-start: 5%;
-    width: 90%;
+    width: 95%;
     overflow-x: auto;
     background-color: white;
     border-radius: 8px;
@@ -510,3 +509,4 @@ h2 {
         width: 100%;
     }
 }
+
