@@ -9,6 +9,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
 </head>
 <body class="bg-gray-100 p-10">
+    <div class="mainContainer">
+        <div class="sidebar">
+            <?php include '../includes/patientSidebar.php' ?>
+        </div>
+        <div class="mainContent"></div>
+    </div>
   <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md">
     <h1 class="text-2xl font-bold mb-6">Recent Test Result</h1>
 

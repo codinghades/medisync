@@ -1,0 +1,90 @@
+@import url('styles.css');
+
+.mainContent{
+    padding-left: 240px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: var(--white);
+    border-radius: 20px;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+}
+.mainContent .pageTitle p{
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+.createAppointment{
+    width: 100%;
+    border-radius: 10px;
+    margin: 20px 0;
+    background-color: var(--primary-bg);
+    padding: 20px;
+    box-shadow: 5px 5px 10px var(--shadow-color);
+}
+.createAppointment p, .appointmentLists p{
+    font-size: 1.3rem;
+}
+.createAppointment input[type='text'], input[type='tel'], input[type='date'], input[type='time'], select, input[type='submit']{
+    padding: 10px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    background-color: var(--primary-bg);
+}
+.createAppointment input[type='text']:hover, input[type='tel']:hover, input[type='date']:hover, input[type='time']:hover, select:hover, input[type='submit']:hover{
+    background-color: var(--highlight-color);
+}
+.createAppointment input[type='submit']{
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+}
+.createAppointment .appointmentForm{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+.appointmentForm .left{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+}
+.left input[type='tel'], select{
+    grid-column: span 2;
+}
+.appointmentForm .right{
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 10px;
+}
+.appointmentLists{
+    width: 100%;
+    border-radius: 10px;
+    margin: 0 0 20px 0;
+    background-color: var(--primary-bg);
+    padding: 20px;
+    box-shadow: 5px 5px 10px var(--shadow-color);
+}
+.appointmentLists dl{
+    margin: 10px 0;
+    list-style: none;
+    background-color: var(--white);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.appointmentLists dl dt{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+dt .name{
+    font-weight: bold;
+}
+dt .date{
+    text-align: end;
+    color: rgb(189, 189, 189);
+}
