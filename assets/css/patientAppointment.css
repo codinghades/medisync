@@ -88,3 +88,6 @@ dt .date{
     text-align: end;
     color: rgb(189, 189, 189);
 }
+dd{
+    padding: 10px;
+}
