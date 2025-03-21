@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prescriptions</title>
     <link rel="stylesheet" href="../assets/css/patientPrescriptions.css">
+    <script src="../assets/js/prescription.js"></script>
 </head>
 <body>
     <div class="mainContainer">
