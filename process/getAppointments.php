@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../config/database.php';
+date_default_timezone_set("Asia/Manila"); // Set correct timezone
 
 if (!isset($_SESSION["user_id"])) {
     echo "User not logged in";
@@ -24,23 +25,34 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 while ($row = $result->fetch_assoc()) {
-    $formattedDate = date("F j, Y", strtotime($row['appointment_date'])); // Month Day, Year
-    $formattedTime = date("g:i A", strtotime($row['appointment_time'])); // 12-hour format with AM/PM
-    $createdDate = date("F j, Y", strtotime($row['created_at'])); // Created date
+    // Format appointment date and time
+    $appointmentDateTime = new DateTime("{$row['appointment_date']} {$row['appointment_time']}", new DateTimeZone("Asia/Manila"));
+    $formattedDate = $appointmentDateTime->format("F j, Y"); // Month Day, Year
+    $formattedTime = $appointmentDateTime->format("g:i A");  // 12-hour format with AM/PM
 
-    $typeFullName = $appointmentTypes[$row['appointment_type']] ?? ucfirst($row['appointment_type']); // Default to capitalized if not found
+    // Format created date
+    $createdDate = (new DateTime($row['created_at']))->format("F j, Y");
+
+    // Get full type name
+    $typeFullName = $appointmentTypes[$row['appointment_type']] ?? ucfirst($row['appointment_type']);
+
+    // Check if appointment is active or expired
+    $currentDateTime = new DateTime("now", new DateTimeZone("Asia/Manila"));
+    $status = ($appointmentDateTime > $currentDateTime) 
+        ? "<span style='color: green;'>(Active)</span>" 
+        : "<span style='color: red;'>(Expired)</span>";
 
     echo "<div class='appointment'>
             <dl>
                 <dt>
-                    <span class='name'>Appointment for {$typeFullName}</span>
+                    <span class='name'>Appointment for {$typeFullName} {$status}</span>
                     <span class='date'>{$createdDate}</span>
                 </dt>
                 <dd>
                     <span class='info'>You have booked an appointment for {$typeFullName} on {$formattedDate} at {$formattedTime}. Please arrive at least 30 minutes early to avoid any issues. Thank you.</span>
                 </dd>
             </dl>
-          </div>";
+        </div>";
 }
 
 $stmt->close();

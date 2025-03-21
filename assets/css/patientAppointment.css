@@ -91,3 +91,7 @@ dt .date{
 dd{
     padding: 10px;
 }
+.appointment .status{
+    width: 10px;
+    color: red;
+}

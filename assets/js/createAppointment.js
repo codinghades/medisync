@@ -34,6 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    loadAppointments(); // Load on page load
-    setInterval(loadAppointments, 5000); // Auto-refresh every 5 seconds
+    loadAppointments();
+    setInterval(loadAppointments, 5000);
 });
