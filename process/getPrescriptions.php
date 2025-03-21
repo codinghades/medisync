@@ -35,7 +35,7 @@ if ($row = $result->fetch_assoc()) {
             <div class='header'>
                 <div class='left'>
                     <div class='doctorName'>
-                        <p>Dr. {$row['doctor_name']}</p>
+                        <p>{$row['doctor_name']}</p>
                     </div>
                     <div class='doctorIDContainer'>
                         <p>Doctor ID:</p>
@@ -99,11 +99,6 @@ if ($row = $result->fetch_assoc()) {
         </div> <!-- End medication -->
             </div>  
             <div class='footer'><p>-</p></div>
-            <div class='downloadPrescriptionButton'>
-                <button type='button'>
-                    Download Prescription (PDF)
-                </button>
-            </div>
         </div>";
 } else {
     echo "<p>No active prescriptions in the last 7 days.</p>";

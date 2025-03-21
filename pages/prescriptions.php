@@ -6,6 +6,8 @@
     <title>Prescriptions</title>
     <link rel="stylesheet" href="../assets/css/patientPrescriptions.css">
     <script src="../assets/js/prescription.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <script src="../assets/js/download.js"></script>
 </head>
 <body>
     <div class="mainContainer">
@@ -72,13 +74,12 @@
                             </div>
                         </div>
                     </div>  
-                    <div class="footer"><p>-</p></div>
-                    <div class="downloadPrescriptionButton">
-                        <button type="button">
-                            Download Prescription (PDF)
-                        </button>
-                    </div>
                 </div>
+            </div>
+            <div class="downloadPrescriptionButton">
+                <button id="downloadPrescriptionBtn">
+                        Download Prescription (PDF)
+                </button>
             </div>
             <div class="prescriptionList">
                 <p class="title">Prescription History</p>

@@ -14,7 +14,7 @@
 .activePrescription{
     width: 100%;
     border-radius: 10px;
-    margin: 20px 0;
+    margin: 20px 0 10px 0;
     background-color: var(--primary-bg);
     padding: 20px;
     box-shadow: 5px 5px 10px var(--shadow-color);
@@ -144,6 +144,7 @@ dt .date{
     justify-self: end;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 hr{
