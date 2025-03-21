@@ -1,0 +1,151 @@
+@import url('sytles.css');
+
+.mainContent{
+    padding-left: 240px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: var(--white);
+    border-radius: 20px;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+}
+.activePrescription{
+    width: 100%;
+    border-radius: 10px;
+    margin: 20px 0;
+    background-color: var(--primary-bg);
+    padding: 20px;
+    box-shadow: 5px 5px 10px var(--shadow-color);
+}
+.mainContent .pageTitle p{
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+.activePrescription .title, .prescriptionList .title{
+    font-size: 1.3rem;
+}
+.prescriptionInformation{
+    padding-top: 10px;
+    width: 100%;
+}
+.prescriptionList{
+    width: 100%;
+    border-radius: 10px;
+    margin: 0 0 20px 0;
+    background-color: var(--primary-bg);
+    padding: 20px;
+    box-shadow: 5px 5px 10px var(--shadow-color);
+}
+.prescriptionList dl{
+    margin: 10px 0;
+    list-style: none;
+    background-color: var(--white);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.prescriptionList dl dt{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+dt .name{
+    font-weight: bold;
+}
+dt .date{
+    text-align: end;
+    color: rgb(189, 189, 189);
+}
+
+/* prescription css */
+
+.prescriptionInformation .header {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Doctor info takes available space, logo stays fixed */
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+.left {
+    display: grid;
+}
+.doctorName p{
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--primary-color, black);
+}
+.doctorIDContainer, .doctorNumberContainer {
+    display: flex;
+    gap: 10px;
+}
+.right img {
+    height: 60px;
+    object-fit: contain;
+}
+
+.prescriptionInformation .date{
+    width: 100%;
+    background-color: var(--primary-color);
+    padding: 5px;
+    color: white;
+    text-align: center;
+}
+.main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    padding: 20px;
+    align-items: start;
+}
+
+.patientInformation {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info {
+    display: flex;
+    gap: 10px;
+}
+
+.label {
+    font-weight: bold;
+    min-width: 120px; /* Adjust label width */
+}
+
+.medication table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.medication th, .medication td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+.footer{
+    width: 100%;
+    background-color: var(--primary-color);
+    padding: 5px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.downloadPrescriptionButton button {
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 10px;
+    text-align: center;
+    display: flex;
+    justify-self: end;
+    justify-content: center;
+    align-items: center;
+}
+
+hr{
+    margin: 20px 0;
+}

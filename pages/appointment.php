@@ -43,16 +43,16 @@
         <div class="appointmentLists">
             <p>Appointment History</p>
             <div class="appointment">
-                    <dl>
-                        <dt>
-                            <span class="name">Sample Name</span>
-                            <span class="date">March 20, 2025</span>
-                        </dt>
-                        <dd>
-                            <span class="info">This is a sample appointment. Thank You.</span>
-                        </dd>
-                    </dl>
-                </div>
+                <dl>
+                    <dt>
+                        <span class="name">Sample Name</span>
+                        <span class="date">March 20, 2025</span>
+                    </dt>
+                    <dd>
+                        <span class="info">This is a sample appointment. Thank You.</span>
+                    </dd>
+                </dl>
+            </div>
         </div>
     </div>
 </body>
