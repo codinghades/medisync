@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/patientAppointment.css">
     <title>Appointment</title>
+    <script src="../assets/js/createAppointment.js"></script>
 </head>
 <body>
     <div class="mainContainer"></div>
@@ -17,11 +18,11 @@
         </div>
         <div class="createAppointment">
             <p>Create Appointment</p>
-            <form class="appointmentForm" id="appointmentForm">
+            <form class="appointmentForm" id="appointmentForm" method="post">
                 <div class="left">
                     <input type="text" name="firstName" id="firstNameInput" placeholder="First Name" required>
                     <input type="text" name="lastName" id="lastNameInput" placeholder="Last Name" required>
-                    <input type="tel" name="contantNumber" id="contactNumberInput" placeholder="Contact Number" required>
+                    <input type="tel" name="contactNumber" id="contactNumberInput" placeholder="Contact Number" required>
                     <select name="type" id="typeInput" >
                         <option value="" disabled selected>Select Type</option>
                         <option value="laboratory">Laboratory & Diagnostics</option>
@@ -31,13 +32,12 @@
                         <option value="ent">ENT</option>
                     </select>
                     <input type="date" name="date" id="dateInput" required>
-                    <input type="time" name="time" id="timeInput" require_once>
-                    </div>
+                    <input type="time" name="time" id="timeInput" required>
+                </div>
                 <div class="right">
                     <input type="text" name="details" id="detailsInput" placeholder="Input Details (Optional)">
                     <input type="submit" name="submit" id="submitAppointment">
                 </div>
-
             </form>
         </div>
         <div class="appointmentLists">
