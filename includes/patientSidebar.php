@@ -16,8 +16,8 @@
                     <img src="../assets/images/Medisync LogoMark.png" alt="Medisync">
                 </span> 
                 <span class="logoText">
-                    <span class="firstName">First Name</span>
-                    <span class="lastName">Last Name</span>
+                    <span class="firstName"></span>
+                    <span class="lastName"></span>
                 </span>
             </div>
             <div class="navigation">
@@ -42,7 +42,7 @@
                     <p>Test Reports</p>
                 </button>
             </div>
-            <div class="logout" id="accountButton">
+            <div class="logout" id="logoutButton">
                 <button type="button">
                     <i class='bx bx-log-out' ></i>
                     <p>Log Out</p>
