@@ -5,7 +5,7 @@ function updateDashboardSummary() {
             const lines = data.split("\n");
             document.getElementById("appointmentCard").querySelector(".cardInfo").textContent = lines[0].replace("Appointment: ", "") || "None";
             document.getElementById("prescriptionCard").querySelector(".cardInfo").textContent = lines[1].replace("Prescription: ", "") || "None";
-            // document.getElementById("billingCard").querySelector(".cardInfo").textContent = lines[2].replace("Bills: ", "") || "None";
+            document.getElementById("billingCard").querySelector(".cardInfo").textContent = lines[2].replace("Bills: ", "") || "None";
         })
         .catch(() => {
             document.querySelectorAll(".cardInfo").forEach(card => {

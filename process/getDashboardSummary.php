@@ -39,23 +39,24 @@ if ($activePrescription > 0) {
     $prescription = "Active";
 }
 
-// Get total bills
-// $queryBills = "SELECT SUM(amount_due) FROM bills WHERE patient_id = ? AND status = 'unpaid'";
-// $stmt = $conn->prepare($queryBills);
-// $stmt->bind_param("s", $patient_id);
-// $stmt->execute();
-// $stmt->bind_result($totalBills);
-// $stmt->fetch();
-// $stmt->close();
+$queryBills = "
+    SELECT SUM(cp.price) AS TotalUnpaid
+    FROM Billing b
+    JOIN ConsultationPrices cp ON b.ConsultationTypeID = cp.ID
+    WHERE b.PaymentStatus = 'Unpaid' AND b.UserID = ?";
+$stmt = $conn->prepare($queryBills);
+$stmt->bind_param("s", $patient_id);
+$stmt->execute();
+$stmt->bind_result($totalBills);
+$stmt->fetch();
+$stmt->close();
 
-// if ($totalBills > 0) {
-//     $bills = "₱" . number_format($totalBills, 2);
-// }
+$totalBillsFormatted = $totalBills !== null ? "₱" . number_format($totalBills, 2) : "₱0.00";
 
 // Output text response
 echo "Appointment: $appointment\n";
 echo "Prescription: $prescription\n";
-// echo "Bills: $bills\n";
+echo "Bills: " . $totalBillsFormatted;;
 
 $conn->close();
 ?>
