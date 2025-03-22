@@ -47,3 +47,26 @@ CREATE TABLE IF NOT EXISTS prescription_details (
     advice TEXT,
     FOREIGN KEY (prescription_id) REFERENCES prescriptions(id) ON DELETE CASCADE
 );
+
+CREATE TABLE Billing (
+    BillingID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID VARCHAR(20),
+    ConsultationTypeID INT,
+    ConsultationDate DATE,
+    Amount DECIMAL(10, 2),
+    PaymentStatus ENUM('Paid', 'Unpaid'),
+    FOREIGN KEY (ConsultationTypeID) REFERENCES ConsultationPrices(ID)
+);
+
+CREATE TABLE ConsultationPrices (
+    ID INT PRIMARY KEY,
+    ConsultationType VARCHAR(100),
+    Price DECIMAL(10, 2)
+);
+
+INSERT INTO ConsultationPrices (ID, ConsultationType, Price) VALUES
+(1, 'Laboratory Consultation', 100.00),
+(2, 'Outpatient Department (OPD)', 75.00),
+(3, 'Pediatric Consultation', 80.00),
+(4, 'Obstetrics and Gynecology (OBGYN)', 120.00),
+(5, 'Ear, Nose, and Throat (ENT)', 90.00);
