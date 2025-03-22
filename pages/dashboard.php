@@ -14,17 +14,17 @@
         </div>
         <div class="mainContent">
             <div class="summary">
-                <span class="card">
+                <span class="card" id="appointmentCard">
                     <div class="cardIcon"><i class='bx bxs-calendar'></i></div>
                     <div class="cardTitle">Pending Appointment</div>
                     <div class="cardInfo">None</div>
                 </span>
-                <span class="card">
+                <span class="card" id="prescriptionCard">
                     <div class="cardIcon"><i class='bx bxs-capsule'></i></div>
                     <div class="cardTitle">Prescription</div>
                     <div class="cardInfo">None</div>
                 </span>
-                <span class="card">
+                <span class="card" id="billingCard">
                     <div class="cardIcon"><i class='bx bxs-wallet' ></i></div>
                     <div class="cardTitle">Bills to Pay</div>
                     <div class="cardInfo">None</div>

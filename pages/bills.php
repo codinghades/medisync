@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bills</title>
     <link rel="stylesheet" href="../assets/css/patientBilling.css">
+    <script src="../assets/js/billing.js"></script>
 </head>
 <body>
 <div class="mainContainer">
@@ -18,6 +19,7 @@
                 <!-- Unpaid Bills -->
                 <div class="unpaidBills">
                     <p class="title">Unpaid Bills</p>
+                    
                     <div class="bill">
                         <dl>
                             <dt>
@@ -30,6 +32,11 @@
                             </dd>
                         </dl>
                     </div>
+
+                    <div class="totalAmount">
+                        <strong>Total: </strong> <span>₱500.00</span>
+                    </div>
+
                     <div class="payNowButton">
                         <button type="button">Pay Now</button>
                     </div>

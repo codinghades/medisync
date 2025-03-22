@@ -97,3 +97,14 @@ dd {
 .payNowButton button:hover {
     background-color: var(--primary-dark);
 }
+
+.totalAmount {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px var(--shadow-color);
+}
