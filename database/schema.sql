@@ -47,35 +47,3 @@ CREATE TABLE IF NOT EXISTS prescription_details (
     advice TEXT,
     FOREIGN KEY (prescription_id) REFERENCES prescriptions(id) ON DELETE CASCADE
 );
-
-CREATE TABLE IF NOT EXISTS medicines (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    price DECIMAL(10,2) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS consultation_types (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    type VARCHAR(50) NOT NULL,
-    price DECIMAL(10,2) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS unpaid_bills (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    patient_id VARCHAR(11) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    amount_due DECIMAL(10,2) NOT NULL,
-    due_date DATE NOT NULL,
-    status ENUM('pending', 'paid') DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (patient_id) REFERENCES users(user_id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS billing_history (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    patient_id VARCHAR(11) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    amount_paid DECIMAL(10,2) NOT NULL,
-    paid_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (patient_id) REFERENCES users(user_id) ON DELETE CASCADE
-);
