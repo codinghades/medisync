@@ -76,25 +76,6 @@
                     </div>  
                 </div>
             </div>
-            <div class="downloadPrescriptionButton">
-                <button id="downloadPrescriptionBtn">
-                        Download Prescription (PDF)
-                </button>
-            </div>
-            <div class="prescriptionList">
-                <p class="title">Prescription History</p>
-                <div class="prescription">
-                    <dl>
-                        <dt>
-                            <div class="name">Sample Name</div>
-                            <div class="date">March 20, 2025</div>
-                        </dt>
-                        <dd>
-                            <div class="info">This is a sample prescription. Thank You.</div>
-                        </dd>
-                    </dl>
-                </div>
-            </div>
         </div>
     </div>
 </body>

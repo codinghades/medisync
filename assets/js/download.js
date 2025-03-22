@@ -1,13 +1,22 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const downloadButton = document.getElementById('downloadPrescriptionBtn');
-    if (downloadButton) {
-        downloadButton.addEventListener('click', function () {
-            const element = document.querySelector('.prescriptionInformation'); // The content to be downloaded as PDF
+document.addEventListener('click', function (event) {
+    if (event.target && event.target.id === 'downloadPrescriptionBtn') {
+        const element = document.querySelector('.prescriptionInformation');
 
-            // Use html2pdf to generate the PDF
-            html2pdf()
-                .from(element) // The HTML element you want to convert to PDF
-                .save('Prescription.pdf'); // Save the file as 'Prescription.pdf'
-        });
+        // Clone the element to avoid modifying the original
+        const clonedElement = element.cloneNode(true);
+        clonedElement.style.display = 'block';
+
+        // Temporarily replace the page content with the prescription for printing
+        const originalContent = document.body.innerHTML;
+        document.body.innerHTML = clonedElement.outerHTML;
+
+        // Print the document
+        window.print();
+
+        // Restore original content
+        document.body.innerHTML = originalContent;
+
+        // Download as PDF
+        html2pdf().from(element).save('Prescription.pdf');
     }
 });
