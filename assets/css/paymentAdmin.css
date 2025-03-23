@@ -1,0 +1,63 @@
+@import url('styles.css');
+body{
+    background-color: aliceblue;
+}
+.Container{
+    margin-inline-start: 10%;
+    padding-left: 10%;
+    padding-right: 5%;
+    padding-top: 1%;
+}
+.box{
+    display: flex;
+    border: solid 2px#1B1F3B;
+    background-color: #F8F9FA;
+    height: 100px;
+    font-weight: 400;
+    padding-top: 2%;
+    padding-left: 2%;
+    border-radius: 10px;
+    padding-bottom: 2%;
+    transition: transform 0.5 ease;
+}
+.box:hover{
+    transform: scale(1.05);
+}
+.box1{
+    flex: 1;
+    text-align: left;
+    border-right: solid 1px #1B1F3B;
+}
+.box2{
+    flex:1;
+    text-align: center;
+    border-right: solid 1px #1B1F3B;
+}
+.content{
+    padding-top: 5%;
+    font-weight: 600;
+}
+
+.header-container {
+    display: flex;
+    justify-content: flex-start; 
+    padding: 10px 20px;
+    padding-top: 5%;
+    padding-left: 20%;
+    gap: 10px;
+}
+h2{
+    font-size: 20px;
+    padding-top: 1%;
+}
+.search-bar {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+}
+
+
+
+
