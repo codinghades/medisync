@@ -1,0 +1,99 @@
+@import url('styles.css');
+
+.mainContent {
+    padding-left: 240px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: var(--white);
+    border-radius: 20px;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+}
+
+.pageTitle p {
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+
+.billingContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.unpaidBills, .paidBills {
+    width: 100%;
+    border-radius: 10px;
+    background-color: var(--primary-bg);
+    padding: 20px;
+    box-shadow: 5px 5px 10px var(--shadow-color);
+}
+
+.title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.bill {
+    list-style: none;
+    background-color: var(--white);
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+.bill dt {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+dt .name {
+    font-weight: bold;
+}
+
+dt .amount {
+    text-align: end;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+dd {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.unpaid {
+    color: red;
+}
+
+.paid {
+    color: green;
+}
+
+.payNowButton button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.payNowButton button:hover {
+    background-color: var(--primary-dark);
+}

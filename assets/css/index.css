@@ -35,6 +35,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 0px 50px;
 }
 .panel .registerForm {
     display: grid;
@@ -70,7 +71,7 @@ form input[type="email"]:hover, input[type="password"]:hover, input[type="text"]
 }
 
 .notification{
-    padding: 0 100px;
+    padding: 10px 100px;
     margin-bottom: 5px;
     text-align: center;
     font-weight: bold;
