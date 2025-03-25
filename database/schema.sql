@@ -48,17 +48,7 @@ CREATE TABLE IF NOT EXISTS prescription_details (
     FOREIGN KEY (prescription_id) REFERENCES prescriptions(id) ON DELETE CASCADE
 );
 
-CREATE TABLE Billing (
-    BillingID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID VARCHAR(20),
-    ConsultationTypeID INT,
-    ConsultationDate DATE,
-    Amount DECIMAL(10, 2),
-    PaymentStatus ENUM('Paid', 'Unpaid'),
-    FOREIGN KEY (ConsultationTypeID) REFERENCES ConsultationPrices(ID)
-);
-
-CREATE TABLE ConsultationPrices (
+CREATE TABLE IF NOT EXISTS ConsultationPrices (
     ID INT PRIMARY KEY,
     ConsultationType VARCHAR(100),
     Price DECIMAL(10, 2)
@@ -70,3 +60,17 @@ INSERT INTO ConsultationPrices (ID, ConsultationType, Price) VALUES
 (3, 'Pediatric Consultation', 80.00),
 (4, 'Obstetrics and Gynecology (OBGYN)', 120.00),
 (5, 'Ear, Nose, and Throat (ENT)', 90.00);
+
+CREATE TABLE IF NOT EXISTS Billing (
+    BillingID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID VARCHAR(20),
+    ConsultationTypeID INT,
+    ConsultationDate DATE,
+    Amount DECIMAL(10, 2),
+    PaymentStatus ENUM('Paid', 'Unpaid'),
+    FOREIGN KEY (ConsultationTypeID) REFERENCES ConsultationPrices(ID)
+);
+
+INSERT INTO users (id, first_name, last_name, gender, contact_number, email, password, role) VALUES
+('P-2025-0000', 'Juan', 'Dela Cruz', 'male', '09121231234', 'juandelacruz@gmail.com', '$2y$10$fVoOoIKuE4lQuklzsM2nLeuiboX68uXC.5xSjP04KVzcYYBZlIFh.', 'patient'),
+('P-2025-0001', 'Maria', 'San Pedro', 'female', '09988776655', 'admin@gmail.com', '$2y$10$2mwmIZ/HgMcV1c5Tu6Y4cO0RGohjuafHeR2oN0hMlj1Dbnu375TBS', 'admin');

@@ -24,35 +24,39 @@ $stmt->bind_param("s", $patient_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-while ($row = $result->fetch_assoc()) {
-    // Format appointment date and time
-    $appointmentDateTime = new DateTime("{$row['appointment_date']} {$row['appointment_time']}", new DateTimeZone("Asia/Manila"));
-    $formattedDate = $appointmentDateTime->format("F j, Y"); // Month Day, Year
-    $formattedTime = $appointmentDateTime->format("g:i A");  // 12-hour format with AM/PM
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        // Format appointment date and time
+        $appointmentDateTime = new DateTime("{$row['appointment_date']} {$row['appointment_time']}", new DateTimeZone("Asia/Manila"));
+        $formattedDate = $appointmentDateTime->format("F j, Y"); // Month Day, Year
+        $formattedTime = $appointmentDateTime->format("g:i A");  // 12-hour format with AM/PM
 
-    // Format created date
-    $createdDate = (new DateTime($row['created_at']))->format("F j, Y");
+        // Format created date
+        $createdDate = (new DateTime($row['created_at']))->format("F j, Y");
 
-    // Get full type name
-    $typeFullName = $appointmentTypes[$row['appointment_type']] ?? ucfirst($row['appointment_type']);
+        // Get full type name
+        $typeFullName = $appointmentTypes[$row['appointment_type']] ?? ucfirst($row['appointment_type']);
 
-    // Check if appointment is active or expired
-    $currentDateTime = new DateTime("now", new DateTimeZone("Asia/Manila"));
-    $status = ($appointmentDateTime > $currentDateTime) 
-        ? "<span style='color: green;'>(Active)</span>" 
-        : "<span style='color: red;'>(Expired)</span>";
+        // Check if appointment is active or expired
+        $currentDateTime = new DateTime("now", new DateTimeZone("Asia/Manila"));
+        $status = ($appointmentDateTime > $currentDateTime) 
+            ? "<span style='color: green;'>(Active)</span>" 
+            : "<span style='color: red;'>(Expired)</span>";
 
-    echo "<div class='appointment'>
-            <dl>
-                <dt>
-                    <span class='name'>Appointment for {$typeFullName} {$status}</span>
-                    <span class='date'>{$createdDate}</span>
-                </dt>
-                <dd>
-                    <span class='info'>You have booked an appointment for {$typeFullName} on {$formattedDate} at {$formattedTime}. Please arrive at least 30 minutes early to avoid any issues. Thank you.</span>
-                </dd>
-            </dl>
-        </div>";
+        echo "<div class='appointment'>
+                <dl>
+                    <dt>
+                        <span class='name'>Appointment for {$typeFullName} {$status}</span>
+                        <span class='date'>{$createdDate}</span>
+                    </dt>
+                    <dd>
+                        <span class='info'>You have booked an appointment for {$typeFullName} on {$formattedDate} at {$formattedTime}. Please arrive at least 30 minutes early to avoid any issues. Thank you.</span>
+                    </dd>
+                </dl>
+            </div>";
+    }
+} else {
+    echo "No appointments found.";
 }
 
 $stmt->close();
