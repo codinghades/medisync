@@ -76,6 +76,12 @@
                     </div>  
                 </div>
             </div>
+            <div class='prescriptionList'>
+                <p class='title'>Prescription History</p>
+                <div class='prescriptionHistory'>
+                    <p class="nothing">Not recent prescription</p>
+                </div>
+            </div>
         </div>
     </div>
 </body>

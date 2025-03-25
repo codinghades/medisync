@@ -35,7 +35,6 @@
 .title {
     font-size: 1.3rem;
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
 .bill {
@@ -66,6 +65,7 @@ dd {
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
+    padding: 5px;
 }
 
 .status {
@@ -73,11 +73,11 @@ dd {
 }
 
 .unpaid {
-    color: red; /* For unpaid bills */
+    color: red;
 }
 
 .paid {
-    color: green; /* For paid bills */
+    color: green;
 }
 
 .payNowButton {
@@ -95,7 +95,10 @@ dd {
 }
 
 .payNowButton:hover {
-    background-color: var(--primary-dark);
+    background-color: var(--button-hover);
+}
+.payNowButton:focus {
+    background-color: var(--button-focus);
 }
 
 .totalAmount {
@@ -134,7 +137,7 @@ dd {
 }
 
 .close-button {
-    color: var(--primary-color); /* Use primary color for the close button */
+    color: var(--primary-color);
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -142,29 +145,36 @@ dd {
 
 .close-button:hover,
 .close-button:focus {
-    color: var(--primary-dark); /* Darker shade on hover */
+    color: var(--primary-dark);
     text-decoration: none;
     cursor: pointer;
 }
 
 .modal h2 {
-    font-size: 1.5rem; /* Larger font size for the title */
-    margin-bottom: 20px; /* Space below the title */
-    color: var(--primary-color); /* Use primary color for the title */
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
 }
 
 .modal button {
-    width: 100%; /* Full width buttons */
     padding: 10px;
     border-radius: 5px;
-    background-color: var(--primary-color); /* Primary color for buttons */
+    background-color: var(--primary-color);
     color: white;
     margin-top: 10px;
     cursor: pointer;
-    border: none; /* Remove default border */
-    font-size: 1rem; /* Consistent font size */
+    border: none;
+    height: 50px;
 }
 
 .modal button:hover {
-    background-color: var(--primary-dark); /* Darker shade on hover */
+    background-color: var(--button-hover);
+}
+.modal button:focus {
+    background-color: var(--button-focus);
+}
+
+.payButtons{
+    display: flex;
+    gap: 10px;
 }

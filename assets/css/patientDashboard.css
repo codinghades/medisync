@@ -68,3 +68,6 @@ dt .date{
     text-align: end;
     color: rgb(189, 189, 189);
 }
+p.nothing{
+    font-size: 1rem;
+}

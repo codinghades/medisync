@@ -36,8 +36,10 @@
     <div class="modal-content">
         <span class="close-button" id="closeModal">&times;</span>
         <h2>Select Payment Method</h2>
-        <button id="payWithCash">Cash</button>
-        <button id="payWithCard">Card</button>
+        <div class="payButtons">
+            <button id="payWithCash"><i class='bx bx-money'></i>Cash</button>
+            <button id="payWithCard"><i class='bx bxs-credit-card'></i>Card</button>
+        </div>
         <div id="paymentMessage" style="margin-top: 20px;"></div>
     </div>
 </div>

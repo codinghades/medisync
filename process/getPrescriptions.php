@@ -126,6 +126,14 @@ if ($resultHistory->num_rows > 0) {
               </div>";
     }
     echo "</div>";
+} else {
+    echo "  
+        <div class='prescriptionList'>
+            <p class='title'>Prescription History</p>
+            <div class='prescriptionHistory'>
+                <p class='nothing'>Not recent prescription</p>
+            </div>
+        </div>";
 }
 $stmtHistory->close();
 $conn->close();

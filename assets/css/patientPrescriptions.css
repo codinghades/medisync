@@ -7,7 +7,7 @@
     padding-bottom: 20px;
     background-color: var(--white);
     border-radius: 20px;
-    height: 100vh;
+    height: 100%;
     display: grid;
     grid-template-rows: auto auto 1fr;
 }
@@ -149,7 +149,12 @@ dd {
     align-items: center;
     margin-bottom: 20px;
 }
-
+.downloadPrescriptionButton button:hover{
+    background-color: var(--button-hover);
+}
+.downloadPrescriptionButton button:focus{
+    background-color: var(--button-focus);
+}
 hr{
     margin: 20px 0;
 }

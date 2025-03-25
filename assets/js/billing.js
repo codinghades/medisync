@@ -29,10 +29,10 @@ function displayUnpaidBills(bills) {
         container.innerHTML += '<p>No unpaid bills.</p>';
     } else {
         bills.forEach(bill => {
-            const amount = parseFloat(bill.Amount); // Ensure Amount is a number
+            const amount = parseFloat(bill.Amount);
             if (isNaN(amount)) {
-                console.error('Invalid amount for bill:', bill); // Log if amount is invalid
-                return; // Skip this bill if the amount is invalid
+                console.error('Invalid amount for bill:', bill);
+                return;
             }
             const billElement = `
                 <div class="bill">
@@ -42,7 +42,7 @@ function displayUnpaidBills(bills) {
                             <div class="amount">₱${amount.toFixed(2)}</div>
                         </dt>
                         <dd>
-                            <div class="date">Due: ${new Date(bill.ConsultationDate).toLocaleDateString()}</div>
+                            <div class="date">Date: ${new Date(bill.ConsultationDate).toLocaleDateString()}</div>
                             <div class="status unpaid">Pending</div>
                         </dd>
                     </dl>
@@ -50,54 +50,47 @@ function displayUnpaidBills(bills) {
             container.innerHTML += billElement;
             total += amount; // Add to total
         });
-    }
-
-   
+    }  
     const totalAmount = `
         <div class="totalAmount">
             <strong>Total: </strong> <span>₱${total.toFixed(2)}</span>
         </div>`;
     container.innerHTML += totalAmount;
-
-    // Add a single Pay Now button below the total amount
+    
     const payButton = `
         <button class="payNowButton" id="payNowButton">Pay Now</button>`;
     container.innerHTML += payButton;
 
-    // Add event listener to the Pay Now button
     document.getElementById('payNowButton').addEventListener('click', function() {
         showPaymentModal();
     });
+
+    if (total == 0){
+        document.getElementById('payNowButton').style.display = 'none';
+    }
 }
 
 function showPaymentModal() {
     const modal = document.getElementById('paymentModal');
     modal.style.display = 'flex'; // Show the modal
 
-    // Add event listeners for payment method buttons
     document.getElementById('payWithCash').addEventListener('click', function() {
-        document.getElementById('paymentMessage').innerText = 'Please proceed to the cashier for payment.';
-        closeModalAfterDelay(modal); // Close modal after 3 seconds
+        document.getElementById('paymentMessage').innerText = 'Please proceed to the cashier for payment. Thank you!';
+        closeModalAfterDelay(modal, "Cash");
     });
-
+    
     document.getElementById('payWithCard').addEventListener('click', function() {
-        document.getElementById('paymentMessage').innerText = 'You will be redirected to your bank payment system.';
-        closeModalAfterDelay(modal); // Close modal after 3 seconds
+        document.getElementById('paymentMessage').innerText = 'You will be redirected to your bank payment system. Thank you!';
+        closeModalAfterDelay(modal, "Card");
     });
-
-    // Close modal functionality
-    document.getElementById('closeModal').addEventListener('click', function() {
-        modal.style.display = 'none'; // Hide the modal
-    });
-}
-
-// Function to close the modal after a delay
-function closeModalAfterDelay(modal) {
-    setTimeout(function() {
-        markAllBillsAsPaid()
-        modal.style.display = 'none'; // Hide the modal
-    }, 3000); // 3000 milliseconds = 3 seconds
-}
+    
+    function closeModalAfterDelay(modal, method) {
+        setTimeout(function() {
+            markAllBillsAsPaid(method);
+            modal.style.display = 'none';
+        }, 3000);
+    }
+}    
 
 // Close modal when clicking outside of it
 window.onclick = function(event) {
@@ -107,29 +100,31 @@ window.onclick = function(event) {
     }
 }
 
-function markAllBillsAsPaid() {
-    fetch('../process/updatePaymentStatus.php', {
-        method: 'POST',
+function markAllBillsAsPaid(paymentMethod) {
+    const totalAmount = document.querySelector(".totalAmount span").textContent.replace("₱", "").trim();
+
+    fetch("../process/updatePaymentStatus.php", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-        }
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ totalAmount, paymentMethod }),
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             console.log(data.message);
-            location.reload()
-            // Optionally refresh the bills display
+            location.reload();
         } else {
-            console.error('Error:', data.error);
+            console.error("Error:", data.error);
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error("Error:", error));
 }
 
 function displayPaidBills(bills) {
     const container = document.querySelector('.paidBills');
-    container.innerHTML = ''; // Clear previous content
+    container.innerHTML = ''
 
     const title = `
     <p class="title">Billing History</p>`;
@@ -139,10 +134,10 @@ function displayPaidBills(bills) {
         container.innerHTML += '<p>No paid bills.</p>';
     } else {
         bills.forEach(bill => {
-            const amount = parseFloat(bill.Amount); // Ensure Amount is a number
+            const amount = parseFloat(bill.Amount);
             if (isNaN(amount)) {
-                console.error('Invalid amount for bill:', bill); // Log if amount is invalid
-                return; // Skip this bill if the amount is invalid
+                console.error('Invalid amount for bill:', bill);
+                return;
             }
             const billElement = `
                 <div class="bill">

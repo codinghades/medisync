@@ -56,7 +56,7 @@ if ($result->num_rows > 0) {
             </div>";
     }
 } else {
-    echo "No appointments found.";
+    echo "<p class='nothing'>No appointments found.</p>";
 }
 
 $stmt->close();

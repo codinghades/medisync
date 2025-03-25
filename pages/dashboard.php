@@ -6,6 +6,7 @@
     <title>Patient Dashboard</title>
     <link rel="stylesheet" href="../assets/css/patientDashboard.css">
     <script src="../assets/js/dashboard.js"></script>
+    <script src="../assets/js/fetchNotification.js"></script>
 </head>
 <body>
     <div class="mainContainer">

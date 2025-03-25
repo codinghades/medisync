@@ -12,8 +12,22 @@ function updateDashboardSummary() {
                 card.textContent = "Error loading data";
             });
         });
+
+    // Fetch notifications
+    fetch("../process/notification.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                fetchNotifications(); // Refresh displayed notifications
+            }
+        })
+        .catch(error => console.error("Error fetching notifications:", error));
 }
 
-// Load data when page loads
-document.addEventListener("DOMContentLoaded", updateDashboardSummary);
+document.addEventListener("DOMContentLoaded", function() {
+    updateDashboardSummary();
+    fetchNotifications(); // Initial fetch for notifications
+});
+
 setInterval(updateDashboardSummary, 10000);
+setInterval(fetchNotifications, 10000); // Update notifications every 10 seconds

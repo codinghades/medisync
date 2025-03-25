@@ -95,3 +95,13 @@ dd{
     width: 10px;
     color: red;
 }
+
+p.nothing {
+    font-size: 1rem;
+}
+input[type='submit']:hover{
+    background-color: var(--button-hover);
+}
+input[type='submit']:focus{
+    background-color: var(--button-focus);
+}
