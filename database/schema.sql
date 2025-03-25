@@ -17,6 +17,7 @@ CREATE TABLE appointments (
     contact VARCHAR(15) NOT NULL,      
     time TIME NOT NULL,                
     appointment_type VARCHAR(255) NOT NULL,  
-    reason TEXT NOT NULL,              
+    reason TEXT NOT NULL,
+    status VARCHAR(255) NOT NULL,              
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
 );

@@ -287,12 +287,13 @@ h2 {
     display: none;
     position: absolute;
     right: 0;
+    top: 100%;
     background-color: white;
     min-width: 150px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    z-index: 1;
+    z-index: 1000;/* Increased z-index to ensure it overlays the table */
     border-radius: 5px;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .dropdown.active .dropdown-content {
