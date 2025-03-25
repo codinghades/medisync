@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Dashboard</title>
     <link rel="stylesheet" href="../assets/css/patientDashboard.css">
+    <script src="../assets/js/dashboard.js"></script>
 </head>
 <body>
     <div class="mainContainer">

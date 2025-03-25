@@ -37,6 +37,7 @@
 .card .cardInfo{
     font-weight: bolder;
     font-size: 1.3rem;
+    line-height: 20px;
 }
 .notificationsList{
     width: 100%;

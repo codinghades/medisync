@@ -1,45 +1,106 @@
 @import url('styles.css');
-.Container{
+
+.mainContent{
+    padding-left: 240px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: var(--white);
+    border-radius: 20px;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr;
     display: flex;
-    justify-content: space-evenly;
-    margin-inline-start: 13%;
+    gap: 3%;
 }
-.mainContainer1{
-    display: flex;
-    justify-content: space-evenly;
+.content{
+    width: 60%;
 }
-.rightbar{
-    background-color: #1B1F3B;
-    width: 30%;
-    height: 690px;
+.content2{
+    width: 40%;
+    background: var(--primary-color);
+    color: white;
     padding: 20px;
-}
-.middlebar{
-    background-color: #e0e6ed;
-    width: 70%;
-    height: 690px;
-}
-.box{
-    border: solid 5px#C49B3B;
-    width: 20%;
-    height: 150px;
-    text-align: center;
-    font-weight: 900;
-}
-.box1{
-    border: solid 5px#e0e6ed;
-    width: 95%;
-    height: 250px;
-    text-align: center;
-    font-weight: 900;
+    border-radius: 10px;
 }
 h1{
-    margin-inline-start: 8%;
-    font-weight: 900;
+    font-size: 1.3rem;
 }
-h2{
-    margin-inline-start: 8%;
-    color: #e0e6ed;
-    font-weight: 900;
-    font-size: 30px;
+
+.summary{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.summary .card{
+    background-color: var(--primary-color);
+    width: 100%;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    height: 130px;
+    line-height: 100%;
+    display: grid;
+    align-items: center;
+    box-shadow: 5px 5px 10px var(--shadow-color);
+}
+.card .cardIcon i{
+    font-size: 1.3rem;
+}
+.card .cardInfo{
+    font-weight: bolder;
+    font-size: 1.3rem;
+}
+.notificationsList{
+    width: 100%;
+    border-radius: 10px;
+    margin: 20px 0;
+    background-color: var(--primary-bg);
+    padding: 20px;
+    box-shadow: 5px 5px 10px var(--shadow-color);
+}
+.notificationsList p{
+    font-size: 1.3rem;
+}
+.notificationsList dl{
+    margin: 10px 0;
+    list-style: none;
+    background-color: var(--white);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.notificationsList dl dt{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+dt .name{
+    font-weight: bold;
+}
+dt .date{
+    text-align: end;
+    color: #ec971f;
+    font-size: .9rem;
+}
+dt .id{
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: black;
+}
+
+.appointmentList{
+    width: 100%;
+    border-radius: 10px;
+    margin: 20px 0;
+    background-color: var(--primary-bg);
+    padding: 15px;
+}
+dd .info{
+    font-size: 1rem;
+    color: black;
+}
+.appointmentList dl dt{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }

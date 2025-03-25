@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Check if the user is already logged in
+    fetch("../process/checkLogin.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.loggedIn) {
+                window.location.href = data.redirect;
+            }
+        });
+
     function showNotification(message, type) {
         const notification = document.getElementById("notification");
         const messageBox = document.getElementById("notificationMessage");

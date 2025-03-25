@@ -1,6 +1,3 @@
-<?php
-    include '../includes/adminSidebar.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,20 +9,60 @@
 </head>
 <body>
     <div class="mainContainer">
-        <div class="Container">
-            <div class="middlebar">
-                <h1>Dashboard</h1>
-                    <div class="mainContainer1">
-                        <div class="box">Patient</div>
-                        <div class="box">Available Room</div>
-                        <div class="box">Available Doctor</div>
+        <div class="sidebar"> 
+            <?php include '../includes/adminSidebar.php'; ?>
+        </div>
+        <div class="mainContent">
+            <div class="content">
+                <h1>Dashboard</h1><br>
+                <div class="summary">
+                    <span class="card">
+                        <div class="cardIcon"><i class='bx bxs-user-check'></i></div>
+                        <div class="cardTitle">Patient</div>
+                        <div class="cardInfo">None</div>
+                    </span>
+                    <span class="card">
+                        <div class="cardIcon"><i class='bx bxs-bed'></i></div>
+                        <div class="cardTitle">Available Room</div>
+                        <div class="cardInfo">None</div>
+                    </span>
+                    <span class="card">
+                        <div class="cardIcon"><i class='bx bxs-face-mask' ></i></div>
+                        <div class="cardTitle">Available Doctors</div>
+                        <div class="cardInfo">None</div>
+                    </span>
+                </div>
+                <div class="notificationsList">
+                    <h1>Patient Data</h1>
+                    <div class="notification">
+                        <dl>
+                            <dt>
+                                <span class="name">Patient ID: 001</span>
+                            </dt>
+                            <dd>
+                                <span class="info">Patient Information, concern, and consultation.</span>
+                            </dd>
+                        </dl>
                     </div>
-                <h1>Patient Data</h1>
+                </div>
             </div>
-            <div class="rightbar">
-                <h2>Calendar</h2>
-                    <div class="box1">Calendar</div>
-                <h2>Appointment</h2>
+
+            <div class="content2">
+                <h1>Calendar</h1>
+                
+                
+                <br><br><h1>Appointment</h1><br>
+                <div class="appointmentList">
+                        <dl>
+                            <dt>
+                                <span class="id">Patient ID: 001</span>
+                                <span class="date">Date of Test: March 20, 2025</span>
+                            </dt><br>
+                            <dd>
+                                <span class="info">Patient Information, concern, and consultation.</span>
+                            </dd>
+                        </dl>
+                    </div>
             </div>
         </div>
     </div>
