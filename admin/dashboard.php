@@ -1,6 +1,4 @@
-<?php
-    include '../includes/adminSidebar.php';
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +10,11 @@
 </head>
 <body>
     <div class="mainContainer">
+        <div class="sidebar">
+            <?php
+                include '../includes/adminSidebar.php';
+            ?>
+        </div>
         <div class="Container">
             <div class="middlebar">
                 <h1>Dashboard</h1>
