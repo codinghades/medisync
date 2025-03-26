@@ -80,15 +80,15 @@ INSERT INTO ConsultationPrices (ID, ConsultationType, Price) VALUES
 (4, 'Obstetrics and Gynecology (OBGYN)', 120.00),
 (5, 'Ear, Nose, and Throat (ENT)', 90.00);
 
-INSERT INTO users (id, first_name, last_name, gender, contact_number, email, password, role) VALUES
+INSERT INTO users (user_id, first_name, last_name, gender, contact_number, email, password, role) VALUES
 ('P-2025-0000', 'Juan', 'Dela Cruz', 'male', '09121231234', 'juandelacruz@gmail.com', '$2y$10$fVoOoIKuE4lQuklzsM2nLeuiboX68uXC.5xSjP04KVzcYYBZlIFh.', 'patient'),
-('P-2025-0001', 'Maria', 'San Pedro', 'female', '09988776655', 'admin@gmail.com', '$2y$10$2mwmIZ/HgMcV1c5Tu6Y4cO0RGohjuafHeR2oN0hMlj1Dbnu375TBS', 'admin');
+('A-2025-0001', 'Maria', 'San Pedro', 'female', '09988776655', 'admin@gmail.com', '$2y$10$2mwmIZ/HgMcV1c5Tu6Y4cO0RGohjuafHeR2oN0hMlj1Dbnu375TBS', 'admin');
 
 INSERT INTO doctors (id, doctor_id, name, mobile) VALUES
 (1, 'D-2025-0000', 'Dr. John Doe', '09123456789');
 
 INSERT INTO prescriptions (patient_id, doctor_id, date_prescribed) VALUES
-('P-2025-0001', 1, '2025-03-25 09:00:00');
+('P-2025-0000', 1, '2025-03-25 09:00:00');
 
 INSERT INTO prescription_details (prescription_id, medicine, dosage, duration, instruction, advice) VALUES
 (1, 'Amoxicillin', '500mg', '7 days', 'Take one capsule every 8 hours', 'Complete the full course of antibiotics'),
