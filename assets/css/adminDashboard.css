@@ -1,0 +1,125 @@
+@import url('styles.css');
+
+.mainContent{
+    padding: 20px 20px 20px 240px;
+    background-color: var(--white);
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto 0.5fr auto 1fr;
+    gap: 20px;
+}
+.titleContainer{
+    grid-column: span 2;
+}
+.upcomingAppointments{
+    grid-row: span 2;
+}
+.activePatientList{
+    grid-column: span 2;
+}
+.summaryCards .cards{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+}
+.titleContainer .title{
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.header p{
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.upcomingAppointments, .summaryCards, .unpaidBills, .activePatientList{
+    background-color: var(--primary-bg);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px var(--shadow-color);
+    height: auto;
+}
+.list, .cards, .totalUnpaidBills{
+    padding-top: 10px;
+}
+
+/* Upcoming Appointments Styles */
+.upcomingAppointments dl{
+    padding: 10px;
+    background-color: var(--white);
+    border-radius: 10px;
+    margin: 10px 0px;
+}
+.upcomingAppointments dt{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+.upcomingAppointments dd{
+    padding: 5px;
+}
+dt .name{
+    font-weight: 700;
+}
+dt .date{
+    color: var(--gray);
+}
+
+/* Summary Styles */
+.summaryCards .card{
+    padding: 10px;
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+.card .title{
+    display: flex;
+    gap: 10px;
+}
+.card .content{
+    text-align: end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+.content .total{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.summaryCards{
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+/* Patient List Styles */
+.list table{
+    width: 100%;
+}
+table td, tr, th{
+    text-align: center;
+}
+table th{
+    padding: 5px 0;
+    background-color: var(--primary-color);
+    color: white;
+}
+table td{
+    padding: 10px 0;
+    background-color: var(--white);
+}
+
+/* Unpaid Bills Styles */
+.totalUnpaidBills{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    text-align: center;
+    background-color: var(--white);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+.totalUnpaidBills p{
+    font-size: 1.5rem;
+    font-weight: 700;
+}

@@ -7,7 +7,8 @@
     --shadow-color: rgba(209, 209, 209, 0.5);
     --highlight-color: #e0e6ed;
     --button-hover: #1b1f3bc0;
-    --button-focus: #1b1f3b80;
+    --button-active: #1b1f3b80;
+    --gray: #bdbdbd;
 }
 
 *{
@@ -17,4 +18,11 @@
     padding: 0;
     margin: 0;
 }
+
+body{
+    background-color: var(--white);
+    height: 100%;
+    width: 100%;
+}
+
 @import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');

@@ -1,5 +1,5 @@
 <?php
-session_start(); // Ensure session is started
+session_start();
 include '../config/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
@@ -12,42 +12,40 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $firstName = trim($_POST['firstName']);
     $lastName = trim($_POST['lastName']);
     $contactNumber = trim($_POST['contactNumber']);
-    $type = trim($_POST['type']); // This will be the appointment type as a string
+    $type = trim($_POST['type']);
     $date = trim($_POST['date']);
     $time = trim($_POST['time']);
     $details = trim($_POST['details']);
 
-    // Map appointment type to ConsultationTypeID
+
     $consultationTypeID = null;
     switch ($type) {
         case 'laboratory':
-            $consultationTypeID = 1; // Laboratory & Diagnostics
+            $consultationTypeID = 1;
             break;
         case 'opd':
-            $consultationTypeID = 2; // General Medicine (OPD)
+            $consultationTypeID = 2;
             break;
         case 'pedia':
-            $consultationTypeID = 3; // Pediatrics
+            $consultationTypeID = 3;
             break;
         case 'obgyn':
-            $consultationTypeID = 4; // OB-GYN
+            $consultationTypeID = 4;
             break;
         case 'ent':
-            $consultationTypeID = 5; // ENT
+            $consultationTypeID = 5;
             break;
         default:
             echo "Invalid appointment type";
             exit;
     }
 
-    // Insert appointment into the database without combining date and time
     $stmt = $conn->prepare("INSERT INTO appointments (patient_id, appointment_type, appointment_date, appointment_time, contact_number, notes) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssss", $patient_id, $type, $date, $time, $contactNumber, $details);
 
     if ($stmt->execute()) {
-        // Now insert into the Billing table
         $stmtBilling = $conn->prepare("INSERT INTO Billing (UserID, ConsultationTypeID, ConsultationDate, PaymentStatus) VALUES (?, ?, ?, ?)");
-        $paymentStatus = 'Unpaid'; // Set default payment status
+        $paymentStatus = 'Unpaid';
         $stmtBilling->bind_param("ssss", $patient_id, $consultationTypeID, $date, $paymentStatus);
 
         if ($stmtBilling->execute()) {

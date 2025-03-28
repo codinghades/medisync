@@ -1,0 +1,41 @@
+@import url(styles.css);
+
+.mainContent{
+    padding: 20px 20px 20px 240px;
+    background-color: var(--white);
+    height: 100vh;
+}
+.title{
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.titleContainer{
+    margin-bottom: 20px;
+}
+.unpaidBills, .paidBills{
+    padding: 20px;
+    background-color: var(--primary-bg);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 10px var(--shadow-color);
+}
+.header p{
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.list table{
+    width: 100%;
+}
+table td, tr, th{
+    text-align: center;
+}
+table th{
+    padding: 5px 0;
+    background-color: var(--primary-color);
+    color: white;
+}
+table td{
+    padding: 10px 0;
+    background-color: var(--white);
+}

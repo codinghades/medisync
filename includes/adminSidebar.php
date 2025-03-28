@@ -13,13 +13,14 @@
     <div class="mainContainer">
         <div class="panel" id="sideBarPanel">
             <div class="header">
-                <span class="logo">
+                <div class="logo">
                     <img src="../assets/images/Medisync LogoMark.png" alt="Medisync">
-                </span> 
-                <span class="logoText">
-                    <span class="firstName">First Name</span>
-                    <span class="role">Admin</span>
-                </span>
+                </div> 
+                <div class="logoText">
+                    <div class="firstName">First Name</div>
+                    <div class="lastName">Last Name</div>
+                    <div class="role">Admin</div>
+                </div>
             </div>
             <div class="navigation">
                 <button type="button" id="dashboardButton" onclick="loadPage('dashboard')">
