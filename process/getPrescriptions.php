@@ -10,7 +10,6 @@ if (!isset($_SESSION["user_id"])) {
 
 $patient_id = $_SESSION["user_id"];
 
-// Query to get the latest prescription within the last 7 days
 $queryActive = "SELECT pd.prescription_id, pd.medicine, pd.dosage, pd.duration, pd.instruction, pd.advice, 
                         p.date_prescribed, u.first_name AS patient_first_name, u.last_name AS patient_last_name, 
                         d.name AS doctor_name, d.mobile AS doctor_mobile, d.doctor_id
@@ -26,7 +25,6 @@ $stmtActive->bind_param("s", $patient_id);
 $stmtActive->execute();
 $resultActive = $stmtActive->get_result();
 
-// Active Prescription Section
 if ($row = $resultActive->fetch_assoc()) {
     $prescriptionDate = (new DateTime($row['date_prescribed']))->format("F j, Y");
 
@@ -50,7 +48,6 @@ if ($row = $resultActive->fetch_assoc()) {
                         <table>
                             <tr><th>Medicine</th><th>Dosage</th><th>Duration</th><th>Instruction</th></tr>";
 
-    // Store first row data and fetch additional rows
     do {
         echo "<tr>
                 <td>{$row['medicine']}</td>
