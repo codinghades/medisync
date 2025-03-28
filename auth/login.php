@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["user_lastname"] = $lastName;
             $_SESSION["role"] = $role;
 
-            echo $role; // Return "admin" or "patient"
+            echo $role;
         } else {
             echo "Invalid password";
         }

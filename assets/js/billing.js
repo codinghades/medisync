@@ -72,7 +72,7 @@ function displayUnpaidBills(bills) {
 
 function showPaymentModal() {
     const modal = document.getElementById('paymentModal');
-    modal.style.display = 'flex'; // Show the modal
+    modal.style.display = 'flex';
 
     document.getElementById('payWithCash').addEventListener('click', function() {
         document.getElementById('paymentMessage').innerText = 'Please proceed to the cashier for payment. Thank you!';

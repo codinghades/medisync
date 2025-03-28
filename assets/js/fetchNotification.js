@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     fetchNotifications();
-    setInterval(fetchNotifications, 10000); // Refresh every 10 seconds
+    setInterval(fetchNotifications, 10000);
 });
 
 function fetchNotifications() {
@@ -14,7 +14,7 @@ function fetchNotifications() {
 
 function displayNotifications(notifications) {
     const container = document.querySelector('.notificationsList');
-    container.innerHTML = '<p>Notifications</p>'; // Reset content
+    container.innerHTML = '<p>Notifications</p>';
 
     if (notifications.length === 0) {
         container.innerHTML += '<p class="nothing">No notifications available.</p>';

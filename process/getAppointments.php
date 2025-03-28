@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../config/database.php';
-date_default_timezone_set("Asia/Manila"); // Set correct timezone
+date_default_timezone_set("Asia/Manila");
 
 if (!isset($_SESSION["user_id"])) {
     echo "User not logged in";
@@ -10,7 +10,6 @@ if (!isset($_SESSION["user_id"])) {
 
 $patient_id = $_SESSION["user_id"];
 
-// Mapping short types to full names
 $appointmentTypes = [
     "laboratory" => "Laboratory & Diagnostics",
     "opd" => "General Medicine (OPD)",
@@ -26,18 +25,14 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Format appointment date and time
         $appointmentDateTime = new DateTime("{$row['appointment_date']} {$row['appointment_time']}", new DateTimeZone("Asia/Manila"));
         $formattedDate = $appointmentDateTime->format("F j, Y"); // Month Day, Year
         $formattedTime = $appointmentDateTime->format("g:i A");  // 12-hour format with AM/PM
 
-        // Format created date
         $createdDate = (new DateTime($row['created_at']))->format("F j, Y");
 
-        // Get full type name
         $typeFullName = $appointmentTypes[$row['appointment_type']] ?? ucfirst($row['appointment_type']);
 
-        // Check if appointment is active or expired
         $currentDateTime = new DateTime("now", new DateTimeZone("Asia/Manila"));
         $status = ($appointmentDateTime > $currentDateTime) 
             ? "<span style='color: green;'>(Active)</span>" 

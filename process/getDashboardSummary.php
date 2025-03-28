@@ -12,7 +12,6 @@ $appointment = "None";
 $prescription = "None";
 // $bills = "None";
 
-// Get upcoming appointment
 $queryAppointment = "SELECT MIN(CONCAT(appointment_date, ' ', appointment_time)) as next_appointment 
                      FROM appointments WHERE patient_id = ? AND CONCAT(appointment_date, ' ', appointment_time) >= NOW()";
 $stmt = $conn->prepare($queryAppointment);
@@ -26,7 +25,6 @@ if ($nextAppointment) {
     $appointment = date("F j, Y / g:i A", strtotime($nextAppointment));
 }
 
-// Get active prescription
 $queryPrescription = "SELECT COUNT(*) FROM prescriptions WHERE patient_id = ? AND date_prescribed >= NOW() - INTERVAL 7 DAY";
 $stmt = $conn->prepare($queryPrescription);
 $stmt->bind_param("s", $patient_id);
@@ -53,7 +51,6 @@ $stmt->close();
 
 $totalBillsFormatted = $totalBills !== null ? "₱" . number_format($totalBills, 2) : "₱0.00";
 
-// Output text response
 echo "Appointment: $appointment\n";
 echo "Prescription: $prescription\n";
 echo "Bills: " . $totalBillsFormatted;;

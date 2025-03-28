@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Check if the user is already logged in
     fetch("../process/checkLogin.php")
         .then(response => response.json())
         .then(data => {

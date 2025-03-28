@@ -13,12 +13,11 @@ function updateDashboardSummary() {
             });
         });
 
-    // Fetch notifications
     fetch("../process/notification.php")
         .then(response => response.json())
         .then(data => {
             if (data.status === "success") {
-                fetchNotifications(); // Refresh displayed notifications
+                fetchNotifications();
             }
         })
         .catch(error => console.error("Error fetching notifications:", error));
@@ -26,8 +25,8 @@ function updateDashboardSummary() {
 
 document.addEventListener("DOMContentLoaded", function() {
     updateDashboardSummary();
-    fetchNotifications(); // Initial fetch for notifications
+    fetchNotifications();
 });
 
 setInterval(updateDashboardSummary, 10000);
-setInterval(fetchNotifications, 10000); // Update notifications every 10 seconds
+setInterval(fetchNotifications, 10000);

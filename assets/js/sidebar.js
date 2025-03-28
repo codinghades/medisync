@@ -3,7 +3,6 @@ function loadPage(page) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Fetch and display user data on page load
     fetch("../process/getUser.php")
     .then(response => response.json())
     .then(data => {

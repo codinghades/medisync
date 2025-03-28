@@ -11,7 +11,6 @@ $patient_id = $_SESSION["user_id"];
 $today = date("Y-m-d");
 $tomorrow = date("Y-m-d", strtotime("+1 day"));
 
-// Fetch only appointments that are today or tomorrow
 $stmt = $conn->prepare("SELECT appointment_type, appointment_date, appointment_time FROM appointments 
                         WHERE patient_id = ? AND appointment_date BETWEEN ? AND ?");
 $stmt->bind_param("sss", $patient_id, $today, $tomorrow);
@@ -23,13 +22,12 @@ while ($row = $result->fetch_assoc()) {
     $formattedTime = date("g:i A", strtotime($row["appointment_time"]));
     $message = "You have an upcoming appointment on $formattedDate at $formattedTime. Please be on time.";
 
-    // Check if the notification already exists
     $checkStmt = $conn->prepare("SELECT id FROM notifications WHERE user_id = ? AND title = 'Upcoming Appointment' AND message = ?");
     $checkStmt->bind_param("ss", $patient_id, $message);
     $checkStmt->execute();
     $checkStmt->store_result();
 
-    if ($checkStmt->num_rows == 0) { // Insert only if no existing notification
+    if ($checkStmt->num_rows == 0) {
         $insertStmt = $conn->prepare("INSERT INTO notifications (user_id, title, message, created_at) VALUES (?, 'Upcoming Appointment', ?, NOW())");
         $insertStmt->bind_param("ss", $patient_id, $message);
         $insertStmt->execute();

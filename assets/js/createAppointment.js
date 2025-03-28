@@ -3,9 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (appointmentForm) {
         appointmentForm.addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent page reload
+            event.preventDefault();
 
-            const formData = new FormData(this); // Gather form data
+            const formData = new FormData(this);
 
             fetch("../process/createAppointment.php", {
                 method: "POST",
@@ -15,12 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
-                return response.text(); // Parse response as text
+                return response.text();
             })
             .then(message => {
-                alert(message); // Show response message
-                this.reset(); // Clear form after submission
-                loadAppointments(); // Reload appointments after submission
+                alert(message);
+                this.reset();
+                loadAppointments();
             })
             .catch(error => {
                 console.error("Error:", error);
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
-                return response.text(); // Parse response as text
+                return response.text();
             })
             .then(data => {
                 document.querySelector(".appointmentLists").innerHTML = "<p>Appointment History</p>" + data;
@@ -45,6 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    loadAppointments(); // Initial load of appointments
-    setInterval(loadAppointments, 5000); // Reload appointments every 5 seconds
+    loadAppointments();
+    setInterval(loadAppointments, 5000);
 });

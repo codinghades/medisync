@@ -62,15 +62,13 @@ if ($row = $resultActive->fetch_assoc()) {
 
     echo "</table><hr><div class='advice'><p class='label'>Advice Given:</p>";
 
-    // Fetch advice separately
-    $resultActive->data_seek(0); // Reset pointer
+    $resultActive->data_seek(0);
     while ($rowAdvice = $resultActive->fetch_assoc()) {
         echo "<p class='adviceText'>{$rowAdvice['advice']}</p>";
     }
 
     echo "</div></div></div><div class='footer'><p>-</p></div></div></div>";
 
-    // Download Button
     echo "<div class='downloadPrescriptionButton'>
             <button id='downloadPrescriptionBtn'>Download Prescription (PDF)</button>
           </div>";
@@ -79,7 +77,6 @@ if ($row = $resultActive->fetch_assoc()) {
 }
 $stmtActive->close();
 
-// Prescription History Section
 $queryHistory = "SELECT p.id AS prescription_id, p.date_prescribed, d.name AS doctor_name
                  FROM prescriptions p
                  JOIN doctors d ON p.doctor_id = d.id
@@ -97,14 +94,12 @@ if ($resultHistory->num_rows > 0) {
     while ($rowHistory = $resultHistory->fetch_assoc()) {
         $prescriptionDateHistory = (new DateTime($rowHistory['date_prescribed']))->format("F j, Y");
 
-        // Fetch medicines for this prescription
         $queryMedicines = "SELECT medicine FROM prescription_details WHERE prescription_id = ?";
         $stmtMedicines = $conn->prepare($queryMedicines);
         $stmtMedicines->bind_param("i", $rowHistory['prescription_id']);
         $stmtMedicines->execute();
         $resultMedicines = $stmtMedicines->get_result();
 
-        // Format medicines list
         $medicinesList = [];
         while ($medicineRow = $resultMedicines->fetch_assoc()) {
             $medicinesList[] = $medicineRow['medicine'];

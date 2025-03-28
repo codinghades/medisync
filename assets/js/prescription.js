@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const prescriptionContainer = document.querySelector(".mainContent");
 
-    // Function to load prescriptions
     function loadPrescriptions() {
         fetch("../process/getPrescriptions.php")
             .then(response => response.text())
@@ -14,9 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Initial load of prescriptions
     loadPrescriptions();
-
-    // Optionally, reload prescriptions every 5 seconds (just like the appointments)
     setInterval(loadPrescriptions, 5000);
 });
