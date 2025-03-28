@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bills</title>
     <link rel="stylesheet" href="../assets/css/patientBilling.css">
-    <script src="../assets/js/billing.js" defer></script> <!-- Use defer to ensure the script loads after the DOM -->
+    <script src="../assets/js/billing.js" defer></script>
 </head>
 <body>
 <div class="mainContainer">
@@ -13,10 +13,12 @@
         <?php include '../includes/patientSidebar.php' ?>
     </div>
     <div class="mainContent">
-        <div class="pageTitle"><p>Billing</p></div>
+        <div class="titleContainer">
+            <div class="title">Bills</div>
+            <div class="subTitle">Pay Bills</div>
+        </div>
 
         <div class="billingContainer">
-            <!-- Unpaid Bills -->
             <div class="unpaidBills">
                 <p class="title">Unpaid Bills</p>
                 <div class="totalAmount">
@@ -24,14 +26,13 @@
                 </div>
             </div>
 
-            <!-- Paid Bills -->
             <div class="paidBills">
                 <p class="title">Billing History</p>
             </div>
         </div>
     </div>
 </div>
-    <!-- Modal Structure -->
+
 <div id="paymentModal" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close-button" id="closeModal">&times;</span>

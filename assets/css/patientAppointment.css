@@ -11,9 +11,13 @@
     display: grid;
     grid-template-rows: auto auto 1fr;
 }
-.mainContent .pageTitle p{
+.title{
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.header p{
     font-size: 1.3rem;
-    font-weight: bolder;
+    font-weight: 700;
 }
 .createAppointment{
     width: 100%;
@@ -22,9 +26,6 @@
     background-color: var(--primary-bg);
     padding: 20px;
     box-shadow: 5px 5px 10px var(--shadow-color);
-}
-.createAppointment p, .appointmentLists p{
-    font-size: 1.3rem;
 }
 .createAppointment input[type='text'], input[type='tel'], input[type='date'], input[type='time'], select, input[type='submit']{
     padding: 10px;

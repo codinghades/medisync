@@ -14,7 +14,7 @@ function fetchNotifications() {
 
 function displayNotifications(notifications) {
     const container = document.querySelector('.notificationsList');
-    container.innerHTML = '<p>Notifications</p>';
+    container.innerHTML = "<div class='header'><p>Notifications</p></div>";
 
     if (notifications.length === 0) {
         container.innerHTML += '<p class="nothing">No notifications available.</p>';

@@ -9,9 +9,19 @@
     border-radius: 20px;
     height: 100vh;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
 }
-
+.title{
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.titleContainer{
+    margin-bottom: 20px;
+}
+.header p{
+    font-size: 1.3rem;
+    font-weight: 700;
+}
 .summary{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -46,9 +56,6 @@
     background-color: var(--primary-bg);
     padding: 20px;
     box-shadow: 5px 5px 10px var(--shadow-color);
-}
-.notificationsList p{
-    font-size: 1.3rem;
 }
 .notificationsList dl{
     margin: 10px 0;

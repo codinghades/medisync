@@ -23,7 +23,7 @@ function displayUnpaidBills(bills) {
     container.innerHTML = ''; // Clear previous content
     let total = 0;
     const title = `
-        <p class="title">Unpaid Bills</p>`;
+        <div class='header'><p class='header'>Unpaid Bills</p></div>`;
     container.innerHTML += title;
     if (bills.length === 0) {
         container.innerHTML += '<p>No unpaid bills.</p>';
@@ -127,7 +127,7 @@ function displayPaidBills(bills) {
     container.innerHTML = ''
 
     const title = `
-    <p class="title">Billing History</p>`;
+    <div class='header'><p class='header'>Paid Bills</p></div>`;
     container.innerHTML += title;
 
     if (bills.length === 0) {

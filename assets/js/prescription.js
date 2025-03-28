@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("../process/getPrescriptions.php")
             .then(response => response.text())
             .then(data => {
-                prescriptionContainer.innerHTML = '<div class="pageTitle"><p>Prescriptions</p></div>' + data;
+                prescriptionContainer.innerHTML = '<div class="titleContainer"><div class="title">Prescriptions</div><div class="subTitle">View Prescriptions</div></div>' + data;
             })
             .catch(() => {
                 console.error("Failed to fetch prescription data.");

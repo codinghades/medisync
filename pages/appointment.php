@@ -13,11 +13,14 @@
         <?php include '../includes/patientSidebar.php' ?>
     </div>
     <div class="mainContent">
-        <div class="pageTitle">
-            <p>Appointments</p>
+        <div class="titleContainer">
+            <div class="title">Appointments</div>
+            <div class="subTitle">Create and View Appointments</div>
         </div>
         <div class="createAppointment">
-            <p>Create Appointment</p>
+            <div class="header">
+                <p>Create Appointment</p>
+            </div>
             <form class="appointmentForm" id="appointmentForm" method="post">
                 <div class="left">
                     <input type="text" name="firstName" id="firstNameInput" placeholder="First Name" required>
@@ -41,7 +44,9 @@
             </form>
         </div>
         <div class="appointmentLists">
-            <p>Appointment History</p>
+            <div class="header">
+                <p>Appointment History</p>
+            </div>
             <div class="appointment">
                 <dl>
                     <dt>

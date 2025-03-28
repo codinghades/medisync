@@ -12,9 +12,13 @@
     grid-template-rows: auto auto 1fr;
 }
 
-.pageTitle p {
+.mainContent .title{
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.header .header{
     font-size: 1.3rem;
-    font-weight: bolder;
+    font-weight: 700;
 }
 
 .billingContainer {
@@ -44,6 +48,7 @@
     border-radius: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
+    margin-top: 10px;
 }
 
 .bill dt {

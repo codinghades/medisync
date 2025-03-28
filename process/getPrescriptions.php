@@ -29,7 +29,7 @@ if ($row = $resultActive->fetch_assoc()) {
     $prescriptionDate = (new DateTime($row['date_prescribed']))->format("F j, Y");
 
     echo "<div class='activePrescription'>
-            <p class='title'>Active Prescription</p>
+            <div class='header'><p class='header'>Active Prescription</p></div>
             <div class='prescriptionInformation'>
                 <div class='header'>
                     <div class='left'>

@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.text();
             })
             .then(data => {
-                document.querySelector(".appointmentLists").innerHTML = "<p>Appointment History</p>" + data;
+                document.querySelector(".appointmentLists").innerHTML = '<div class="header"><p>Appointment History</p></div>' + data;
             })
             .catch(error => {
                 console.error("Failed to fetch appointment history:", error);

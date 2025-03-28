@@ -15,9 +15,11 @@
             <?php include '../includes/patientSidebar.php' ?>
         </div>
         <div class="mainContent">
-            <div class="pageTitle"><p>Prescriptions</p></div>
+            <div class="titleContainer">
+                <div class="title">Dashboard</div>
+                <div class="subTitle">Welcome User</div>
+            </div>
             <div class="activePrescription">
-                <p class="title">Active Prescription</p>
                 <div class="prescriptionInformation">
                     <div class="header">
                         <div class="left">

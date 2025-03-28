@@ -14,6 +14,10 @@
             <?php include '../includes/patientSidebar.php'?>
         </div>
         <div class="mainContent">
+            <div class="titleContainer">
+                <div class="title">Dashboard</div>
+                <div class="subTitle">Welcome User</div>
+            </div>
             <div class="summary">
                 <span class="card" id="appointmentCard">
                     <div class="cardIcon"><i class='bx bxs-calendar'></i></div>
@@ -32,7 +36,9 @@
                 </span>
             </div>
             <div class="notificationsList">
-                <p>Notifications</p>
+                <div class="header">
+                    <p>Notifications</p>
+                </div>
                 <div class="notification">
                     <dl>
                         <dt>
