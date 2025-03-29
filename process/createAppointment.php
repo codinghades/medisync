@@ -4,7 +4,7 @@ include '../config/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     if (!isset($_SESSION["user_id"])) {
-        echo "User  not logged in";
+        echo "User not logged in";
         exit;
     }
 
@@ -17,36 +17,41 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $time = trim($_POST['time']);
     $details = trim($_POST['details']);
 
-
+    // Determine Consultation Type ID
     $consultationTypeID = null;
     switch ($type) {
-        case 'laboratory':
-            $consultationTypeID = 1;
-            break;
-        case 'opd':
-            $consultationTypeID = 2;
-            break;
-        case 'pedia':
-            $consultationTypeID = 3;
-            break;
-        case 'obgyn':
-            $consultationTypeID = 4;
-            break;
-        case 'ent':
-            $consultationTypeID = 5;
-            break;
+        case 'laboratory': $consultationTypeID = 1; break;
+        case 'opd': $consultationTypeID = 2; break;
+        case 'pedia': $consultationTypeID = 3; break;
+        case 'obgyn': $consultationTypeID = 4; break;
+        case 'ent': $consultationTypeID = 5; break;
         default:
             echo "Invalid appointment type";
             exit;
     }
 
+    // Fetch Consultation Price
+    $stmtPrice = $conn->prepare("SELECT price FROM consultationprices WHERE id = ?");
+    $stmtPrice->bind_param("i", $consultationTypeID);
+    $stmtPrice->execute();
+    $stmtPrice->bind_result($consultationPrice);
+    $stmtPrice->fetch();
+    $stmtPrice->close();
+
+    if ($consultationPrice === null) {
+        echo "Failed to retrieve consultation price";
+        exit;
+    }
+
+    // Insert Appointment
     $stmt = $conn->prepare("INSERT INTO appointments (patient_id, appointment_type, appointment_date, appointment_time, contact_number, notes) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssss", $patient_id, $type, $date, $time, $contactNumber, $details);
 
     if ($stmt->execute()) {
-        $stmtBilling = $conn->prepare("INSERT INTO Billing (UserID, ConsultationTypeID, ConsultationDate, PaymentStatus) VALUES (?, ?, ?, ?)");
+        // Insert Billing Record
+        $stmtBilling = $conn->prepare("INSERT INTO Billing (UserID, ConsultationTypeID, ConsultationDate, Amount, PaymentStatus) VALUES (?, ?, ?, ?, ?)");
         $paymentStatus = 'Unpaid';
-        $stmtBilling->bind_param("ssss", $patient_id, $consultationTypeID, $date, $paymentStatus);
+        $stmtBilling->bind_param("sssds", $patient_id, $consultationTypeID, $date, $consultationPrice, $paymentStatus);
 
         if ($stmtBilling->execute()) {
             echo "Appointment booked and billing record created successfully";
