@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../assets/css/adminDashboard.css">
+    <script src="../assets/js/adminDashboardSummary.js"></script>
 </head>
 <body>
     <div class="mainContainer">
