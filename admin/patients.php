@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patients</title>
     <link rel="stylesheet" href="../assets/css/adminPatients.css">
+    <script src="../assets/js/adminFetchPatients.js"></script>
+    <script src="../assets/js/searchResult.js"></script>
 </head>
 <body>
     <div class="mainContainer">
@@ -18,18 +20,18 @@
             </div>
             <div class="patientsList">
                 <div class="header">
-                    <p>Active Patients</p>
+                    <p>Patients List</p>
                 </div>
                 <div class="searchBar">
-                    <form class="search" method="post">
-                        <input type="text" name="search" id="search" placeholder='Search Patient by "Name"''>
+                    <form class="search" id="searchForm" method="post">
+                        <input type="text" name="search" id="searchBar" placeholder="Search Patient">
                         <input type="submit" name="searchButton" id="searchButton" value="Search">
                     </form>
                     <div class="sort">
-                        <form action="" method="post">
+                        <form action="../process/filterPatient.php" method="post">
                             <label for="filter">Sort By: </label>
                             <select name="filter" id="filter">
-                                <option value="1" hidden selected>Default</option>
+                                <option value="" hidden selected>Default</option>
                                 <option value="1">By Name Ascending (A-Z)</option>
                                 <option value="2">By Name Decending (Z-A) </option>
                                 <option value="3">Newest Registration</option>
@@ -40,7 +42,7 @@
                             </select>
                         </form>
                     </div>
-                    <button type="submit"><i class='bx bx-revision'></i></button>
+                    <button type="submit" id="reset"><i class='bx bx-revision'></i></button>
                 </div>
                 <div class="list">
                     <table>
