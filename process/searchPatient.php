@@ -26,11 +26,11 @@ $query = "
         GROUP BY patient_id
     ) p ON u.user_id = p.patient_id
     LEFT JOIN (
-        SELECT UserID, 'Yes' AS unpaid_bill
+        SELECT patient_id, 'Yes' AS unpaid_bill
         FROM Billing
         WHERE PaymentStatus = 'Unpaid'
-        GROUP BY UserID
-    ) b ON u.user_id = b.UserID
+        GROUP BY patient_id
+    ) b ON u.user_id = b.patient_id
     LEFT JOIN (
         SELECT patient_id, 'Yes' AS has_appointment
         FROM appointments

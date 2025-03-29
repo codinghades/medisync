@@ -23,33 +23,50 @@
                     <p>Upcoming Appointments</p>
                 </div>
                 <div class="list">
-                    <dl>
-                        <dt>
-                            <span class="name">Appointment by [Name]</span>
-                            <span class="date">[Creation Date]</span>
-                        </dt>
-                        <dd>
-                            <span class="info">[Name] have booked an appointment in [Type] on [Date] at [Time].</span>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <span class="name">Appointment by [Name]</span>
-                            <span class="date">[Creation Date]</span>
-                        </dt>
-                        <dd>
-                            <span class="info">[Name] have booked an appointment in [Type] on [Date] at [Time].</span>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <span class="name">Appointment by [Name]</span>
-                            <span class="date">[Creation Date]</span>
-                        </dt>
-                        <dd>
-                            <span class="info">[Name] have booked an appointment in [Type] on [Date] at [Time].</span>
-                        </dd>
-                    </dl>
+                <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Register Date</th>
+                            <th>Prescription Status</th>
+                            <th>Unpaid Bill</th>
+                            <th>Appointment</th>
+                        </tr>
+                        <tr>
+                            <td>Juan Dela Cruz</td>
+                            <td>March 26, 2025</td>
+                            <td>Active</td>
+                            <td>None</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>Juan Dela Cruz</td>
+                            <td>March 26, 2025</td>
+                            <td>Active</td>
+                            <td>None</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>Juan Dela Cruz</td>
+                            <td>March 26, 2025</td>
+                            <td>Active</td>
+                            <td>None</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>Juan Dela Cruz</td>
+                            <td>March 26, 2025</td>
+                            <td>Active</td>
+                            <td>None</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>Juan Dela Cruz</td>
+                            <td>March 26, 2025</td>
+                            <td>Active</td>
+                            <td>None</td>
+                            <td>Active</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <div class="summaryCards">

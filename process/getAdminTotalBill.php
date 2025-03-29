@@ -13,7 +13,7 @@ $response = ['unpaid' => [], 'paid' => []];
 $queryUnpaid = "
     SELECT B.BillingID, U.first_name, U.last_name, B.Amount, B.ConsultationDate 
     FROM Billing B 
-    JOIN users U ON B.UserID = U.user_id 
+    JOIN users U ON B.patient_id = U.user_id 
     WHERE B.PaymentStatus = 'Unpaid'
     ORDER BY B.ConsultationDate DESC";
 
@@ -36,7 +36,7 @@ $stmt->close();
 $queryPaid = "
     SELECT B.BillingID, U.first_name, U.last_name, B.Amount, B.ConsultationDate, B.PaymentMethod 
     FROM Billing B 
-    JOIN users U ON B.UserID = U.user_id 
+    JOIN users U ON B.patient_id = U.user_id 
     WHERE B.PaymentStatus = 'Paid'
     ORDER BY B.ConsultationDate DESC";
 

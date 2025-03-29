@@ -44,7 +44,7 @@ $queryBills = "
     SELECT SUM(cp.price) AS TotalUnpaid
     FROM Billing b
     JOIN ConsultationPrices cp ON b.ConsultationTypeID = cp.ID
-    WHERE b.PaymentStatus = 'Unpaid' AND b.UserID = ?";
+    WHERE b.PaymentStatus = 'Unpaid' AND b.patient_id = ?";
 $stmt = $conn->prepare($queryBills);
 $stmt->bind_param("s", $patient_id);
 $stmt->execute();

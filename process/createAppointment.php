@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $stmt->bind_param("sssssss", $patient_id, $type, $date, $time, $contactNumber, $details, $status);
 
     if ($stmt->execute()) {
-        $stmtBilling = $conn->prepare("INSERT INTO Billing (UserID, ConsultationTypeID, ConsultationDate, Amount, PaymentStatus) VALUES (?, ?, ?, ?, ?)");
+        $stmtBilling = $conn->prepare("INSERT INTO Billing (patient_id, ConsultationTypeID, ConsultationDate, Amount, PaymentStatus) VALUES (?, ?, ?, ?, ?)");
         $paymentStatus = 'Unpaid';
         $stmtBilling->bind_param("sssds", $patient_id, $consultationTypeID, $currentDate, $consultationPrice, $paymentStatus);
 

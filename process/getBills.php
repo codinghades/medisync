@@ -12,11 +12,11 @@ $response = ['unpaid' => [], 'paid' => []];
 
 function fetchBillingRecords($conn, $user_id, $status) {
     $query = "
-        SELECT B.BillingID, B.UserID, B.ConsultationTypeID, B.ConsultationDate, B.PaymentStatus, 
+        SELECT B.BillingID, B.patient_id, B.ConsultationTypeID, B.ConsultationDate, B.PaymentStatus, 
                CP.ConsultationType, CP.Price AS Amount 
         FROM Billing B 
         JOIN ConsultationPrices CP ON B.ConsultationTypeID = CP.ID 
-        WHERE B.UserID = ? AND B.PaymentStatus = ?";
+        WHERE B.patient_id = ? AND B.PaymentStatus = ?";
     
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ss", $user_id, $status);

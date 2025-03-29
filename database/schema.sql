@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS ConsultationPrices (
 
 CREATE TABLE IF NOT EXISTS Billing (
     BillingID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID VARCHAR(20),
+    patient_id VARCHAR(20),
     ConsultationTypeID INT,
     ConsultationDate DATE,
     Amount DECIMAL(10, 2),
