@@ -44,25 +44,28 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     }
 
     // Insert Appointment
+    $currentDate = date("Y-m-d"); // Get the current date
+
     $stmt = $conn->prepare("INSERT INTO appointments (patient_id, appointment_type, appointment_date, appointment_time, contact_number, notes) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssss", $patient_id, $type, $date, $time, $contactNumber, $details);
-
+    
     if ($stmt->execute()) {
         // Insert Billing Record
         $stmtBilling = $conn->prepare("INSERT INTO Billing (UserID, ConsultationTypeID, ConsultationDate, Amount, PaymentStatus) VALUES (?, ?, ?, ?, ?)");
         $paymentStatus = 'Unpaid';
-        $stmtBilling->bind_param("sssds", $patient_id, $consultationTypeID, $date, $consultationPrice, $paymentStatus);
-
+        $stmtBilling->bind_param("sssds", $patient_id, $consultationTypeID, $currentDate, $consultationPrice, $paymentStatus);
+    
         if ($stmtBilling->execute()) {
             echo "Appointment booked and billing record created successfully";
         } else {
             echo "Failed to create billing record";
         }
-
+    
         $stmtBilling->close();
     } else {
         echo "Failed to book appointment";
     }
+    
 
     $stmt->close();
     $conn->close();

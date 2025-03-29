@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payments</title>
     <link rel="stylesheet" href="../assets/css/adminPayments.css">
+    <script src="../assets/js/adminFetchBill.js"></script>
 </head>
 <body>
     <div class="mainContainer">
@@ -43,7 +44,7 @@
                             <th>Name</th>
                             <th>Total Bill</th>
                             <th>Payment Status</th>
-                            <th>Payment Scheme</th>
+                            <th>Payment Method</th>
                             <th>Date Paid</th>
                         </tr>
                         <tr>

@@ -14,9 +14,11 @@ $data = json_decode(file_get_contents("php://input"), true);
 $totalAmount = isset($data["totalAmount"]) ? floatval($data["totalAmount"]) : 0;
 $paymentMethod = isset($data["paymentMethod"]) ? $data["paymentMethod"] : "Unknown";
 
-$updateQuery = "UPDATE Billing SET PaymentStatus = 'Paid' WHERE UserID = ? AND PaymentStatus = 'Unpaid'";
+$currentDate = date("Y-m-d"); // Get the current date
+
+$updateQuery = "UPDATE Billing SET PaymentStatus = 'Paid', ConsultationDate = ?, PaymentMethod = ? WHERE UserID = ? AND PaymentStatus = 'Unpaid'";
 $stmt = $conn->prepare($updateQuery);
-$stmt->bind_param("s", $user_id);
+$stmt->bind_param("sss", $currentDate, $paymentMethod, $user_id);
 
 if ($stmt->execute()) {
     if ($totalAmount > 0) {
@@ -31,6 +33,7 @@ if ($stmt->execute()) {
 } else {
     echo json_encode(['success' => false, 'error' => $stmt->error]);
 }
+
 
 $stmt->close();
 $conn->close();

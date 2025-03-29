@@ -61,17 +61,9 @@ CREATE TABLE IF NOT EXISTS Billing (
     ConsultationDate DATE,
     Amount DECIMAL(10, 2),
     PaymentStatus ENUM('Paid', 'Unpaid'),
+    PaymentMethod enum('Cash','Card','None') DEFAULT 'None',
     FOREIGN KEY (ConsultationTypeID) REFERENCES ConsultationPrices(ID)
 );
-
-CREATE TABLE IF NOT EXISTS totalbilling (
-  ID int(11) NOT NULL,
-  UserID varchar(20) DEFAULT NULL,
-  TotalAmount decimal(10,2) DEFAULT 0.00,
-  PaymentStatus enum('Paid','Unpaid') DEFAULT 'Unpaid',
-  PaymentMethod enum('Cash','Card','None') DEFAULT 'None',
-  LastUpdated timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) 
 
 CREATE TABLE IF NOT EXISTS notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
