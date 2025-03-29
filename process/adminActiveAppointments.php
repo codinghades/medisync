@@ -12,6 +12,7 @@ $appointmentTypes = [
 
 $query = "
     SELECT 
+        a.id,
         a.patient_id, 
         u.first_name, 
         u.last_name, 
@@ -23,7 +24,7 @@ $query = "
     FROM appointments a
     JOIN users u ON a.patient_id = u.user_id
     WHERE status = 'Active'
-    ORDER BY a.appointment_date DESC, a.appointment_time DESC";
+    ORDER BY a.appointment_date ASC, a.appointment_time ASC";
 
 $result = $conn->query($query);
 $response = [];
@@ -36,6 +37,7 @@ while ($row = $result->fetch_assoc()) {
     $createdAt = date("F j, Y", strtotime($row['created_at']));
 
     $response[] = [
+        'appointment_id' => $row['id'],
         'patient_id' => $row['patient_id'],
         'patient_name' => $row['first_name'] . ' ' . $row['last_name'],
         'appointment_type' => $formattedType,

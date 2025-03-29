@@ -10,7 +10,7 @@ if (!isset($data['appointment_ids']) || empty($data['appointment_ids'])) {
 
 $ids = implode(",", array_map('intval', $data['appointment_ids']));
 
-$query = "UPDATE appointments SET status = 'Completed' WHERE patient_id IN ($ids)";
+$query = "UPDATE appointments SET status = 'Completed' WHERE id IN ($ids)";
 $conn->query($query);
 
 $conn->close();

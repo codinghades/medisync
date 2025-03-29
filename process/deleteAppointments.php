@@ -10,7 +10,7 @@ if (!isset($data['appointment_ids']) || empty($data['appointment_ids'])) {
 
 $ids = implode(",", array_map('intval', $data['appointment_ids']));
 
-$query = "DELETE FROM appointments WHERE patient_id IN ($ids)";
+$query = "DELETE FROM appointments WHERE id IN ($ids)";
 $conn->query($query);
 
 $conn->close();

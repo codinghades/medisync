@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const allTable = document.querySelector(".activeAppointments .list table");
     const changeStatusBtn = document.getElementById("changeStatus");
     const deleteBtn = document.getElementById("delete");
-
+    let user_id;
+    
     function fetchAppointments() {
         fetch("../process/adminActiveAppointments.php", {
             method: "POST",
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>${appointment.appointment_time}</td>
                     <td class="status"><span class="statusText ${statusClass}">${appointment.status}</span></td>
                     <td>${appointment.created_at}</td>
-                    <td><input type="checkbox" class="selectCheckbox" name="select" value="${appointment.patient_id}"></td>
+                    <td><input type="checkbox" class="selectCheckbox" name="select" value="${appointment.appointment_id}"></td>
                 </tr>
             `;
         });
