@@ -12,7 +12,7 @@ $today = date("Y-m-d");
 $tomorrow = date("Y-m-d", strtotime("+1 day"));
 
 $stmt = $conn->prepare("SELECT appointment_type, appointment_date, appointment_time FROM appointments 
-                        WHERE patient_id = ? AND appointment_date BETWEEN ? AND ?");
+                        WHERE patient_id = ? AND status = 'Active' AND appointment_date BETWEEN ? AND ?");
 $stmt->bind_param("sss", $patient_id, $today, $tomorrow);
 $stmt->execute();
 $result = $stmt->get_result();

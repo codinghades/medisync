@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     appointment_time TIME NOT NULL,
     contact_number VARCHAR(15) NOT NULL,
     notes TEXT DEFAULT NULL,
+    status VARCHAR(10) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (patient_id) REFERENCES users(user_id) ON DELETE CASCADE
 );

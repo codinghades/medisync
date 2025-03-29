@@ -18,7 +18,7 @@ $appointmentTypes = [
     "ent" => "Ear, Nose & Throat (ENT)"
 ];
 
-$stmt = $conn->prepare("SELECT appointment_type, appointment_date, appointment_time, created_at FROM appointments WHERE patient_id = ? ORDER BY created_at DESC");
+$stmt = $conn->prepare("SELECT appointment_type, appointment_date, appointment_time, created_at, status FROM appointments WHERE patient_id = ? ORDER BY created_at DESC");
 $stmt->bind_param("s", $patient_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -33,15 +33,17 @@ if ($result->num_rows > 0) {
 
         $typeFullName = $appointmentTypes[$row['appointment_type']] ?? ucfirst($row['appointment_type']);
 
-        $currentDateTime = new DateTime("now", new DateTimeZone("Asia/Manila"));
-        $status = ($appointmentDateTime > $currentDateTime) 
-            ? "<span style='color: green;'>(Active)</span>" 
-            : "<span style='color: red;'>(Expired)</span>";
+        // Assign color based on status
+        $statusColor = match (strtolower($row['status'])) {
+            "active" => "green",
+            "expired" => "red",
+            "completed" => "black",
+        };
 
         echo "<div class='appointment'>
                 <dl>
                     <dt>
-                        <span class='name'>Appointment for {$typeFullName} {$status}</span>
+                        <span class='name'>Appointment for {$typeFullName} <span style='color: {$statusColor};'>({$row['status']})</span></span>
                         <span class='date'>{$createdDate}</span>
                     </dt>
                     <dd>

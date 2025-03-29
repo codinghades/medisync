@@ -12,8 +12,10 @@ $appointment = "None";
 $prescription = "None";
 // $bills = "None";
 
-$queryAppointment = "SELECT MIN(CONCAT(appointment_date, ' ', appointment_time)) as next_appointment 
-                     FROM appointments WHERE patient_id = ? AND CONCAT(appointment_date, ' ', appointment_time) >= NOW()";
+$queryAppointment = "SELECT MIN(CONCAT(appointment_date, ' ', appointment_time)) AS next_appointment 
+                     FROM appointments 
+                     WHERE patient_id = ? AND status = 'Active' AND CONCAT(appointment_date, ' ', appointment_time) >= NOW()";
+
 $stmt = $conn->prepare($queryAppointment);
 $stmt->bind_param("s", $patient_id);
 $stmt->execute();
@@ -24,6 +26,7 @@ $stmt->close();
 if ($nextAppointment) {
     $appointment = date("F j, Y / g:i A", strtotime($nextAppointment));
 }
+
 
 $queryPrescription = "SELECT COUNT(*) FROM prescriptions WHERE patient_id = ? AND date_prescribed >= NOW() - INTERVAL 7 DAY";
 $stmt = $conn->prepare($queryPrescription);

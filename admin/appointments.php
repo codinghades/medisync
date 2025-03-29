@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointments</title>
     <link rel="stylesheet" href="../assets/css/adminAppointment.css">
+    <script src="../assets/js/adminAppointments.js"></script>
+    <script src="../assets/js/adminActiveAppointments.js"></script>
 </head>
 <body>
     <div class="mainContainer">

@@ -30,7 +30,7 @@ $query = "
     LEFT JOIN (
         SELECT patient_id, 'Yes' AS has_appointment
         FROM appointments
-        WHERE appointment_date >= CURDATE()
+        WHERE status = 'Active'
         GROUP BY patient_id
     ) a ON u.user_id = a.patient_id
     WHERE u.role = 'patient'
