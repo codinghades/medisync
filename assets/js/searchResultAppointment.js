@@ -5,42 +5,35 @@ document.addEventListener("DOMContentLoaded", function () {
     const sortSelect = document.getElementById("filter");
     const table = document.querySelector(".allAppointments .list table");
 
-    // Reload page on reset button click
-    reset.addEventListener("click", function () {
-        location.reload();
-    });
-
-    // Fetch and update appointment data based on search
-    searchForm.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevents page refresh
-
+    function fetchAppointments() {
         let query = searchBar.value.trim();
-        if (query.length === 0) return;
+        let sortOption = sortSelect.value;
 
         fetch("../process/searchPatientAppointment.php", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({ search: query })
+            body: new URLSearchParams({ search: query, filter: sortOption }) 
         })
         .then(response => response.json())
         .then(data => updateTable(data))
         .catch(error => console.error("Error fetching appointment data:", error));
+    }
+
+    searchForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        fetchAppointments();
     });
 
-    // Fetch and update appointment data based on sorting
     sortSelect.addEventListener("change", function () {
-        let sortOption = sortSelect.value;
-        fetch("../process/filterPatientAppointment.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({ filter: sortOption })
-        })
-        .then(response => response.json())
-        .then(data => updateTable(data))
-        .catch(error => console.error("Error fetching sorted data:", error));
+        fetchAppointments();
     });
 
-    // Function to update the table with new data
+    reset.addEventListener("click", function () {
+        searchBar.value = "";
+        sortSelect.value = "";
+        fetchAppointments();
+    });
+
     function updateTable(data) {
         table.innerHTML = `
             <tr>
@@ -54,9 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
         if (data.error || data.length === 0) {
-            table.innerHTML += `
-                <tr><td colspan="6">No results found.</td></tr>
-            `;
+            table.innerHTML += `<tr><td colspan="6">No results found.</td></tr>`;
             return;
         }
 
@@ -64,15 +55,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const formattedDate = new Date(appointment.appointment_date).toLocaleDateString('en-US', {
                 year: 'numeric', month: 'long', day: 'numeric'
             });
-        
+
             const createdAt = new Date(appointment.created_at).toLocaleDateString('en-US', {
                 year: 'numeric', month: 'long', day: 'numeric'
             });
-        
+
             let statusClass = appointment.status.trim().toLowerCase() === "active" ? "status-active" :
                               appointment.status.trim().toLowerCase() === "expired" ? "status-expired" :
-                              "status-completed"; // Default for "Completed"
-        
+                              "status-completed";
+
             table.innerHTML += `
                 <tr>    
                     <td>${appointment.patient_name}</td>
@@ -87,6 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>${createdAt}</td>
                 </tr>
             `;
-        });        
+        });
     }
 });
