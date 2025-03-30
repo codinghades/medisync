@@ -6,6 +6,7 @@
     <title>Payments</title>
     <link rel="stylesheet" href="../assets/css/adminPayments.css">
     <script src="../assets/js/adminFetchBill.js"></script>
+    <script src="../assets/js/download.js"></script>
 </head>
 <body>
     <div class="mainContainer">
@@ -36,6 +37,7 @@
                     </table>
                 </div>
             </div>
+            <button class="printButton" id="printUnpaidBillsBtn"><i class='bx bxs-printer'></i><p>Print Unpaid Bills</p></button>
             <div class="paidBills">
                 <div class="header"><p>Paid Bills</p></div>
                 <div class="list">
@@ -57,6 +59,7 @@
                     </table>
                 </div>
             </div>
+            <button class="printButton" id="printPaidBillsBtn"><i class='bx bxs-printer'></i><p>Print Paid Bills</p></button>
         </div>
     </div>
 </body>

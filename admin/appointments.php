@@ -8,6 +8,7 @@
     <script src="../assets/js/adminAppointments.js"></script>
     <script src="../assets/js/adminActiveAppointments.js"></script>
     <script src="../assets/js/searchResultAppointment.js"></script>
+    <script src="../assets/js/download.js"></script>
 </head>
 <body>
     <div class="mainContainer">
@@ -99,6 +100,7 @@
                     </table>
                 </div>
             </div>
+            <button class="printButton" id="printAppointmentsBtn"><i class='bx bxs-printer'></i><p>Print Unpaid Bills</p></button>
         </div>
     </div>
 </body>

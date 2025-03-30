@@ -3,7 +3,7 @@
 .mainContent{
     padding: 20px 20px 20px 240px;
     background-color: var(--white);
-    height: 100vh;
+    height: 100%;
     display: grid;
     grid-template-rows: auto auto 1fr;
     gap: 20px;
@@ -113,4 +113,26 @@ button[type='submit']{
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 10px;
+}
+.printButton{
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-self: end;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.printButton:hover{
+    background-color: var(--button-hover);
+}
+.printButton:active{
+    background-color: var(--button-active);
+}
+.printButton i{
+    padding: 0;
 }

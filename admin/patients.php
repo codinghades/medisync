@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../assets/css/adminPatients.css">
     <script src="../assets/js/adminFetchPatients.js"></script>
     <script src="../assets/js/searchResult.js"></script>
+    <script src="../assets/js/download.js"></script>
 </head>
 <body>
     <div class="mainContainer">
@@ -63,6 +64,7 @@
                     </table>
                 </div>
             </div>
+            <button class="printButton" id="printPatientsBtn"><i class='bx bxs-printer'></i><p>Print Unpaid Bills</p></button>
         </div>
     </div>
 </body>

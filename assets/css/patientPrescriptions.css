@@ -166,3 +166,6 @@ dd {
 hr{
     margin: 20px 0;
 }
+.downloadPrescriptionButton button i{
+    padding: 0 10px;
+}

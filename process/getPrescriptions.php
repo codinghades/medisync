@@ -67,7 +67,7 @@ if ($row = $resultActive->fetch_assoc()) {
     echo "</div></div></div><div class='footer'><p>-</p></div></div></div>";
 
     echo "<div class='downloadPrescriptionButton'>
-            <button id='downloadPrescriptionBtn'>Download Prescription (PDF)</button>
+            <button id='downloadPrescriptionBtn'><i class='bx bxs-printer'></i> Print Prescription</button>
           </div>";
 } else {
     echo "<div class='activePrescription'><p class='title'>Active Prescription</p><p>No active prescriptions in the last 7 days.</p></div>";
