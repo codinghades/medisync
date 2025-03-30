@@ -66,3 +66,9 @@ table td{
 .status{
     font-weight: 700;
 }
+.status-active{
+    color: green;
+}
+.status-expired{
+    color: red;
+}

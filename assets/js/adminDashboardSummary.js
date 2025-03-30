@@ -23,10 +23,10 @@ async function loadUpcomingAppointments() {
             const row = `
                 <tr>
                     <td>${appointment.patient_name}</td>
-                    <td>${appointment.appointment_type}</td>
+                    <td><span style="font-weight:700;">${appointment.appointment_type}</span></td>
                     <td>${new Date(appointment.appointment_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
                     <td>${appointment.appointment_time}</td>
-                    <td>Active</td>
+                    <td><span style="color:green; font-weight:700;">Active</span></td>
                 </tr>
             `;
             tableBody.innerHTML += row;
@@ -53,10 +53,9 @@ async function fetchSummaryData() {
 
 async function fetchUnpaidBillsData() {
     try {
-        let response = await fetch('../process/adminDashboardSummary.php'); // Fetch data from API
-        let data = await response.json(); // Convert response to JSON
+        let response = await fetch('../process/adminDashboardSummary.php');
+        let data = await response.json();
 
-        // Update the unpaid bills section with the fetched data
         document.querySelector(".numberOfUnpaidBills p").textContent = data.totalUnpaidBills;
         document.querySelector(".amountOfUnpaidbills p").textContent = `₱${data.totalUnpaidAmount}`;
     } catch (error) {
@@ -66,12 +65,11 @@ async function fetchUnpaidBillsData() {
 
 async function fetchActivePatientList() {
     try {
-        let response = await fetch('../process/adminDashboardSummary.php'); // Fetch data from API
-        let data = await response.json(); // Convert response to JSON
+        let response = await fetch('../process/adminDashboardSummary.php');
+        let data = await response.json();
 
         let tableBody = document.querySelector(".activePatientList .list table");
 
-        // Clear existing table rows
         tableBody.innerHTML = `
             <tr>
                 <th>Name</th>
@@ -86,15 +84,18 @@ async function fetchActivePatientList() {
             return;
         }
 
-        // Populate table with active patient data
         data.activePatients.forEach(patient => {
+            let prescriptionClass = patient.prescription_status === "Active" ? "status-active" : "status-none";
+            let unpaidClass = patient.unpaid_bill != 'None'? "status-unpaid" : "status-none";
+            let appointmentClass = patient.active_appointment === "Active" ? "status-active" : "status-none";
+
             let row = `
                 <tr>
                     <td>${patient.patient_name}</td>
                     <td>${new Date(patient.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
-                    <td>${patient.prescription_status}</td>
-                    <td>${patient.unpaid_bill}</td>
-                    <td>${patient.active_appointment}</td>
+                    <td><span class="${prescriptionClass}">${patient.prescription_status}</span></td>
+                    <td><span class="${unpaidClass}">${patient.unpaid_bill}</span></td>
+                    <td><span class="${appointmentClass}">${patient.active_appointment}</span></td>
                 </tr>`;
             tableBody.innerHTML += row;
         });

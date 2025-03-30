@@ -33,20 +33,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         data.forEach(appointment => {
-            let statusClass = appointment.status === "Active" ? "Active" : "Expired";
-
+            let statusClass = appointment.status.trim().toLowerCase() === "active" ? "status-active" :
+            appointment.status.trim().toLowerCase() === "expired" ? "status-expired" :
+            "status-completed";
+        
             allTable.innerHTML += `
                 <tr>
                     <td>${appointment.patient_name}</td>
                     <td>${appointment.appointment_type}</td>
                     <td>${appointment.appointment_date}</td>
                     <td>${appointment.appointment_time}</td>
-                    <td class="status"><span class="statusText ${statusClass}">${appointment.status}</span></td>
+                    <td class="status"><span class="${statusClass}">${appointment.status}</span></td>
                     <td>${appointment.created_at}</td>
                     <td><input type="checkbox" class="selectCheckbox" name="select" value="${appointment.appointment_id}"></td>
                 </tr>
             `;
         });
+        
     }
 
     function getSelectedAppointments() {

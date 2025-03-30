@@ -122,4 +122,20 @@ table td{
 .totalUnpaidBills p{
     font-size: 1.5rem;
     font-weight: 700;
+    color: red;
+}
+
+.status-none {
+    color: gray;
+    font-weight: 700;
+}
+
+.status-active {
+    color: green;
+    font-weight: 700;
+}
+
+.status-unpaid {
+    color: red;
+    font-weight: 700;
 }

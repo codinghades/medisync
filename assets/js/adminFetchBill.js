@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <tr>
                             <td>${bill.name}</td>
                             <td>${bill.total_amount}</td>
-                            <td>Unpaid</td>
+                            <td><span style='color:red; font-weight:700;'>Unpaid</span></td>
                             <td>${formattedDate}</td>
                         </tr>
                     `;
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <tr>
                             <td>${bill.name}</td>
                             <td>${bill.total_amount}</td>
-                            <td>Paid</td>
+                            <td><span style='color:Green; font-weight:700;'>Paid</span></td>
                             <td>${bill.payment_method}</td>
                             <td>${formattedDate}</td>
                         </tr>

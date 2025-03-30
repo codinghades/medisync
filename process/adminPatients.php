@@ -12,8 +12,8 @@ $query = "
         u.last_name, 
         u.created_at, 
         COALESCE(p.active_prescription, 'No') AS active_prescription, 
-        COALESCE(b.unpaid_bill, 'No') AS unpaid_bill, 
-        COALESCE(a.has_appointment, 'No') AS has_appointment
+        COALESCE(b.total_unpaid, 0) AS total_unpaid_bill, 
+        COALESCE(a.closest_appointment, 'None') AS closest_appointment
     FROM users u
     LEFT JOIN (
         SELECT patient_id, 'Yes' AS active_prescription
@@ -22,15 +22,15 @@ $query = "
         GROUP BY patient_id
     ) p ON u.user_id = p.patient_id
     LEFT JOIN (
-        SELECT patient_id, 'Yes' AS unpaid_bill
+        SELECT patient_id, SUM(amount) AS total_unpaid
         FROM Billing
         WHERE PaymentStatus = 'Unpaid'
         GROUP BY patient_id
     ) b ON u.user_id = b.patient_id
     LEFT JOIN (
-        SELECT patient_id, 'Yes' AS has_appointment
+        SELECT patient_id, MIN(appointment_date) AS closest_appointment
         FROM appointments
-        WHERE status = 'Active'
+        WHERE status = 'Active' AND appointment_date >= CURDATE()
         GROUP BY patient_id
     ) a ON u.user_id = a.patient_id
     WHERE u.role = 'patient'
@@ -46,8 +46,8 @@ while ($row = $result->fetch_assoc()) {
         'name' => $row['first_name'] . ' ' . $row['last_name'],
         'registration_date' => $row['created_at'],
         'active_prescription' => $row['active_prescription'],
-        'unpaid_bill' => $row['unpaid_bill'],
-        'has_appointment' => $row['has_appointment']
+        'unpaid_bill' => number_format($row['total_unpaid_bill'], 2),
+        'closest_appointment' => ($row['closest_appointment'] !== 'None') ? date('Y-m-d H:i', strtotime($row['closest_appointment'])) : 'None'
     ];
 }
 
