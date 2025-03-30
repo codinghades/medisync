@@ -7,26 +7,26 @@ async function loadUpcomingAppointments() {
         tableBody.innerHTML = `
             <tr>
                 <th>Name</th>
-                <th>Register Date</th>
-                <th>Prescription Status</th>
-                <th>Unpaid Bill</th>
-                <th>Appointment</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
             </tr>
         `;
 
         if (!data.upcomingAppointments || data.upcomingAppointments.length === 0) {
-            tableBody.innerHTML += `<tr><td colspan="5">No upcoming appointments found.</td></tr>`;
+            tableBody.innerHTML += `<tr><td colspan="6">No upcoming appointments found.</td></tr>`;
             return;
         }
 
-        data.upcomingAppointments.forEach(patient => {
+        data.upcomingAppointments.forEach(appointment => {
             const row = `
                 <tr>
-                    <td>${patient.patient_name}</td>
-                    <td>${new Date(patient.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
-                    <td>${patient.prescription_status}</td>
-                    <td>${patient.unpaid_bill}</td>
-                    <td>${patient.active_appointment}</td>
+                    <td>${appointment.patient_name}</td>
+                    <td>${appointment.appointment_type}</td>
+                    <td>${new Date(appointment.appointment_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
+                    <td>${appointment.appointment_time}</td>
+                    <td>Active</td>
                 </tr>
             `;
             tableBody.innerHTML += row;

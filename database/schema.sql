@@ -75,42 +75,43 @@ CREATE TABLE IF NOT EXISTS notifications (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-INSERT INTO ConsultationPrices (ID, ConsultationType, Price) VALUES
-(1, 'Laboratory Consultation', 100.00),
-(2, 'Outpatient Department (OPD)', 75.00),
-(3, 'Pediatric Consultation', 80.00),
-(4, 'Obstetrics and Gynecology (OBGYN)', 120.00),
-(5, 'Ear, Nose, and Throat (ENT)', 90.00);
+INSERT IGNORE INTO ConsultationPrices (ID, ConsultationType, Price) VALUES
+(1, 'Laboratory Consultation', 1000.00),
+(2, 'Outpatient Department (OPD)', 750.00),
+(3, 'Pediatric Consultation', 800.00),
+(4, 'Obstetrics and Gynecology (OBGYN)', 1200.00),
+(5, 'Ear, Nose, and Throat (ENT)', 900.00);
 
-INSERT INTO users (user_id, first_name, last_name, gender, contact_number, email, password, role) VALUES
-('A-2025-0001', 'Maria', 'San Pedro', 'female', '09988776655', 'admin@gmail.com', '$2y$10$2mwmIZ/HgMcV1c5Tu6Y4cO0RGohjuafHeR2oN0hMlj1Dbnu375TBS', 'admin', '2025-03-26 13:27:06'),
-('P-2025-0000', 'Juan', 'Dela Cruz', 'male', '09121231234', 'juandelacruz@gmail.com', '$2y$10$fVoOoIKuE4lQuklzsM2nLeuiboX68uXC.5xSjP04KVzcYYBZlIFh.', 'patient', '2025-03-26 13:27:06'),
-('P-2025-0001', 'Carlos', 'Santos', 'male', '09123456780', 'carlos.santos@gmail.com', '$2b$12$LSp89dEcSWH8k/0nGn7o0uDNtW4QVwmBaUaMDkqBxclc5Hpczrx62', 'patient', '2025-03-29 04:17:49'),
-('P-2025-0002', 'Ana', 'Reyes', 'female', '09234567891', 'ana.reyes@gmail.com', '$2b$12$0fjIvREWdgSumXtA1FIDfeaYBCWBMBXYZm2La2pAZSwlmxFgCKJzq', 'patient', '2025-03-29 04:17:49'),
-('P-2025-0003', 'Miguel', 'Torres', 'male', '09345678912', 'miguel.torres@gmail.com', '$2b$12$Kch/lUCodSA23jcEAeQ3Q.62uO8vjNz0bGKZqorwsl2i0IUXP6xve', 'patient', '2025-03-29 04:17:49'),
-('P-2025-0004', 'Sofia', 'Gomez', 'female', '09456789123', 'sofia.gomez@gmail.com', '$2b$12$Ogx1RvdByVQejhsWVYhxweGiWeCrmVRO6IcoIGfiyw1ZWYgi5dZOe', 'patient', '2025-03-29 04:17:49'),
-('P-2025-0005', 'Daniel', 'Fernandez', 'male', '09567891234', 'daniel.fernandez@gmail.com', '$2b$12$q5TknDlGazZH6w7D3ZA5huzYE5kfjtirpI4AnWW0qD1KO8qHHmA5O', 'patient', '2025-03-29 04:17:49'),
-('P-2025-0006', 'Isabel', 'Cruz', 'female', '09678912345', 'isabel.cruz@gmail.com', '$2b$12$3tCMp80VTX70t8MVTRmQaO6SRdSPmwr2LLl8H0CVmTdlexh/G41tW', 'patient', '2025-03-29 04:17:49'),
-('P-2025-0007', 'Jose', 'Lopez', 'male', '09789123456', 'jose.lopez@gmail.com', '$2b$12$.x8yq6vRVfo17ihWB3uLS.Fh5xs7EdUQYJL4g0RClqX5Wb5OFghTq', 'patient', '2025-03-29 04:17:49'),
-('P-2025-0008', 'Marian', 'Ramos', 'female', '09891234567', 'marian.ramos@gmail.com', '$2b$12$r0Yolx/8AvW2yOXO3meduuGxGfHyUJ6wQEpU3m94HVmlzvgl0jhUO', 'patient', '2025-03-29 04:17:49'),
-('P-2025-0009', 'Rafael', 'Navarro', 'male', '09912345678', 'rafael.navarro@gmail.com', '$2b$12$cEenkEKMPrnuDDwE5EqCAulgvggnL2E52rLrsx./YML6v0MKXdoGW', 'patient', '2025-03-29 04:17:49');
+INSERT IGNORE INTO users (user_id, first_name, last_name, gender, contact_number, email, password, role) VALUES
+('A-2025-0001', 'Maria', 'San Pedro', 'female', '09988776655', 'admin@gmail.com', '$2y$10$2mwmIZ/HgMcV1c5Tu6Y4cO0RGohjuafHeR2oN0hMlj1Dbnu375TBS', 'admin'),
+('P-2025-0000', 'Juan', 'Dela Cruz', 'male', '09121231234', 'juandelacruz@gmail.com', '$2y$10$fVoOoIKuE4lQuklzsM2nLeuiboX68uXC.5xSjP04KVzcYYBZlIFh.', 'patient'),
+('P-2025-0001', 'Carlos', 'Santos', 'male', '09123456780', 'carlos.santos@gmail.com', '$2b$12$LSp89dEcSWH8k/0nGn7o0uDNtW4QVwmBaUaMDkqBxclc5Hpczrx62', 'patient'),
+('P-2025-0002', 'Ana', 'Reyes', 'female', '09234567891', 'ana.reyes@gmail.com', '$2b$12$0fjIvREWdgSumXtA1FIDfeaYBCWBMBXYZm2La2pAZSwlmxFgCKJzq', 'patient'),
+('P-2025-0003', 'Miguel', 'Torres', 'male', '09345678912', 'miguel.torres@gmail.com', '$2b$12$Kch/lUCodSA23jcEAeQ3Q.62uO8vjNz0bGKZqorwsl2i0IUXP6xve', 'patient'),
+('P-2025-0004', 'Sofia', 'Gomez', 'female', '09456789123', 'sofia.gomez@gmail.com', '$2b$12$Ogx1RvdByVQejhsWVYhxweGiWeCrmVRO6IcoIGfiyw1ZWYgi5dZOe', 'patient'),
+('P-2025-0005', 'Daniel', 'Fernandez', 'male', '09567891234', 'daniel.fernandez@gmail.com', '$2b$12$q5TknDlGazZH6w7D3ZA5huzYE5kfjtirpI4AnWW0qD1KO8qHHmA5O', 'patient'),
+('P-2025-0006', 'Isabel', 'Cruz', 'female', '09678912345', 'isabel.cruz@gmail.com', '$2b$12$3tCMp80VTX70t8MVTRmQaO6SRdSPmwr2LLl8H0CVmTdlexh/G41tW', 'patient'),
+('P-2025-0007', 'Jose', 'Lopez', 'male', '09789123456', 'jose.lopez@gmail.com', '$2b$12$.x8yq6vRVfo17ihWB3uLS.Fh5xs7EdUQYJL4g0RClqX5Wb5OFghTq', 'patient'),
+('P-2025-0008', 'Marian', 'Ramos', 'female', '09891234567', 'marian.ramos@gmail.com', '$2b$12$r0Yolx/8AvW2yOXO3meduuGxGfHyUJ6wQEpU3m94HVmlzvgl0jhUO', 'patient'),
+('P-2025-0009', 'Rafael', 'Navarro', 'male', '09912345678', 'rafael.navarro@gmail.com', '$2b$12$cEenkEKMPrnuDDwE5EqCAulgvggnL2E52rLrsx./YML6v0MKXdoGW', 'patient');
 
-INSERT INTO doctors (id, doctor_id, name, mobile) VALUES
+INSERT IGNORE INTO doctors (id, doctor_id, name, mobile) VALUES
 (1, 'D-2025-0000', 'Dr. John Doe', '09123456789');
 
-INSERT INTO prescriptions (patient_id, doctor_id, date_prescribed) VALUES
-(1, 'P-2025-0000', 1, '2025-03-25 09:00:00'),
-(2, 'P-2025-0001', 1, '2025-03-26 10:00:00'),
-(3, 'P-2025-0002', 1, '2025-03-26 11:00:00'),
-(4, 'P-2025-0003', 1, '2025-03-26 12:00:00'),
-(5, 'P-2025-0004', 1, '2025-03-26 13:00:00'),
-(6, 'P-2025-0005', 1, '2025-03-26 14:00:00'),
-(7, 'P-2025-0006', 1, '2025-03-26 15:00:00'),
-(8, 'P-2025-0007', 1, '2025-03-26 16:00:00'),
-(9, 'P-2025-0008', 1, '2025-03-26 17:00:00'),
-(10, 'P-2025-0009', 1, '2025-03-26 18:00:00');
+INSERT IGNORE INTO prescriptions (id, patient_id, doctor_id, date_prescribed) VALUES
+(1, 'P-2025-0000', 1, '2025-03-27 09:00:00'), -- within 7 days
+(2, 'P-2025-0001', 1, '2025-03-26 10:00:00'), -- within 7 days
+(3, 'P-2025-0002', 1, '2025-03-20 11:00:00'), -- over 7 days
+(4, 'P-2025-0003', 1, '2025-03-18 12:00:00'), -- over 7 days
+(5, 'P-2025-0004', 1, '2025-03-25 13:00:00'), -- within 7 days
+(6, 'P-2025-0005', 1, '2025-03-15 14:00:00'), -- over 7 days
+(7, 'P-2025-0006', 1, '2025-03-23 15:00:00'), -- within 7 days
+(8, 'P-2025-0007', 1, '2025-03-10 16:00:00'), -- over 7 days
+(9, 'P-2025-0008', 1, '2025-03-28 17:00:00'), -- within 7 days
+(10, 'P-2025-0009', 1, '2025-03-08 18:00:00'); -- over 7 days
 
-INSERT INTO prescription_details (prescription_id, medicine, dosage, duration, instruction, advice) VALUES
+
+INSERT IGNORE INTO prescription_details (prescription_id, medicine, dosage, duration, instruction, advice) VALUES
 (1, 'Amoxicillin', '500mg', '7 days', 'Take one capsule every 8 hours', 'Complete the full course of antibiotics'),
 (1, 'Paracetamol', '500mg', '3 days', 'Take one tablet every 6 hours as needed', 'Do not exceed 4g per day'),
 (1, 'Cetirizine', '10mg', '5 days', 'Take one tablet once daily', 'Avoid allergens and stay hydrated'),
@@ -141,3 +142,75 @@ INSERT INTO prescription_details (prescription_id, medicine, dosage, duration, i
 (10, 'Levofloxacin', '500mg', '7 days', 'Take daily', 'Avoid dairy, drink water.'),
 (10, 'Prednisone', '10mg', '5 days', 'Take in the morning', 'Reduce salt, follow dosage.'),
 (10, 'Esomeprazole', '40mg', '14 days', 'Take before breakfast', 'Avoid acidic foods, no late-night eating.');
+
+INSERT IGNORE INTO appointments (patient_id, appointment_type, appointment_date, appointment_time, contact_number, notes, status) VALUES
+-- Juan Dela Cruz (P-2025-0000) - 4 appointments
+('P-2025-0000', 'laboratory', '2025-03-05', '10:00:00', '09121231234', 'Routine checkup', 'completed'),
+('P-2025-0000', 'opd', '2025-03-15', '14:00:00', '09121231234', 'Follow-up visit', 'completed'),
+('P-2025-0000', 'ent', '2025-03-27', '16:00:00', '09121231234', 'Ear infection', 'active'),
+('P-2025-0000', 'obgyn', '2025-04-05', '11:00:00', '09121231234', 'Consultation', 'active'),
+('P-2025-0000', 'opd', '2025-04-12', '13:00:00', '09121231234', 'Follow-up check', 'active'),
+
+-- Carlos Santos (P-2025-0001) - 3 appointments
+('P-2025-0001', 'pedia', '2025-03-02', '09:00:00', '09123456780', 'Child vaccination', 'completed'),
+('P-2025-0001', 'opd', '2025-03-20', '13:00:00', '09123456780', 'Back pain checkup', 'expired'),
+('P-2025-0001', 'laboratory', '2025-03-28', '15:00:00', '09123456780', 'Blood test', 'active'),
+('P-2025-0001', 'laboratory', '2025-04-15', '09:30:00', '09123456780', 'Routine blood test', 'active'),
+
+-- Ana Reyes (P-2025-0002) - 5 appointments
+('P-2025-0002', 'ent', '2025-02-25', '08:00:00', '09234567891', 'Tonsil inflammation', 'expired'),
+('P-2025-0002', 'opd', '2025-03-10', '14:30:00', '09234567891', 'General checkup', 'completed'),
+('P-2025-0002', 'laboratory', '2025-03-25', '12:00:00', '09234567891', 'Blood pressure check', 'active'),
+('P-2025-0002', 'obgyn', '2025-04-01', '10:00:00', '09234567891', 'Pregnancy consultation', 'active'),
+('P-2025-0002', 'pedia', '2025-04-10', '14:00:00', '09234567891', 'Infant care', 'active'),
+('P-2025-0002', 'pedia', '2025-04-20', '10:15:00', '09234567891', 'Child growth check', 'active'),
+
+
+-- Miguel Torres (P-2025-0003) - 3 appointments
+('P-2025-0003', 'laboratory', '2025-03-01', '11:00:00', '09345678912', 'Lab test', 'completed'),
+('P-2025-0003', 'ent', '2025-03-18', '09:30:00', '09345678912', 'Ear infection', 'expired'),
+('P-2025-0003', 'opd', '2025-03-30', '16:30:00', '09345678912', 'General checkup', 'active'),
+('P-2025-0003', 'opd', '2025-04-18', '11:30:00', '09345678912', 'Regular checkup', 'active'),
+
+-- Sofia Gomez (P-2025-0004) - 4 appointments
+('P-2025-0004', 'obgyn', '2025-02-28', '10:45:00', '09456789123', 'Prenatal checkup', 'expired'),
+('P-2025-0004', 'laboratory', '2025-03-14', '15:00:00', '09456789123', 'Blood test', 'completed'),
+('P-2025-0004', 'opd', '2025-03-26', '12:45:00', '09456789123', 'Migraine consultation', 'active'),
+('P-2025-0004', 'ent', '2025-04-07', '17:00:00', '09456789123', 'Earwax removal', 'active'),
+('P-2025-0004', 'obgyn', '2025-04-22', '12:45:00', '09456789123', 'Follow-up consultation', 'active');
+
+INSERT IGNORE INTO Billing (patient_id, ConsultationTypeID, ConsultationDate, Amount, PaymentStatus, PaymentMethod) VALUES
+-- Juan Dela Cruz (P-2025-0000)
+('P-2025-0000', 1, '2025-03-05', 1000.00, 'Paid', 'Cash'),
+('P-2025-0000', 2, '2025-03-15', 750.00, 'Paid', 'Card'),
+('P-2025-0000', 5, '2025-03-27', 900.00, 'Unpaid', 'None'),
+('P-2025-0000', 4, '2025-04-05', 1200.00, 'Unpaid', 'None'),
+('P-2025-0000', 2, '2025-04-12', 750.00, 'Unpaid', 'None'),
+
+-- Carlos Santos (P-2025-0001)
+('P-2025-0001', 3, '2025-03-02', 800.00, 'Paid', 'Cash'),
+('P-2025-0001', 2, '2025-03-20', 750.00, 'Unpaid', 'None'),
+('P-2025-0001', 1, '2025-03-28', 1000.00, 'Unpaid', 'None'),
+('P-2025-0001', 1, '2025-04-15', 1000.00, 'Unpaid', 'None'),
+
+-- Ana Reyes (P-2025-0002)
+('P-2025-0002', 5, '2025-02-25', 900.00, 'Unpaid', 'None'),
+('P-2025-0002', 2, '2025-03-10', 750.00, 'Paid', 'Card'),
+('P-2025-0002', 1, '2025-03-25', 1000.00, 'Unpaid', 'None'),
+('P-2025-0002', 4, '2025-04-01', 1200.00, 'Unpaid', 'None'),
+('P-2025-0002', 3, '2025-04-10', 800.00, 'Unpaid', 'None'),
+('P-2025-0002', 3, '2025-04-20', 800.00, 'Unpaid', 'None'),
+
+-- Miguel Torres (P-2025-0003)
+('P-2025-0003', 1, '2025-03-01', 1000.00, 'Paid', 'Cash'),
+('P-2025-0003', 5, '2025-03-18', 900.00, 'Unpaid', 'None'),
+('P-2025-0003', 2, '2025-03-30', 750.00, 'Unpaid', 'None'),
+('P-2025-0003', 2, '2025-04-18', 750.00, 'Unpaid', 'None'),
+
+-- Sofia Gomez (P-2025-0004)
+('P-2025-0004', 4, '2025-02-28', 1200.00, 'Unpaid', 'None'),
+('P-2025-0004', 1, '2025-03-14', 1000.00, 'Paid', 'Card'),
+('P-2025-0004', 2, '2025-03-26', 750.00, 'Unpaid', 'None'),
+('P-2025-0004', 5, '2025-04-07', 900.00, 'Unpaid', 'None'),
+('P-2025-0004', 4, '2025-04-22', 1200.00, 'Unpaid', 'None');
+

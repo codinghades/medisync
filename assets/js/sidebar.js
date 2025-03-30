@@ -3,6 +3,15 @@ function loadPage(page) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    fetch('../process/alwaysRun.php')
+    .then(response => response.text())
+    .then(result => {
+        console.log('PHP script executed:', result);
+    })
+    .catch(error => {
+        console.error('Error executing PHP script:', error);
+    });
+
     fetch("../process/getUser.php")
     .then(response => response.json())
     .then(data => {
