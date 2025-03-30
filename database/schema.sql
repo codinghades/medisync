@@ -145,39 +145,39 @@ INSERT IGNORE INTO prescription_details (prescription_id, medicine, dosage, dura
 
 INSERT IGNORE INTO appointments (patient_id, appointment_type, appointment_date, appointment_time, contact_number, notes, status) VALUES
 -- Juan Dela Cruz (P-2025-0000) - 4 appointments
-('P-2025-0000', 'laboratory', '2025-03-05', '10:00:00', '09121231234', 'Routine checkup', 'completed'),
-('P-2025-0000', 'opd', '2025-03-15', '14:00:00', '09121231234', 'Follow-up visit', 'completed'),
-('P-2025-0000', 'ent', '2025-03-27', '16:00:00', '09121231234', 'Ear infection', 'active'),
-('P-2025-0000', 'obgyn', '2025-04-05', '11:00:00', '09121231234', 'Consultation', 'active'),
-('P-2025-0000', 'opd', '2025-04-12', '13:00:00', '09121231234', 'Follow-up check', 'active'),
+('P-2025-0000', 'laboratory', '2025-03-05', '10:00:00', '09121231234', 'Routine checkup', 'Completed'),
+('P-2025-0000', 'opd', '2025-03-15', '14:00:00', '09121231234', 'Follow-up visit', 'Completed'),
+('P-2025-0000', 'ent', '2025-03-27', '16:00:00', '09121231234', 'Ear infection', 'Active'),
+('P-2025-0000', 'obgyn', '2025-04-05', '11:00:00', '09121231234', 'Consultation', 'Active'),
+('P-2025-0000', 'opd', '2025-04-12', '13:00:00', '09121231234', 'Follow-up check', 'Active'),
 
 -- Carlos Santos (P-2025-0001) - 3 appointments
-('P-2025-0001', 'pedia', '2025-03-02', '09:00:00', '09123456780', 'Child vaccination', 'completed'),
-('P-2025-0001', 'opd', '2025-03-20', '13:00:00', '09123456780', 'Back pain checkup', 'expired'),
-('P-2025-0001', 'laboratory', '2025-03-28', '15:00:00', '09123456780', 'Blood test', 'active'),
-('P-2025-0001', 'laboratory', '2025-04-15', '09:30:00', '09123456780', 'Routine blood test', 'active'),
+('P-2025-0001', 'pedia', '2025-03-02', '09:00:00', '09123456780', 'Child vaccination', 'Completed'),
+('P-2025-0001', 'opd', '2025-03-20', '13:00:00', '09123456780', 'Back pain checkup', 'Expired'),
+('P-2025-0001', 'laboratory', '2025-03-28', '15:00:00', '09123456780', 'Blood test', 'Active'),
+('P-2025-0001', 'laboratory', '2025-04-15', '09:30:00', '09123456780', 'Routine blood test', 'Active'),
 
 -- Ana Reyes (P-2025-0002) - 5 appointments
-('P-2025-0002', 'ent', '2025-02-25', '08:00:00', '09234567891', 'Tonsil inflammation', 'expired'),
-('P-2025-0002', 'opd', '2025-03-10', '14:30:00', '09234567891', 'General checkup', 'completed'),
-('P-2025-0002', 'laboratory', '2025-03-25', '12:00:00', '09234567891', 'Blood pressure check', 'active'),
-('P-2025-0002', 'obgyn', '2025-04-01', '10:00:00', '09234567891', 'Pregnancy consultation', 'active'),
-('P-2025-0002', 'pedia', '2025-04-10', '14:00:00', '09234567891', 'Infant care', 'active'),
-('P-2025-0002', 'pedia', '2025-04-20', '10:15:00', '09234567891', 'Child growth check', 'active'),
+('P-2025-0002', 'ent', '2025-02-25', '08:00:00', '09234567891', 'Tonsil inflammation', 'Expired'),
+('P-2025-0002', 'opd', '2025-03-10', '14:30:00', '09234567891', 'General checkup', 'Completed'),
+('P-2025-0002', 'laboratory', '2025-03-25', '12:00:00', '09234567891', 'Blood pressure check', 'Active'),
+('P-2025-0002', 'obgyn', '2025-04-01', '10:00:00', '09234567891', 'Pregnancy consultation', 'Active'),
+('P-2025-0002', 'pedia', '2025-04-10', '14:00:00', '09234567891', 'Infant care', 'Active'),
+('P-2025-0002', 'pedia', '2025-04-20', '10:15:00', '09234567891', 'Child growth check', 'Active'),
 
 
 -- Miguel Torres (P-2025-0003) - 3 appointments
-('P-2025-0003', 'laboratory', '2025-03-01', '11:00:00', '09345678912', 'Lab test', 'completed'),
-('P-2025-0003', 'ent', '2025-03-18', '09:30:00', '09345678912', 'Ear infection', 'expired'),
-('P-2025-0003', 'opd', '2025-03-30', '16:30:00', '09345678912', 'General checkup', 'active'),
-('P-2025-0003', 'opd', '2025-04-18', '11:30:00', '09345678912', 'Regular checkup', 'active'),
+('P-2025-0003', 'laboratory', '2025-03-01', '11:00:00', '09345678912', 'Lab test', 'Completed'),
+('P-2025-0003', 'ent', '2025-03-18', '09:30:00', '09345678912', 'Ear infection', 'Expired'),
+('P-2025-0003', 'opd', '2025-03-30', '16:30:00', '09345678912', 'General checkup', 'Active'),
+('P-2025-0003', 'opd', '2025-04-18', '11:30:00', '09345678912', 'Regular checkup', 'Active'),
 
 -- Sofia Gomez (P-2025-0004) - 4 appointments
-('P-2025-0004', 'obgyn', '2025-02-28', '10:45:00', '09456789123', 'Prenatal checkup', 'expired'),
-('P-2025-0004', 'laboratory', '2025-03-14', '15:00:00', '09456789123', 'Blood test', 'completed'),
-('P-2025-0004', 'opd', '2025-03-26', '12:45:00', '09456789123', 'Migraine consultation', 'active'),
-('P-2025-0004', 'ent', '2025-04-07', '17:00:00', '09456789123', 'Earwax removal', 'active'),
-('P-2025-0004', 'obgyn', '2025-04-22', '12:45:00', '09456789123', 'Follow-up consultation', 'active');
+('P-2025-0004', 'obgyn', '2025-02-28', '10:45:00', '09456789123', 'Prenatal checkup', 'Expired'),
+('P-2025-0004', 'laboratory', '2025-03-14', '15:00:00', '09456789123', 'Blood test', 'Completed'),
+('P-2025-0004', 'opd', '2025-03-26', '12:45:00', '09456789123', 'Migraine consultation', 'Active'),
+('P-2025-0004', 'ent', '2025-04-07', '17:00:00', '09456789123', 'Earwax removal', 'Active'),
+('P-2025-0004', 'obgyn', '2025-04-22', '12:45:00', '09456789123', 'Follow-up consultation', 'Active');
 
 INSERT IGNORE INTO Billing (patient_id, ConsultationTypeID, ConsultationDate, Amount, PaymentStatus, PaymentMethod) VALUES
 -- Juan Dela Cruz (P-2025-0000)
