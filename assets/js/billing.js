@@ -42,7 +42,7 @@ function displayUnpaidBills(bills) {
                             <div class="amount">₱${amount.toFixed(2)}</div>
                         </dt>
                         <dd>
-                            <div class="date">Date: ${new Date(bill.ConsultationDate).toLocaleDateString()}</div>
+                            <div class="date">Date: ${new Date(bill.created_at).toLocaleDateString()}</div>
                             <div class="status unpaid">Pending</div>
                         </dd>
                     </dl>
@@ -147,7 +147,7 @@ function displayPaidBills(bills) {
                             <div class="amount">₱${amount.toFixed(2)}</div>
                         </dt>
                         <dd>
-                            <div class="date">Paid: ${new Date(bill.ConsultationDate).toLocaleDateString()}</div>
+                            <div class="date">Paid: ${new Date(bill.created_at).toLocaleDateString()}</div>
                             <div class="status paid">Completed</div>
                         </dd>
                     </dl>

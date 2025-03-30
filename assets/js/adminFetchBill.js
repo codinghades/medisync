@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
             unpaidTable.innerHTML = `
                 <tr>
                     <th>Name</th>
-                    <th>Bill (₱)</th>
+                    <th>Bill</th>
                     <th>Payment Status</th>
                     <th>Date</th>
                 </tr>
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
             paidTable.innerHTML = `
                 <tr>
                     <th>Name</th>
-                    <th>Bill (₱)</th>
+                    <th>Bill</th>
                     <th>Payment Status</th>
                     <th>Payment Method</th>
                     <th>Date</th>
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     unpaidTable.innerHTML += `
                         <tr>
                             <td>${bill.name}</td>
-                            <td>${bill.total_amount}</td>
+                            <td>₱${bill.total_amount}</td>
                             <td><span style='color:red; font-weight:700;'>Unpaid</span></td>
                             <td>${formattedDate}</td>
                         </tr>
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     paidTable.innerHTML += `
                         <tr>
                             <td>${bill.name}</td>
-                            <td>${bill.total_amount}</td>
+                            <td>₱${bill.total_amount}</td>
                             <td><span style='color:Green; font-weight:700;'>Paid</span></td>
                             <td>${bill.payment_method}</td>
                             <td>${formattedDate}</td>

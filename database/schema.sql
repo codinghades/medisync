@@ -59,12 +59,13 @@ CREATE TABLE IF NOT EXISTS Billing (
     BillingID INT PRIMARY KEY AUTO_INCREMENT,
     patient_id VARCHAR(20),
     ConsultationTypeID INT,
-    ConsultationDate DATE,
     Amount DECIMAL(10, 2),
     PaymentStatus ENUM('Paid', 'Unpaid'),
-    PaymentMethod enum('Cash','Card','None') DEFAULT 'None',
+    PaymentMethod ENUM('Cash', 'Card', 'None') DEFAULT 'None',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ConsultationTypeID) REFERENCES ConsultationPrices(ID)
 );
+
 
 CREATE TABLE IF NOT EXISTS notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -179,7 +180,7 @@ INSERT IGNORE INTO appointments (patient_id, appointment_type, appointment_date,
 ('P-2025-0004', 'obgyn', '2025-04-22', '12:45:00', '09456789123', 'Follow-up consultation', 'Active', '2025-03-18 10:50:00');
 
 
-INSERT IGNORE INTO Billing (patient_id, ConsultationTypeID, ConsultationDate, Amount, PaymentStatus, PaymentMethod) VALUES
+INSERT IGNORE INTO Billing (patient_id, ConsultationTypeID, created_at, Amount, PaymentStatus, PaymentMethod) VALUES
 -- Juan Dela Cruz (P-2025-0000)
 ('P-2025-0000', 1, '2025-03-05', 1000.00, 'Paid', 'Cash'),
 ('P-2025-0000', 2, '2025-03-15', 750.00, 'Paid', 'Card'),

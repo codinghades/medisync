@@ -16,7 +16,7 @@ $paymentMethod = isset($data["paymentMethod"]) ? $data["paymentMethod"] : "Unkno
 
 $currentDate = date("Y-m-d"); // Get the current date
 
-$updateQuery = "UPDATE Billing SET PaymentStatus = 'Paid', ConsultationDate = ?, PaymentMethod = ? WHERE patient_id = ? AND PaymentStatus = 'Unpaid'";
+$updateQuery = "UPDATE Billing SET PaymentStatus = 'Paid', created_at = ?, PaymentMethod = ? WHERE patient_id = ? AND PaymentStatus = 'Unpaid'";
 $stmt = $conn->prepare($updateQuery);
 $stmt->bind_param("sss", $currentDate, $paymentMethod, $user_id);
 

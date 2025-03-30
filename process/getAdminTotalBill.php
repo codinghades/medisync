@@ -11,11 +11,11 @@ $response = ['unpaid' => [], 'paid' => []];
 
 // Fetch all unpaid bills
 $queryUnpaid = "
-    SELECT B.BillingID, U.first_name, U.last_name, B.Amount, B.ConsultationDate 
+    SELECT B.BillingID, U.first_name, U.last_name, B.Amount, B.created_at 
     FROM Billing B 
     JOIN users U ON B.patient_id = U.user_id 
     WHERE B.PaymentStatus = 'Unpaid'
-    ORDER BY B.ConsultationDate DESC";
+    ORDER BY B.created_at DESC";
 
 $stmt = $conn->prepare($queryUnpaid);
 $stmt->execute();
@@ -26,7 +26,7 @@ while ($row = $result->fetch_assoc()) {
         'billing_id' => $row['BillingID'],
         'name' => $row['first_name'] . ' ' . $row['last_name'],
         'total_amount' => number_format($row['Amount'], 2),
-        'date' => $row['ConsultationDate']
+        'date' => $row['created_at']
     ];
 }
 
@@ -34,11 +34,11 @@ $stmt->close();
 
 // Fetch all paid bills
 $queryPaid = "
-    SELECT B.BillingID, U.first_name, U.last_name, B.Amount, B.ConsultationDate, B.PaymentMethod 
+    SELECT B.BillingID, U.first_name, U.last_name, B.Amount, B.created_at, B.PaymentMethod 
     FROM Billing B 
     JOIN users U ON B.patient_id = U.user_id 
     WHERE B.PaymentStatus = 'Paid'
-    ORDER BY B.ConsultationDate DESC";
+    ORDER BY B.created_at DESC";
 
 $stmt = $conn->prepare($queryPaid);
 $stmt->execute();
@@ -49,7 +49,7 @@ while ($row = $result->fetch_assoc()) {
         'billing_id' => $row['BillingID'],
         'name' => $row['first_name'] . ' ' . $row['last_name'],
         'total_amount' => number_format($row['Amount'], 2),
-        'date' => $row['ConsultationDate'],
+        'date' => $row['created_at'],
         'payment_method' => $row['PaymentMethod']
     ];
 }
