@@ -5,83 +5,80 @@ document.addEventListener("DOMContentLoaded", function () {
     const sortSelect = document.getElementById("filter");
     const table = document.querySelector(".list table");
 
+    // Initial fetch (load all patients on page load)
+    fetchPatients();
+
     // Reload page on reset button click
     reset.addEventListener("click", function () {
         location.reload();
     });
 
-    // Fetch and update appointment data based on search
+    // Fetch and update patient data based on search
     searchForm.addEventListener("submit", function (event) {
         event.preventDefault(); // Prevents page refresh
 
         let query = searchBar.value.trim();
-        if (query.length === 0) return;
-
-        fetch("../process/searchAppointment.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({ search: query })
-        })
-        .then(response => response.json())
-        .then(data => updateTable(data))
-        .catch(error => console.error("Error fetching appointment data:", error));
+        fetchPatients(query, sortSelect.value);
     });
 
-    // Fetch and update appointment data based on sorting
+    // Fetch and update patient data based on sorting
     sortSelect.addEventListener("change", function () {
-        let sortOption = sortSelect.value;
-        fetch("../process/filterPatientAppointment.php", {
+        fetchPatients(searchBar.value.trim(), sortSelect.value);
+    });
+
+    // Function to fetch patient data with optional search & sorting
+    function fetchPatients(search = "", filter = "") {
+        fetch("../process/searchPatient.php", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({ filter: sortOption })
+            body: new URLSearchParams({ search: search, filter: filter })
         })
         .then(response => response.json())
         .then(data => updateTable(data))
-        .catch(error => console.error("Error fetching sorted data:", error));
-    });
+        .catch(error => console.error("Error fetching patient data:", error));
+    }
 
-    // Function to update the table with new data
+    // Function to update the table with patient data
     function updateTable(data) {
         table.innerHTML = `
             <tr>
                 <th>Name</th>
-                <th>Type</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Created At</th>
+                <th>Register Date</th>
+                <th>Prescription Status</th>
+                <th>Unpaid Bill</th>
+                <th>Appointment</th>
             </tr>
         `;
 
-        if (data.error || data.length === 0) {
-            table.innerHTML += `
-                <tr><td colspan="6">No results found.</td></tr>
-            `;
+        if (!Array.isArray(data) || data.length === 0) {
+            table.innerHTML += `<tr><td colspan="5">No results found.</td></tr>`;
             return;
         }
 
-        data.forEach(appointment => {
-            const formattedDate = new Date(appointment.appointment_date).toLocaleDateString('en-US', {
-                year: 'numeric', month: 'long', day: 'numeric'
-            });
+        data.forEach(patient => {
+            const formattedDate = patient.registration_date
+                ? new Date(patient.registration_date).toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                })
+                : "Unknown";
 
-            const createdAt = new Date(appointment.created_at).toLocaleDateString('en-US', {
-                year: 'numeric', month: 'long', day: 'numeric'
-            });
+            const unpaidBill = parseFloat(patient.unpaid_bill) > 0
+                ? `<span style='color:red; font-weight:700;'>₱${patient.unpaid_bill}</span>`
+                : "<span style='color:gray; font-weight:700;'>None</span>";
 
-            let statusClass = 
-                appointment.status === "Active" ? "green" :
-                appointment.status === "Expired" ? "red" :
-                "black"; // Completed
+            const appointment = patient.closest_appointment !== "None"
+                ? `<span style='font-weight:700;'>${patient.closest_appointment}</span>`
+                : "<span style='color:gray; font-weight:700;'>None</span>";
 
             table.innerHTML += `
                 <tr>    
-                    <td>${appointment.patient_name}</td>
-                    <td>${appointment.appointment_type}</td>
+                    <td>${patient.name}</td>
                     <td>${formattedDate}</td>
-                    <td>${appointment.appointment_time}</td>
-                    <td class="status"><span class="statusText" style="color:${statusClass}; font-weight:700;">${appointment.status}</span></td>
-                    <td>${createdAt}</td>
+                    <td>${patient.active_prescription === "Yes" 
+                        ? "<span style='color:green; font-weight:700;'>Active</span>" 
+                        : "<span style='color:gray; font-weight:700;'>None</span>"}</td>
+                    <td>${unpaidBill}</td>
+                    <td>${appointment}</td>
                 </tr>
             `;
         });

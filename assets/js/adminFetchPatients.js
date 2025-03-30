@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </tr>
             `;
 
-            if (data.length === 0) {
+            if (!data || data.length === 0) {
                 table.innerHTML += `
                     <tr>
                         <td colspan="5">No registered patients.</td>
@@ -25,20 +25,31 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             data.forEach(patient => {
+                // Format registration date
                 const formattedDate = new Date(patient.registration_date).toLocaleDateString('en-US', {
                     year: 'numeric', month: 'long', day: 'numeric'
                 });
+
+                // Ensure unpaid bill is displayed correctly
+                const unpaidBill = parseFloat(patient.unpaid_bill) >= 1
+                    ? `<span style='color:red; font-weight:700;'>₱${patient.unpaid_bill}</span>`
+                    : "<span style='color:gray; font-weight:700;'>None</span>";
+
+                // Appointment is already formatted in PHP (Y-m-d H:i), convert it
+                const appointment = patient.closest_appointment !== "None"
+                    ? `<span style='font-weight:700;'>${new Date(patient.closest_appointment).toLocaleString('en-US', {
+                        month: 'long', day: 'numeric', year: 'numeric',
+                        hour: '2-digit', minute: '2-digit', hour12: true
+                    })}</span>`
+                    : "<span style='color:gray; font-weight:700;'>None</span>";
 
                 const row = `
                     <tr>    
                         <td>${patient.name}</td>
                         <td>${formattedDate}</td>
                         <td>${patient.active_prescription === "Yes" ? "<span style='color:green; font-weight:700;'>Active</span>" : "<span style='color:gray; font-weight:700;'>None</span>"}</td>
-                        <td>${patient.unpaid_bill > 0 ? `<span style='color:red; font-weight:700;'>₱${patient.unpaid_bill}</span>` : "<span style='color:gray; font-weight:700;'>None</span>"}</td>
-                        <td>${patient.closest_appointment !== "None" 
-                            ? `<span style='font-weight:700;'>${new Date(patient.closest_appointment).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true })}</span>` 
-                            : "<span style='color:gray; font-weight:700;'>None</span>"}
-                        </td>
+                        <td>${unpaidBill}</td>
+                        <td>${appointment}</td>
                     </tr>
                 `;
                 table.innerHTML += row;
