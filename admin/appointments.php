@@ -100,7 +100,7 @@
                     </table>
                 </div>
             </div>
-            <button class="printButton" id="printAppointmentsBtn"><i class='bx bxs-printer'></i><p>Print Unpaid Bills</p></button>
+            <button class="printButton" id="printAppointmentsBtn"><i class='bx bxs-printer'></i><p>Print Appointment List</p></button>
         </div>
     </div>
 </body>

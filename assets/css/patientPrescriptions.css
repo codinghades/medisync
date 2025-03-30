@@ -129,7 +129,10 @@ dd {
     width: 100%;
     border-collapse: collapse;
 }
-
+.medication th{
+    background-color: var(--primary-color);
+    color: white;
+}
 .medication th, .medication td {
     border: 1px solid #000;
     padding: 8px;
@@ -168,4 +171,85 @@ hr{
 }
 .downloadPrescriptionButton button i{
     padding: 0 10px;
+}
+
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    @page {
+        margin: 0.5in;
+        background: white;
+    }
+
+    html, body {
+        background: white !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    .printContainer, .printContainer * {
+        visibility: visible;
+    }
+
+    .printContainer {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%);
+        width: 100%;
+        background: white;
+        font-size: 1rem;
+        height: calc(100vh - 3rem);
+        box-sizing: border-box;
+        box-shadow: none;
+    }
+
+    .printContainer table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: auto;
+        table-layout: fixed;
+    }
+
+    .printContainer th {
+        background-color: var(--primary-color);
+        color: white;
+        text-align: center;
+        padding: 12px;
+        min-width: 100px;
+    }
+
+    .printContainer td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: left;
+        background: white !important;
+        word-wrap: break-word;
+        min-width: 100px;
+        min-height: 2rem;
+    }
+
+    .printContainer .header {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    .printContainer .header .doctorName{
+        font-weight: bold;
+    }
+
+    .header .date {
+        background: var(--primary-color) !important;
+        color: white !important;
+    }
+
+    .footer {
+        background: var(--primary-color) !important;
+    }
 }

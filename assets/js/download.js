@@ -3,7 +3,7 @@ document.addEventListener('click', function (event) {
     let excludeClass = null;
 
     if (event.target.id === 'downloadPrescriptionBtn') {
-        targetClass = '.activePrescription';
+        targetClass = '.prescriptionInformation';
     } else if (event.target.id === 'printUnpaidBillsBtn') {
         targetClass = '.unpaidBills';
     } else if (event.target.id === 'printPaidBillsBtn') {
@@ -13,15 +13,16 @@ document.addEventListener('click', function (event) {
         excludeClass = '.searchBar'; // Exclude search bar
     } else if (event.target.id === 'printAppointmentsBtn') {
         targetClass = '.allAppointments';
-        excludeClass = '.searchBar'; // Exclude search bar
+        excludeClass = '.searchBar';
     }
 
     if (targetClass) {
         const element = document.querySelector(targetClass);
         if (!element) return;
 
-        // Clone the element to avoid modifying the original
+        // Clone the element and apply a print-specific class
         const clone = element.cloneNode(true);
+        clone.classList.add('printContainer');
 
         // Remove the excluded element (search bar)
         if (excludeClass) {
@@ -32,23 +33,10 @@ document.addEventListener('click', function (event) {
         // Create a temporary print-only container
         const printContainer = document.createElement('div');
         printContainer.appendChild(clone);
-
-        // Apply styles to ensure a clean print
-        printContainer.style.position = 'absolute';
-        printContainer.style.top = '0';
-        printContainer.style.left = '0';
-        printContainer.style.width = '100%';
-        printContainer.style.background = 'white';
-
-        // Append to body and hide the rest of the content
         document.body.appendChild(printContainer);
-        document.body.style.visibility = 'hidden';
-        printContainer.style.visibility = 'visible';
 
         window.print();
 
-        // Restore the original visibility and remove the print container
-        document.body.style.visibility = 'visible';
         printContainer.remove();
     }
 });

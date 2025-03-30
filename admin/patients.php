@@ -64,7 +64,7 @@
                     </table>
                 </div>
             </div>
-            <button class="printButton" id="printPatientsBtn"><i class='bx bxs-printer'></i><p>Print Unpaid Bills</p></button>
+            <button class="printButton" id="printPatientsBtn"><i class='bx bxs-printer'></i><p>Print Patient List</p></button>
         </div>
     </div>
 </body>
