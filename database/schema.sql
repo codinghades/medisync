@@ -82,18 +82,18 @@ INSERT IGNORE INTO ConsultationPrices (ID, ConsultationType, Price) VALUES
 (4, 'Obstetrics and Gynecology (OBGYN)', 1200.00),
 (5, 'Ear, Nose, and Throat (ENT)', 900.00);
 
-INSERT IGNORE INTO users (user_id, first_name, last_name, gender, contact_number, email, password, role) VALUES
-('A-2025-0001', 'Maria', 'San Pedro', 'female', '09988776655', 'admin@gmail.com', '$2y$10$2mwmIZ/HgMcV1c5Tu6Y4cO0RGohjuafHeR2oN0hMlj1Dbnu375TBS', 'admin'),
-('P-2025-0000', 'Juan', 'Dela Cruz', 'male', '09121231234', 'juandelacruz@gmail.com', '$2y$10$fVoOoIKuE4lQuklzsM2nLeuiboX68uXC.5xSjP04KVzcYYBZlIFh.', 'patient'),
-('P-2025-0001', 'Carlos', 'Santos', 'male', '09123456780', 'carlos.santos@gmail.com', '$2b$12$LSp89dEcSWH8k/0nGn7o0uDNtW4QVwmBaUaMDkqBxclc5Hpczrx62', 'patient'),
-('P-2025-0002', 'Ana', 'Reyes', 'female', '09234567891', 'ana.reyes@gmail.com', '$2b$12$0fjIvREWdgSumXtA1FIDfeaYBCWBMBXYZm2La2pAZSwlmxFgCKJzq', 'patient'),
-('P-2025-0003', 'Miguel', 'Torres', 'male', '09345678912', 'miguel.torres@gmail.com', '$2b$12$Kch/lUCodSA23jcEAeQ3Q.62uO8vjNz0bGKZqorwsl2i0IUXP6xve', 'patient'),
-('P-2025-0004', 'Sofia', 'Gomez', 'female', '09456789123', 'sofia.gomez@gmail.com', '$2b$12$Ogx1RvdByVQejhsWVYhxweGiWeCrmVRO6IcoIGfiyw1ZWYgi5dZOe', 'patient'),
-('P-2025-0005', 'Daniel', 'Fernandez', 'male', '09567891234', 'daniel.fernandez@gmail.com', '$2b$12$q5TknDlGazZH6w7D3ZA5huzYE5kfjtirpI4AnWW0qD1KO8qHHmA5O', 'patient'),
-('P-2025-0006', 'Isabel', 'Cruz', 'female', '09678912345', 'isabel.cruz@gmail.com', '$2b$12$3tCMp80VTX70t8MVTRmQaO6SRdSPmwr2LLl8H0CVmTdlexh/G41tW', 'patient'),
-('P-2025-0007', 'Jose', 'Lopez', 'male', '09789123456', 'jose.lopez@gmail.com', '$2b$12$.x8yq6vRVfo17ihWB3uLS.Fh5xs7EdUQYJL4g0RClqX5Wb5OFghTq', 'patient'),
-('P-2025-0008', 'Marian', 'Ramos', 'female', '09891234567', 'marian.ramos@gmail.com', '$2b$12$r0Yolx/8AvW2yOXO3meduuGxGfHyUJ6wQEpU3m94HVmlzvgl0jhUO', 'patient'),
-('P-2025-0009', 'Rafael', 'Navarro', 'male', '09912345678', 'rafael.navarro@gmail.com', '$2b$12$cEenkEKMPrnuDDwE5EqCAulgvggnL2E52rLrsx./YML6v0MKXdoGW', 'patient');
+INSERT IGNORE INTO users (user_id, first_name, last_name, gender, contact_number, email, password, role, created_at) VALUES
+('A-2025-0001', 'Maria', 'San Pedro', 'female', '09988776655', 'admin@gmail.com', '$2y$10$2mwmIZ/HgMcV1c5Tu6Y4cO0RGohjuafHeR2oN0hMlj1Dbnu375TBS', 'admin', '2025-03-01 10:15:00'),
+('P-2025-0000', 'Juan', 'Dela Cruz', 'male', '09121231234', 'juandelacruz@gmail.com', '$2y$10$fVoOoIKuE4lQuklzsM2nLeuiboX68uXC.5xSjP04KVzcYYBZlIFh.', 'patient', '2025-03-02 08:30:00'),
+('P-2025-0001', 'Carlos', 'Santos', 'male', '09123456780', 'carlos.santos@gmail.com', '$2b$12$LSp89dEcSWH8k/0nGn7o0uDNtW4QVwmBaUaMDkqBxclc5Hpczrx62', 'patient', '2025-03-03 09:45:00'),
+('P-2025-0002', 'Ana', 'Reyes', 'female', '09234567891', 'ana.reyes@gmail.com', '$2b$12$0fjIvREWdgSumXtA1FIDfeaYBCWBMBXYZm2La2pAZSwlmxFgCKJzq', 'patient', '2025-03-04 14:20:00'),
+('P-2025-0003', 'Miguel', 'Torres', 'male', '09345678912', 'miguel.torres@gmail.com', '$2b$12$Kch/lUCodSA23jcEAeQ3Q.62uO8vjNz0bGKZqorwsl2i0IUXP6xve', 'patient', '2025-03-05 11:10:00'),
+('P-2025-0004', 'Sofia', 'Gomez', 'female', '09456789123', 'sofia.gomez@gmail.com', '$2b$12$Ogx1RvdByVQejhsWVYhxweGiWeCrmVRO6IcoIGfiyw1ZWYgi5dZOe', 'patient', '2025-03-06 16:50:00'),
+('P-2025-0005', 'Daniel', 'Fernandez', 'male', '09567891234', 'daniel.fernandez@gmail.com', '$2b$12$q5TknDlGazZH6w7D3ZA5huzYE5kfjtirpI4AnWW0qD1KO8qHHmA5O', 'patient', '2025-03-07 13:40:00'),
+('P-2025-0006', 'Isabel', 'Cruz', 'female', '09678912345', 'isabel.cruz@gmail.com', '$2b$12$3tCMp80VTX70t8MVTRmQaO6SRdSPmwr2LLl8H0CVmTdlexh/G41tW', 'patient', '2025-03-08 07:55:00'),
+('P-2025-0007', 'Jose', 'Lopez', 'male', '09789123456', 'jose.lopez@gmail.com', '$2b$12$.x8yq6vRVfo17ihWB3uLS.Fh5xs7EdUQYJL4g0RClqX5Wb5OFghTq', 'patient', '2025-03-09 12:25:00'),
+('P-2025-0008', 'Marian', 'Ramos', 'female', '09891234567', 'marian.ramos@gmail.com', '$2b$12$r0Yolx/8AvW2yOXO3meduuGxGfHyUJ6wQEpU3m94HVmlzvgl0jhUO', 'patient', '2025-03-10 15:05:00'),
+('P-2025-0009', 'Rafael', 'Navarro', 'male', '09912345678', 'rafael.navarro@gmail.com', '$2b$12$cEenkEKMPrnuDDwE5EqCAulgvggnL2E52rLrsx./YML6v0MKXdoGW', 'patient', '2025-03-11 09:00:00');
 
 INSERT IGNORE INTO doctors (id, doctor_id, name, mobile) VALUES
 (1, 'D-2025-0000', 'Dr. John Doe', '09123456789');
