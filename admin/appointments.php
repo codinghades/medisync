@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../assets/css/adminAppointment.css">
     <script src="../assets/js/adminAppointments.js"></script>
     <script src="../assets/js/adminActiveAppointments.js"></script>
+    <script src="../assets/js/searchResultAppointment.js"></script>
 </head>
 <body>
     <div class="mainContainer">
@@ -54,6 +55,28 @@
             <div class="allAppointments">
                 <div class="header">
                     <p>All Appointments</p>
+                </div>
+                <div class="searchBar">
+                    <form class="search" id="searchForm" method="post">
+                        <input type="text" name="search" id="searchBar" placeholder="Search Appointment">
+                        <input type="submit" name="searchButton" id="searchButton" value="Search">
+                    </form>
+                    <div class="sort">
+                        <form id="filterForm" method="post">
+                            <label for="filter">Sort By: </label>
+                            <select name="filter" id="filter">
+                                <option value="" hidden selected>Default</option>
+                                <option value="1">By Name Ascending (A-Z)</option>
+                                <option value="2">By Name Descending (Z-A)</option>
+                                <option value="3">Newest Appointment</option>
+                                <option value="4">Oldest Appointment</option>
+                                <option value="5">Active Appointments</option>
+                                <option value="6">Expired Appointments</option>
+                                <option value="7">Completed Appointments</option>
+                            </select>
+                        </form>
+                    </div>
+                    <button type="submit" id="reset"><i class='bx bx-revision'></i></button>
                 </div>
                 <div class="list">
                     <table>

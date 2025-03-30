@@ -7,9 +7,9 @@ $currentDateTime = date('Y-m-d H:i:s');
 
 // Update expired appointments
 $sql = "UPDATE appointments 
-        SET status = 'expired' 
+        SET status = 'Expired' 
         WHERE CONCAT(appointment_date, ' ', appointment_time) < ? 
-        AND status NOT IN ('completed', 'expired')";
+        AND status NOT IN ('Completed', 'Expired')";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $currentDateTime);

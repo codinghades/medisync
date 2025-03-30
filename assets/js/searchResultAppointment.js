@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchBar = document.getElementById("searchBar");
     const reset = document.getElementById("reset");
     const sortSelect = document.getElementById("filter");
-    const table = document.querySelector(".list table");
+    const table = document.querySelector(".allAppointments .list table");
 
     // Reload page on reset button click
     reset.addEventListener("click", function () {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let query = searchBar.value.trim();
         if (query.length === 0) return;
 
-        fetch("../process/searchAppointment.php", {
+        fetch("../process/searchPatientAppointment.php", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams({ search: query })
@@ -64,26 +64,29 @@ document.addEventListener("DOMContentLoaded", function () {
             const formattedDate = new Date(appointment.appointment_date).toLocaleDateString('en-US', {
                 year: 'numeric', month: 'long', day: 'numeric'
             });
-
+        
             const createdAt = new Date(appointment.created_at).toLocaleDateString('en-US', {
                 year: 'numeric', month: 'long', day: 'numeric'
             });
-
-            let statusClass = 
-                appointment.status === "Active" ? "green" :
-                appointment.status === "Expired" ? "red" :
-                "black"; // Completed
-
+        
+            let statusClass = appointment.status.trim().toLowerCase() === "active" ? "status-active" :
+                              appointment.status.trim().toLowerCase() === "expired" ? "status-expired" :
+                              "status-completed"; // Default for "Completed"
+        
             table.innerHTML += `
                 <tr>    
                     <td>${appointment.patient_name}</td>
                     <td>${appointment.appointment_type}</td>
                     <td>${formattedDate}</td>
                     <td>${appointment.appointment_time}</td>
-                    <td class="status"><span class="statusText" style="color:${statusClass}; font-weight:700;">${appointment.status}</span></td>
+                    <td class="status">
+                        <span class="statusText">
+                            <span class="${statusClass}">${appointment.status}</span>
+                        </span>
+                    </td>
                     <td>${createdAt}</td>
                 </tr>
             `;
-        });
+        });        
     }
 });
