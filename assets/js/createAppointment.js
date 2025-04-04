@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const appointmentForm = document.getElementById("appointmentForm");
+    const appointmentList = document.querySelector(".appointmentLists");
 
     if (appointmentForm) {
         appointmentForm.addEventListener("submit", function (event) {
@@ -11,12 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: "POST",
                 body: formData
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.text();
-            })
+            .then(response => response.text())
             .then(message => {
                 alert(message);
                 this.reset();
@@ -29,19 +25,49 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    function renderAppointments(data) {
+        let html = `<div class="header"><p>Appointment History</p></div>`;
+
+        if (data.appointments.length === 0) {
+            html += `<p class='nothing'>No appointments found.</p>`;
+        } else {
+            data.appointments.forEach(appt => {
+                let color = {
+                    active: "green",
+                    expired: "red",
+                    completed: "black"
+                }[appt.status.toLowerCase()] || "gray";
+
+                html += `<div class='appointment'>
+                            <dl>
+                                <dt>
+                                    <span class='name'>Appointment for ${appt.type_full} <span style='color: ${color};'>(${appt.status})</span></span>
+                                    <span class='date'>${appt.created_date}</span>
+                                </dt>
+                                <dd>
+                                    <span class='info'>You have booked an appointment for ${appt.type_full} on ${appt.formatted_date} at ${appt.formatted_time}. Please arrive at least 30 minutes early to avoid any issues. Thank you.</span>
+                                </dd>
+                            </dl>
+                         </div>`;
+            });
+        }
+
+        appointmentList.innerHTML = html;
+    }
+
     function loadAppointments() {
         fetch("../process/getAppointments.php")
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.text();
-            })
+            .then(response => response.json())
             .then(data => {
-                document.querySelector(".appointmentLists").innerHTML = '<div class="header"><p>Appointment History</p></div>' + data;
+                if (data.error) {
+                    appointmentList.innerHTML = `<p class='nothing'>${data.error}</p>`;
+                } else {
+                    renderAppointments(data);
+                }
             })
             .catch(error => {
                 console.error("Failed to fetch appointment history:", error);
+                appointmentList.innerHTML = "<p class='nothing'>Failed to load appointments.</p>";
             });
     }
 

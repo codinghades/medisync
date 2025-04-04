@@ -3,13 +3,14 @@ session_start();
 include '../config/database.php';
 date_default_timezone_set("Asia/Manila");
 
+header('Content-Type: application/json');
+
 if (!isset($_SESSION["user_id"])) {
-    echo "User not logged in";
+    echo json_encode(["error" => "User not logged in"]);
     exit;
 }
 
 $patient_id = $_SESSION["user_id"];
-
 $appointmentTypes = [
     "laboratory" => "Laboratory & Diagnostics",
     "opd" => "General Medicine (OPD)",
@@ -23,39 +24,19 @@ $stmt->bind_param("s", $patient_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $appointmentDateTime = new DateTime("{$row['appointment_date']} {$row['appointment_time']}", new DateTimeZone("Asia/Manila"));
-        $formattedDate = $appointmentDateTime->format("F j, Y"); // Month Day, Year
-        $formattedTime = $appointmentDateTime->format("g:i A");  // 12-hour format with AM/PM
+$appointments = [];
 
-        $createdDate = (new DateTime($row['created_at']))->format("F j, Y");
+while ($row = $result->fetch_assoc()) {
+    $appointmentDateTime = new DateTime("{$row['appointment_date']} {$row['appointment_time']}", new DateTimeZone("Asia/Manila"));
+    $row['formatted_date'] = $appointmentDateTime->format("F j, Y");
+    $row['formatted_time'] = $appointmentDateTime->format("g:i A");
+    $row['created_date'] = (new DateTime($row['created_at']))->format("F j, Y");
+    $row['type_full'] = $appointmentTypes[$row['appointment_type']] ?? ucfirst($row['appointment_type']);
 
-        $typeFullName = $appointmentTypes[$row['appointment_type']] ?? ucfirst($row['appointment_type']);
-
-        // Assign color based on status
-        $statusColor = match (strtolower($row['status'])) {
-            "active" => "green",
-            "expired" => "red",
-            "completed" => "black",
-        };
-
-        echo "<div class='appointment'>
-                <dl>
-                    <dt>
-                        <span class='name'>Appointment for {$typeFullName} <span style='color: {$statusColor};'>({$row['status']})</span></span>
-                        <span class='date'>{$createdDate}</span>
-                    </dt>
-                    <dd>
-                        <span class='info'>You have booked an appointment for {$typeFullName} on {$formattedDate} at {$formattedTime}. Please arrive at least 30 minutes early to avoid any issues. Thank you.</span>
-                    </dd>
-                </dl>
-            </div>";
-    }
-} else {
-    echo "<p class='nothing'>No appointments found.</p>";
+    $appointments[] = $row;
 }
 
 $stmt->close();
 $conn->close();
-?>
+
+echo json_encode(["appointments" => $appointments]);
