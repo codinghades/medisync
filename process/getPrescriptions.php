@@ -17,57 +17,76 @@ $response = [
 ];
 
 // --- Active Prescription ---
-$queryActive = "SELECT pd.prescription_id, pd.medicine, pd.dosage, pd.duration, pd.instruction, pd.advice, 
-                       p.date_prescribed, u.first_name AS patient_first_name, u.last_name AS patient_last_name, 
-                       d.name AS doctor_name, d.mobile AS doctor_mobile, d.doctor_id
-                FROM prescription_details pd
-                JOIN prescriptions p ON pd.prescription_id = p.id
-                JOIN users u ON p.patient_id = u.user_id
-                JOIN doctors d ON p.doctor_id = d.id
-                WHERE p.patient_id = ? AND p.date_prescribed >= NOW() - INTERVAL 7 DAY
-                ORDER BY p.date_prescribed DESC";
+$queryActive = "
+    SELECT pd.prescription_id, pd.medicine, pd.dosage, pd.duration, pd.instruction, pd.advice, 
+           p.date_prescribed, u.first_name AS patient_first_name, u.last_name AS patient_last_name, 
+           d.name AS doctor_name, d.mobile AS doctor_mobile, d.doctor_id
+    FROM prescription_details pd
+    JOIN prescriptions p ON pd.prescription_id = p.id
+    JOIN users u ON p.patient_id = u.user_id
+    JOIN doctors d ON p.doctor_id = d.id
+    WHERE p.patient_id = ? AND p.date_prescribed >= NOW() - INTERVAL 7 DAY
+    ORDER BY p.date_prescribed DESC
+";
 
-$stmt = $conn->prepare($queryActive);
-$stmt->bind_param("s", $patient_id);
-$stmt->execute();
-$result = $stmt->get_result();
+if ($stmt = $conn->prepare($queryActive)) {
+    $stmt->bind_param("s", $patient_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-while ($row = $result->fetch_assoc()) {
-    $response["active"][] = $row;
+    while ($row = $result->fetch_assoc()) {
+        $datePrescribed = new DateTime($row["date_prescribed"]);
+        $expiryDate = (clone $datePrescribed)->modify("+7 days");
+        $now = new DateTime();
+
+        $daysLeft = $now > $expiryDate ? 0 : $now->diff($expiryDate)->days;
+
+        $row["expiry_date"] = $expiryDate->format("Y-m-d");
+        $row["days_left"] = $daysLeft;
+
+        $response["active"][] = $row;
+    }
+
+    $stmt->close();
 }
-$stmt->close();
 
 // --- Prescription History ---
-$queryHistory = "SELECT p.id AS prescription_id, p.date_prescribed, d.name AS doctor_name
-                 FROM prescriptions p
-                 JOIN doctors d ON p.doctor_id = d.id
-                 WHERE p.patient_id = ?
-                 ORDER BY p.date_prescribed DESC";
+$queryHistory = "
+    SELECT p.id AS prescription_id, p.date_prescribed, d.name AS doctor_name
+    FROM prescriptions p
+    JOIN doctors d ON p.doctor_id = d.id
+    WHERE p.patient_id = ?
+    ORDER BY p.date_prescribed DESC
+";
 
-$stmt = $conn->prepare($queryHistory);
-$stmt->bind_param("s", $patient_id);
-$stmt->execute();
-$result = $stmt->get_result();
+if ($stmt = $conn->prepare($queryHistory)) {
+    $stmt->bind_param("s", $patient_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-while ($row = $result->fetch_assoc()) {
-    $prescriptionId = $row["prescription_id"];
+    while ($row = $result->fetch_assoc()) {
+        $prescriptionId = $row["prescription_id"];
 
-    $queryMedicines = "SELECT medicine FROM prescription_details WHERE prescription_id = ?";
-    $stmtMed = $conn->prepare($queryMedicines);
-    $stmtMed->bind_param("i", $prescriptionId);
-    $stmtMed->execute();
-    $resultMed = $stmtMed->get_result();
+        $medicines = [];
+        $queryMedicines = "SELECT medicine FROM prescription_details WHERE prescription_id = ?";
+        if ($stmtMed = $conn->prepare($queryMedicines)) {
+            $stmtMed->bind_param("i", $prescriptionId);
+            $stmtMed->execute();
+            $resultMed = $stmtMed->get_result();
 
-    $medicines = [];
-    while ($med = $resultMed->fetch_assoc()) {
-        $medicines[] = $med["medicine"];
+            while ($med = $resultMed->fetch_assoc()) {
+                $medicines[] = $med["medicine"];
+            }
+
+            $stmtMed->close();
+        }
+
+        $row["medicines"] = $medicines;
+        $response["history"][] = $row;
     }
-    $stmtMed->close();
 
-    $row["medicines"] = $medicines;
-    $response["history"][] = $row;
+    $stmt->close();
 }
-$stmt->close();
-$conn->close();
 
+$conn->close();
 echo json_encode($response);
