@@ -76,6 +76,24 @@ CREATE TABLE IF NOT EXISTS notifications (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS chat_sessions (
+    chat_session_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(11) NOT NULL,
+    admin_id VARCHAR(11) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (admin_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE IF NOT EXISTS messages (
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
+    sender VARCHAR(255) NOT NULL,
+    message_content TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    chat_session_id INT NOT NULL,
+    FOREIGN KEY (chat_session_id) REFERENCES chat_sessions(chat_session_id)
+);
+
 INSERT IGNORE INTO ConsultationPrices (ID, ConsultationType, Price) VALUES
 (1, 'Laboratory Consultation', 1000.00),
 (2, 'Outpatient Department (OPD)', 750.00),
@@ -216,3 +234,8 @@ INSERT IGNORE INTO Billing (patient_id, ConsultationTypeID, created_at, Amount, 
 ('P-2025-0004', 4, '2025-03-18 10:50:00', 1200.00, 'Unpaid', 'None');
 
 
+INSERT INTO chat_sessions (user_id, admin_id) 
+VALUES ('P-2025-0000', 'A-2025-0001');
+
+INSERT INTO messages (sender, message_content, chat_session_id) 
+VALUES ('User', 'Hello, I need assistance with my account.', 1);

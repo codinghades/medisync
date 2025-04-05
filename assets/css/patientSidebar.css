@@ -1,9 +1,12 @@
+/* General Styles */
 @import url('styles.css');
 
-body{
+body {
     background-color: aqua;
 }
-.panel{
+
+/* Sidebar Panel */
+.panel {
     display: grid;
     grid-template-rows: 80px 5fr 1fr;
     position: fixed;
@@ -12,32 +15,39 @@ body{
     background-color: var(--primary-bg);
     box-shadow: 0px 10px 10px var(--shadow-color);
 }
-.panel .header{
+
+.panel .header {
     display: flex;
 }
-.logo{
+
+.logo {
     display: flex;
     align-items: center;
 }
-.logo img{
+
+.logo img {
     width: 70px;
     padding: 0 14px;
 }
-.panel .logoText{
+
+.panel .logoText {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 10px;
 }
-.logoText .firstName{
+
+.logoText .firstName {
     font-weight: 700;
 }
-.navigation{
+
+.navigation {
     padding: 50px 0;
     display: flex;
     flex-direction: column;
 }
-button{
+
+button {
     width: 100%;
     text-align: left;
     background-color: var(--primary-bg);
@@ -47,16 +57,159 @@ button{
     display: flex;
     align-items: center;
 }
-button p{
+
+button p {
     padding-left: 10px;
 }
-button i{
+
+button i {
     font-size: 1.5rem;
     padding: 10px 14px;
 }
-button:hover{
+
+button:hover {
     background-color: var(--highlight-color);
 }
-.active {
+
+button.active {
     background-color: var(--highlight-color);
+}
+
+/* Chat Styles */
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 50px;
+    height: 50px;
+}
+
+.chat-bubble {
+    background-color: var(--primary-color); /* Set primary color for chat button */
+    color: white;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.chat-bubble:hover {
+    background-color: var(--highlight-color);
+}
+
+.chat-bubble .icon {
+    font-size: 1.5rem;
+}
+
+/* Chat Box */
+.chat-box {
+    display: none;
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 500px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    flex-direction: column;
+    padding: 15px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    width: 100%;
+}
+
+.close-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 20px;
+}
+
+.message-history {
+    max-height: 500px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    max-width: 70%;
+    word-wrap: break-word;
+    display: inline-block;
+}
+
+.message.user {
+    background-color: #e0e0e0;
+    align-self: flex-end;
+    color: black;
+}
+
+.message.admin {
+    background-color: #d0f0c0;
+    align-self: flex-start;
+    color: black;
+}
+
+/* Ensure that the message input area is larger */
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+    font-size: 1rem;
+}
+
+/* Style for the Send button */
+#sendButton {
+    background-color: var(--primary-color); /* Primary color */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Make sure the button is visible */
+}
+
+#sendButton:hover {
+    background-color: var(--highlight-color); /* Highlight color */
+}
+
+/* Chat Form */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Ensure the input and button are aligned */
+form textarea {
+    margin-bottom: 10px; /* Space between input and button */
+}
+
+#sendButton {
+    margin-top: 5px; /* Slight margin above the button */
+    align-self: flex-end; /* Position button at the right */
+}
+
+/* Hide the form submit button as we're triggering it with the button */
+button[type="submit"] {
+    display: none;
 }

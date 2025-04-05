@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar</title>
+    <title>Sidebar with Chat</title>
     <link rel="stylesheet" href="../assets/css/patientSidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="../assets/js/sidebar.js"></script>
+    <link rel="stylesheet" href="../assets/css/chatStyles.css"> <!-- Link to your chat styles -->
 </head>
 <body>
     <div class="mainContainer">
@@ -45,6 +46,29 @@
                 </button>
             </div>
         </div>
+        
+       <div class="chat-container">
+            <!-- Chat Bubble -->
+            <div class="chat-bubble" onclick="toggleChatBox()">
+                <span class="icon"><i class="bx bx-chat"></i></span>
+            </div>
+
+            <!-- Chat Box -->
+            <div class="chat-box">
+                <div class="chat-header">
+                    <span>Chat with Admin</span>
+                    <button class="close-btn" onclick="toggleChatBox()">×</button>
+                </div>
+                <div class="message-history" id="messageHistory">
+                    <!-- Chat history will be displayed here -->
+                </div>
+                <form id="chatForm" onsubmit="sendMessage(event)">
+                    <textarea id="chatInput" placeholder="Type your message..." rows="3"></textarea>
+                    <button type="submit" id="sendButton">Send</button> <!-- Send button -->
+                </form>
+            </div>
+        </div>
     </div>
+    <script src="../assets/js/chat.js"></script>
 </body>
 </html>
