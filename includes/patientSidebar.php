@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/patientSidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="../assets/js/sidebar.js"></script>
-    <link rel="stylesheet" href="../assets/css/chatStyles.css"> <!-- Link to your chat styles -->
+    <script src="../assets/js/chat.js"></script>
 </head>
 <body>
     <div class="mainContainer">

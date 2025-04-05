@@ -213,3 +213,11 @@ form textarea {
 button[type="submit"] {
     display: none;
 }
+
+.messageDate{
+    width: 100%;
+    text-align: end;
+    color: gray;
+    font-size: small;
+    margin-top: 10px;
+}

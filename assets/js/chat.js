@@ -1,65 +1,89 @@
-// Sample chat history (You can fetch this from your server)
-const chatHistory = [
-    { sender: 'admin', message: 'Hello! How can I assist you today?' },
-    { sender: 'user', message: 'I need help with my appointment.' },
-    { sender: 'admin', message: 'Sure, let me check that for you.' }
-];
-
-// Function to toggle the chat box visibility
-function toggleChatBox() {
+document.addEventListener("DOMContentLoaded", function () {
     const chatBox = document.querySelector('.chat-box');
-    chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
-    displayChatHistory(); // Display the chat history when the box opens
-}
+    const messageHistory = document.querySelector('.message-history');
+    const sendButton = document.getElementById('sendButton');
+    const messageInput = document.querySelector('textarea');
+    const chatBubble = document.querySelector('.chat-bubble');
+    const form = document.querySelector('form');
 
-// Function to display the chat history
-function displayChatHistory() {
-    const messageHistory = document.getElementById('messageHistory');
-    messageHistory.innerHTML = ''; // Clear previous messages
+    const userId = "<?= $_SESSION['user_id']; ?>"; // Dynamically add the session user ID to JS
 
-    // Loop through the chat history and display each message
-    chatHistory.forEach(chat => {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', chat.sender); // Add sender class (user/admin)
-        messageDiv.textContent = chat.message;
-        messageHistory.appendChild(messageDiv);
+    // Function to fetch messages
+    function loadMessages() {
+        fetch('../process/getMessage.php', {
+            method: 'GET',
+        })
+        .then(response => response.json())
+        .then(data => {
+            messageHistory.innerHTML = '';  // Clear previous messages
+            if (data.messages) {
+                data.messages.forEach(message => {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message');
+
+                    // Check if the sender is the user (patient) or admin using the ID prefix
+                    if (message.sender.startsWith('P-')) {
+                        messageElement.classList.add('user');  // Patient message (right side)
+                    } else {
+                        messageElement.classList.add('admin');  // Admin message (left side)
+                    }
+
+                    messageElement.innerHTML = `
+                        <strong>${message.sender_name}</strong><br> <!-- Ensure sender_name is used here -->
+                        ${message.message}<br>
+                        <div class="messageDate">Sent at: ${message.timestamp}</div>
+                    `;
+                    messageHistory.appendChild(messageElement);
+                });
+                messageHistory.scrollTop = messageHistory.scrollHeight;  // Scroll to the bottom
+            } else {
+                const noMessages = document.createElement('div');
+                noMessages.classList.add('message');
+                noMessages.innerText = 'No messages found.';
+                messageHistory.appendChild(noMessages);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching messages:', error);
+        });
+    }
+
+    // Load messages when the chat box is opened
+    chatBubble.addEventListener('click', () => {
+        chatBox.style.display = 'flex';  // Show chat box
+        loadMessages();  // Fetch and display messages
     });
 
-    // Scroll to the bottom of the chat
-    messageHistory.scrollTop = messageHistory.scrollHeight;
-}
+    // Send new message
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-// Function to send a new message
-function sendMessage(event) {
-    event.preventDefault();  // Prevent the form from reloading the page
+        const message = messageInput.value.trim();
+        if (message) {
+            fetch('../process/sendMessage.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: message
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    messageInput.value = '';  // Clear input field
+                    loadMessages();  // Reload messages
+                }
+            })
+            .catch(error => {
+                console.error('Error sending message:', error);
+            });
+        }
+    });
 
-    const messageInput = document.getElementById('chatInput');
-    const messageHistory = document.getElementById('messageHistory');
-    
-    const messageText = messageInput.value.trim();  // Get the trimmed message text
-
-    if (messageText === '') return;  // Don't send empty messages
-
-    // Create a new message element
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message', 'user');  // Add 'user' class for styling
-    messageElement.textContent = messageText;
-
-    // Append the new message to the chat history
-    messageHistory.appendChild(messageElement);
-
-    // Scroll to the bottom of the chat history
-    messageHistory.scrollTop = messageHistory.scrollHeight;
-
-    // Clear the input field
-    messageInput.value = '';
-}
-
-// This will trigger the form submission when Enter is pressed
-document.getElementById('chatInput').addEventListener('keydown', function (event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();  // Prevent new line on Enter key
-        sendMessage(event);      // Call send message function
-    }
+    // Close chat box
+    document.querySelector('.close-btn').addEventListener('click', () => {
+        chatBox.style.display = 'none';
+    });
 });
-
