@@ -55,13 +55,13 @@ $placeholders = implode(',', array_fill(0, count($sessionIds), '?'));
 // Construct the full SQL query with dynamic placeholders
 $queryMessages = "
     SELECT M.message_id, M.message_content, 
-           DATE_FORMAT(M.timestamp, '%M %d, %Y at %H:%i') AS formatted_timestamp, 
+           DATE_FORMAT(M.timestamp, '%M %d, %Y at %h:%i %p') AS formatted_timestamp, 
            M.sender, M.chat_session_id, 
            U.first_name, U.last_name
     FROM messages M
     JOIN users U ON M.sender = U.user_id
     WHERE M.chat_session_id IN ($placeholders)
-    ORDER BY M.timestamp DESC";
+    ORDER BY M.timestamp ASC";
 
 // Prepare the query
 $stmt = $conn->prepare($queryMessages);
