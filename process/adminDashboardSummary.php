@@ -22,8 +22,7 @@ $upcomingAppointmentsQuery = "
     FROM appointments a
     JOIN users u ON a.patient_id = u.user_id
     WHERE a.status = 'Active'
-    ORDER BY a.appointment_date ASC, a.appointment_time ASC
-    LIMIT 5";
+    ORDER BY a.appointment_date ASC, a.appointment_time ASC";
     
 $upcomingAppointmentsResult = $conn->query($upcomingAppointmentsQuery);
 $upcomingAppointments = $upcomingAppointmentsResult->fetch_all(MYSQLI_ASSOC);

@@ -12,9 +12,6 @@
 .titleContainer{
     grid-column: span 2;
 }
-.upcomingAppointments{
-    grid-row: span 2;
-}
 .activePatientList{
     grid-column: span 2;
 }
@@ -44,11 +41,35 @@
 }
 
 /* Upcoming Appointments Styles */
+.upcomingAppointments {
+    grid-row: span 2;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    padding: 0 20px;
+}
+.upcomingAppointments .list{
+    padding: 0;
+}
+.upcomingAppointments .header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--primary-bg);
+    z-index: 1;
+    padding: 20px 0 10px 0;
+}
+.spacer {
+    position: sticky;
+    height: 20px;
+    background-color: var(--primary-bg);
+    width: 100%;
+    bottom: 0;
+}
 .upcomingAppointments dl{
     padding: 10px;
     background-color: var(--white);
     border-radius: 10px;
-    margin: 10px 0px;
 }
 .upcomingAppointments dt{
     display: grid;

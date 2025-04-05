@@ -68,6 +68,7 @@
                             <td>Active</td>
                         </tr>
                     </table>
+                    <div class="spacer"></div>
                 </div>
             </div>
             <div class="summaryCards">
