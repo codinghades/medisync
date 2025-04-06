@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     if ($stmt->execute()) {
         $stmtBilling = $conn->prepare("INSERT INTO Billing (patient_id, ConsultationTypeID, Amount, PaymentStatus, created_at) VALUES (?, ?, ?, ?, ?)");
         $paymentStatus = 'Unpaid';
-        $stmtBilling->bind_param("sssds", $patient_id, $consultationTypeID, $consultationPrice, $paymentStatus, $currentDate);
+        $stmtBilling->bind_param("ssdss", $patient_id, $consultationTypeID, $consultationPrice, $paymentStatus, $currentDate);
 
         if ($stmtBilling->execute()) {
             echo "Appointment booked and billing record created successfully";

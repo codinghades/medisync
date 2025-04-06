@@ -80,8 +80,8 @@ foreach ($sessionIds as $sessionId) {
         'chat_session_id' => $sessionId,
         'latest_message' => $latest['message_content'] ?? null,
         'latest_timestamp' => $latest['formatted_timestamp'] ?? null,
-        'other_user_name' => $otherUserName, // Name of the user
-        'latest_sender_id' => $latest['sender_id'] ?? null, // Optional: Who sent the last message
+        'other_user_name' => $otherUserName,
+        'latest_sender_id' => $latest['sender_id'] ?? null,
     ];
 }
 

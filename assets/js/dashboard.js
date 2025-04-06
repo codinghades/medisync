@@ -25,8 +25,6 @@ function updateDashboardSummary() {
 
 document.addEventListener("DOMContentLoaded", function() {
     updateDashboardSummary();
-    fetchNotifications();
 });
 
 setInterval(updateDashboardSummary, 10000);
-setInterval(fetchNotifications, 10000);
