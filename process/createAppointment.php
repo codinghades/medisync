@@ -50,9 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $stmt->bind_param("sssssss", $patient_id, $type, $date, $time, $contactNumber, $details, $status);
 
     if ($stmt->execute()) {
-        $stmtBilling = $conn->prepare("INSERT INTO Billing (patient_id, ConsultationTypeID, Amount, PaymentStatus, created_at) VALUES (?, ?, ?, ?, ?)");
+        $appointmentId = $conn->insert_id; // Get the ID of the newly inserted appointment
+
+        // Corrected INSERT query to include appointment_id
+        $stmtBilling = $conn->prepare("INSERT INTO Billing (patient_id, appointment_id, ConsultationTypeID, Amount, PaymentStatus, created_at) VALUES (?, ?, ?, ?, ?, ?)");
         $paymentStatus = 'Unpaid';
-        $stmtBilling->bind_param("ssdss", $patient_id, $consultationTypeID, $consultationPrice, $paymentStatus, $currentDate);
+        // Corrected bind_param to use 's' for patient_id (VARCHAR)
+        $stmtBilling->bind_param("siidss", $patient_id, $appointmentId, $consultationTypeID, $consultationPrice, $paymentStatus, $currentDate);
 
         if ($stmtBilling->execute()) {
             echo "Appointment booked and billing record created successfully";
@@ -64,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     } else {
         echo "Failed to book appointment";
     }
-    
+
 
     $stmt->close();
     $conn->close();

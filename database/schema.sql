@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS Billing (
     PaymentMethod ENUM('Cash', 'Card', 'None') DEFAULT 'None',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ConsultationTypeID) REFERENCES ConsultationPrices(ID),
-    FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE SET NULL
+    FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE CASCADE
 );
 
 
