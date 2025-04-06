@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../assets/css/patientSidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="../assets/js/sidebar.js"></script>
-    <script src="../assets/js/chat.js"></script>
 </head>
 <body>
     <div class="mainContainer">
@@ -48,23 +47,20 @@
         </div>
         
        <div class="chat-container">
-            <!-- Chat Bubble -->
             <div class="chat-bubble" onclick="toggleChatBox()">
                 <span class="icon"><i class="bx bx-chat"></i></span>
             </div>
 
-            <!-- Chat Box -->
             <div class="chat-box">
                 <div class="chat-header">
                     <span>Chat with Admin</span>
                     <button class="close-btn" onclick="toggleChatBox()">×</button>
                 </div>
                 <div class="message-history" id="messageHistory">
-                    <!-- Chat history will be displayed here -->
                 </div>
                 <form id="chatForm" onsubmit="sendMessage(event)">
                     <textarea id="chatInput" placeholder="Type your message..." rows="3"></textarea>
-                    <button type="submit" id="sendButton">Send</button> <!-- Send button -->
+                    <button type="submit" id="sendButton">Send</button>
                 </form>
             </div>
         </div>

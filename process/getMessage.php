@@ -9,7 +9,7 @@ if (!isset($_SESSION["user_id"])) {
 
 $response = ['messages' => []];
 
-// Retrieve the role and admin ID (if applicable) from the database for the logged-in user
+// Retrieve the role and user details of the logged-in user
 $queryUserRole = "
     SELECT user_id, role 
     FROM users 
@@ -63,7 +63,6 @@ $queryMessages = "
     WHERE M.chat_session_id IN ($placeholders)
     ORDER BY M.timestamp ASC";
 
-// Prepare the query
 $stmt = $conn->prepare($queryMessages);
 
 // Dynamically bind parameters using the correct types

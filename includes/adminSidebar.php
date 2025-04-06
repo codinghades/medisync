@@ -27,17 +27,21 @@
                     <i class='bx bxs-dashboard'></i>
                     <p>Dashboard</p>
                 </button>
-                <button type="button" id="appointmentsButton" onclick="loadPage('Appointments')">
+                <button type="button" id="appointmentsButton" onclick="loadPage('appointments')">
                     <i class='bx bxs-calendar'></i>
                     <p>Appointments</p>
                 </button>
-                <button type="button" id="patientsButton" onclick="loadPage('Patients')">
+                <button type="button" id="patientsButton" onclick="loadPage('patients')">
                     <i class='bx bxs-user-detail'></i>
                     <p>Patients</p>
                 </button>
-                <button type="button" id="paymentsButton" onclick="loadPage('Payments')">
+                <button type="button" id="paymentsButton" onclick="loadPage('payments')">
                     <i class='bx bxs-wallet' ></i>
                     <p>Payments</p>
+                </button>
+                <button type="button" id="paymentsButton" onclick="loadPage('messages')">
+                    <i class='bx bxs-chat'></i>
+                    <p>Messages</p>
                 </button>
             </div>
             <div class="accounts" id="logoutButton">
