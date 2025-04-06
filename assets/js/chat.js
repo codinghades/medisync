@@ -7,18 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector('form');
 
     const userId = "<?= $_SESSION['user_id']; ?>"; // Set user ID if needed later
+    let currentSessionId = null; // To store the active chat session ID
 
-    // Send message on Enter (Shift+Enter allows newline)
-    messageInput.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    });
-
-    // Load messages
-    function loadMessages() {
-        fetch('../process/getMessage.php')
+    // Function to load messages for the current session
+    function loadMessages(sessionId) {
+        const url = sessionId ? `../process/getMessage.php?session_id=${sessionId}` : '../process/getMessage.php';
+        fetch(url)
             .then(response => response.json())
             .then(data => {
                 messageHistory.innerHTML = ''; // Clear old messages
@@ -29,9 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         messageElement.classList.add('message');
 
                         // Align based on sender ID prefix
-                        if (message.sender.startsWith('P-')) {
+                        if (message.sender && message.sender.startsWith('P-')) {
                             messageElement.classList.add('user');
-                        } else {
+                        } else if (message.sender) {
                             messageElement.classList.add('admin');
                         }
 
@@ -56,21 +50,47 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    // Function to create a new chat session if one doesn't exist and return the session ID
+    async function getOrCreateSession() {
+        if (currentSessionId) {
+            return currentSessionId; // Return existing session if already set
+        }
+
+        return fetch('../process/getOrCreateChatSession.php') // Corrected filename
+            .then(response => response.json())
+            .then(data => {
+                if (data.session_id) {
+                    currentSessionId = data.session_id;
+                    return currentSessionId;
+                } else {
+                    console.error('Failed to get or create session:', data.error);
+                    return null;
+                }
+            })
+            .catch(error => {
+                console.error('Error getting or creating session:', error);
+                return null;
+            });
+    }
+
     // Send message
-    function sendMessage() {
+    async function sendMessage() {
         const message = messageInput.value.trim();
         if (!message) return;
+
+        const sessionId = await getOrCreateSession();
+        if (!sessionId) return; // Don't send if session creation failed
 
         fetch('../process/sendMessage.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message })
+            body: JSON.stringify({ session_id: sessionId, message: message }) // Include session_id
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 messageInput.value = '';
-                loadMessages();
+                loadMessages(sessionId); // Reload messages for the current session
             } else {
                 console.error('Message failed:', data.error);
             }
@@ -87,13 +107,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Open chat
-    chatBubble.addEventListener('click', () => {
+    chatBubble.addEventListener('click', async () => {
         chatBox.style.display = 'flex';
-        loadMessages();
+        await getOrCreateSession(); // Ensure session exists when chat is opened
+        loadMessages(currentSessionId);
     });
 
     // Close chat
     document.querySelector('.close-btn').addEventListener('click', () => {
         chatBox.style.display = 'none';
+    });
+
+    // Initially try to get or create a session when the page loads (optional, depending on your flow)
+    getOrCreateSession().then(sessionId => {
+        if (sessionId) {
+            loadMessages(sessionId);
+        }
+    });
+
+    // Send message on Enter (Shift+Enter allows newline)
+    messageInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
     });
 });
