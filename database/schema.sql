@@ -58,12 +58,14 @@ CREATE TABLE IF NOT EXISTS ConsultationPrices (
 CREATE TABLE IF NOT EXISTS Billing (
     BillingID INT PRIMARY KEY AUTO_INCREMENT,
     patient_id VARCHAR(20),
+    appointment_id INT NULL,
     ConsultationTypeID INT,
     Amount DECIMAL(10, 2),
     PaymentStatus ENUM('Paid', 'Unpaid'),
     PaymentMethod ENUM('Cash', 'Card', 'None') DEFAULT 'None',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (ConsultationTypeID) REFERENCES ConsultationPrices(ID)
+    FOREIGN KEY (ConsultationTypeID) REFERENCES ConsultationPrices(ID),
+    FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE SET NULL
 );
 
 
