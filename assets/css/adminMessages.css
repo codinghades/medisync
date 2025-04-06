@@ -155,6 +155,7 @@ dl:hover {
 }
 dl.selected {
     background-color: #e9ecef;
+    padding: 20px;
 }
 dl dt{
     display: grid;
@@ -178,4 +179,23 @@ dd{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.chatItem .unread-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    border-style: solid;
+    border-color: var(--primary-bg);
+    border-width: 5px;
+    padding: 5px;
+}
+
+.chatItem {
+    position: relative;
 }

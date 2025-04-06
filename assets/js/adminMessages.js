@@ -23,32 +23,39 @@ document.addEventListener('DOMContentLoaded', function() {
                         dlElement.classList.add('chatItem');
                         dlElement.setAttribute('data-session-id', session.chat_session_id);
                         dlElement.addEventListener('click', () => loadConversation(session.chat_session_id, session.other_user_name)); // Use other_user_name
-    
+
                         const dtElement = document.createElement('dt');
                         const nameSpan = document.createElement('span');
                         nameSpan.classList.add('name');
                         nameSpan.textContent = session.other_user_name || 'Unknown User'; // Use other_user_name
-    
+
                         const dateSpan = document.createElement('span');
                         dateSpan.classList.add('date');
                         const latestTimeParts = session.latest_timestamp ? session.latest_timestamp.split(' at ') : [];
                         dateSpan.textContent = latestTimeParts[0] || 'No messages yet';
-    
+
                         dtElement.appendChild(nameSpan);
                         dtElement.appendChild(dateSpan);
-    
+
                         const ddElement = document.createElement('dd');
                         const infoSpan = document.createElement('span');
                         infoSpan.classList.add('info');
                         infoSpan.textContent = session.latest_message ? session.latest_message.substring(0, 50) + '...' : 'No messages yet';
                         ddElement.appendChild(infoSpan);
-    
+
                         dlElement.appendChild(dtElement);
                         dlElement.appendChild(ddElement);
-    
+
+                        // Add red dot if the last sender was not the admin
+                        if (session.latest_sender_id && !session.latest_sender_id.startsWith('A-')) {
+                            const unreadDot = document.createElement('span');
+                            unreadDot.classList.add('unread-dot');
+                            dlElement.appendChild(unreadDot);
+                        }
+
                         chatSessionListContainer.appendChild(dlElement);
                     });
-    
+
                     if (data.sessions.length > 0) {
                         const firstSession = data.sessions[0];
                         loadConversation(firstSession.chat_session_id, firstSession.other_user_name); // Use other_user_name
@@ -144,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        fetch('../process/adminSendMessage.php', { 
+        fetch('../process/adminSendMessage.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ session_id: currentSessionId, message: message })

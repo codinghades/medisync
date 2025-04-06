@@ -73,6 +73,35 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    // Function to check if the admin was the last sender
+    async function wasAdminLastSender() {
+        if (!currentSessionId) {
+            return false;
+        }
+        try {
+            const response = await fetch(`../process/getLatestMessage.php?check_admin_last=true&session_id=${currentSessionId}`);
+            const data = await response.json();
+            return data.last_admin_message === true;
+        } catch (error) {
+            console.error('Error checking last sender:', error);
+            return false;
+        }
+    }
+
+    // Function to update the chat bubble's unread indicator
+    async function updateChatBubbleIndicator() {
+        const hasAdminLastMessage = await wasAdminLastSender();
+        const existingDot = chatBubble.querySelector('.unread-dot');
+
+        if (hasAdminLastMessage && !existingDot) {
+            const unreadDot = document.createElement('span');
+            unreadDot.classList.add('unread-dot');
+            chatBubble.appendChild(unreadDot);
+        } else if (!hasAdminLastMessage && existingDot) {
+            chatBubble.removeChild(existingDot);
+        }
+    }
+
     // Send message
     async function sendMessage() {
         const message = messageInput.value.trim();
@@ -91,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data.success) {
                 messageInput.value = '';
                 loadMessages(sessionId); // Reload messages for the current session
+                updateChatBubbleIndicator(); // Update indicator after sending
             } else {
                 console.error('Message failed:', data.error);
             }
@@ -111,17 +141,24 @@ document.addEventListener("DOMContentLoaded", function () {
         chatBox.style.display = 'flex';
         await getOrCreateSession(); // Ensure session exists when chat is opened
         loadMessages(currentSessionId);
+        // Remove indicator when chat is opened
+        const existingDot = chatBubble.querySelector('.unread-dot');
+        if (existingDot) {
+            chatBubble.removeChild(existingDot);
+        }
     });
 
     // Close chat
     document.querySelector('.close-btn').addEventListener('click', () => {
         chatBox.style.display = 'none';
+        updateChatBubbleIndicator(); // Check indicator when closing (optional, depends on desired behavior)
     });
 
     // Initially try to get or create a session when the page loads (optional, depending on your flow)
     getOrCreateSession().then(sessionId => {
         if (sessionId) {
             loadMessages(sessionId);
+            updateChatBubbleIndicator(); // Check indicator on initial load
         }
     });
 
@@ -132,4 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
             sendMessage();
         }
     });
+
+    // Update indicator periodically (e.g., every 5 seconds)
+    setInterval(updateChatBubbleIndicator, 5000);
 });

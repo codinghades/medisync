@@ -221,3 +221,23 @@ button[type="submit"] {
     font-size: small;
     margin-top: 10px;
 }
+
+.chat-bubble {
+    position: relative; /* To position the unread dot */
+    /* ... other styles for your chat bubble ... */
+}
+
+.chat-bubble .unread-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border-style: solid;
+    border-color: var(--primary-bg);
+    padding: 5px;
+    border-width: 5px;
+}
