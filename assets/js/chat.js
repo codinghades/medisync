@@ -6,23 +6,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const chatBubble = document.querySelector('.chat-bubble');
     const form = document.querySelector('form');
 
-    const userId = "<?= $_SESSION['user_id']; ?>"; // Set user ID if needed later
-    let currentSessionId = null; // To store the active chat session ID
+    const userId = "<?= $_SESSION['user_id']; ?>";
+    let currentSessionId = null; 
 
-    // Function to load messages for the current session
+    const textarea = document.querySelector('form textarea');
+    textarea.addEventListener('input', () => {
+        textarea.style.height = '40px';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    });
+
     function loadMessages(sessionId) {
         const url = sessionId ? `../process/getMessage.php?session_id=${sessionId}` : '../process/getMessage.php';
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                messageHistory.innerHTML = ''; // Clear old messages
-
+                messageHistory.innerHTML = '';
                 if (data.messages) {
                     data.messages.forEach(message => {
                         const messageElement = document.createElement('div');
                         messageElement.classList.add('message');
 
-                        // Align based on sender ID prefix
                         if (message.sender && message.sender.startsWith('P-')) {
                             messageElement.classList.add('user');
                         } else if (message.sender) {
@@ -50,13 +53,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Function to create a new chat session if one doesn't exist and return the session ID
     async function getOrCreateSession() {
         if (currentSessionId) {
-            return currentSessionId; // Return existing session if already set
+            return currentSessionId;
         }
 
-        return fetch('../process/getOrCreateChatSession.php') // Corrected filename
+        return fetch('../process/getOrCreateChatSession.php')
             .then(response => response.json())
             .then(data => {
                 if (data.session_id) {
@@ -73,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Function to check if the admin was the last sender
     async function wasAdminLastSender() {
         if (!currentSessionId) {
             return false;

@@ -51,6 +51,17 @@
                 </button>
             </div>
         </div>
+
+        <div class="logout-modal-overlay" id="logoutOverlay">
+            <div class="logout-modal">
+                <div class="logoutIcon"><i class='bx bx-log-out' ></i></div>
+                <p>Are you sure you want to log out?</p>
+                <div class="modal-buttons">
+                    <button id="confirmLogout">Log Out</button>
+                    <button id="cancelLogout">Cancel</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

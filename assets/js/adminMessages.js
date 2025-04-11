@@ -11,7 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const sendButton = document.getElementById('sendButton');
     let currentSessionId = null;
 
-    // Function to load the list of latest messages from all sessions
+    const textarea = document.querySelector('form textarea');
+    textarea.addEventListener('input', () => {
+        textarea.style.height = '40px';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    });
+
     function loadLatestMessages() {
         fetch('../process/getLatestMessage.php')
             .then(response => response.json())
@@ -46,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         dlElement.appendChild(dtElement);
                         dlElement.appendChild(ddElement);
 
-                        // Add red dot if the last sender was not the admin
                         if (session.latest_sender_id && !session.latest_sender_id.startsWith('A-')) {
                             const unreadDot = document.createElement('span');
                             unreadDot.classList.add('unread-dot');
@@ -58,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     if (data.sessions.length > 0) {
                         const firstSession = data.sessions[0];
-                        loadConversation(firstSession.chat_session_id, firstSession.other_user_name); // Use other_user_name
+                        loadConversation(firstSession.chat_session_id, firstSession.other_user_name);
                         const firstChatItem = chatSessionListContainer.querySelector(`dl[data-session-id="${firstSession.chat_session_id}"]`);
                         if (firstChatItem) {
                             firstChatItem.classList.add('selected');
@@ -82,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // Function to load all messages for a specific session
     function loadConversation(sessionId, userName) {
         currentSessionId = sessionId;
         currentChatUserName.textContent = userName || 'User';
@@ -136,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // Send message on Enter (Shift+Enter allows newline)
     chatInput.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();

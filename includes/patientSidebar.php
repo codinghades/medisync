@@ -60,8 +60,19 @@
                 </div>
                 <form id="chatForm" onsubmit="sendMessage(event)">
                     <textarea id="chatInput" placeholder="Type your message..." rows="3"></textarea>
-                    <button type="submit" id="sendButton">Send</button>
+                    <button type="submit" id="sendButton"><i class='bx bxs-send'></i></button>
                 </form>
+            </div>
+        </div>
+        
+        <div class="logout-modal-overlay" id="logoutOverlay">
+            <div class="logout-modal">
+                <div class="logoutIcon"><i class='bx bx-log-out' ></i></div>
+                <p>Are you sure you want to log out?</p>
+                <div class="modal-buttons">
+                    <button id="confirmLogout">Log Out</button>
+                    <button id="cancelLogout">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
