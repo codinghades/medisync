@@ -3,6 +3,7 @@
 .mainContent{
     padding: 20px 20px 20px 240px;
     background-color: var(--white);
+    min-height: 100vh;
     height: 100%;
 }
 .title{
