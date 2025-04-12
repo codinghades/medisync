@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(() => console.error("Failed to load user data"));
 
     const logoutOverlay = document.getElementById('logoutOverlay');
-    const logoutBtn = document.querySelector('#logoutButton button'); // Target the actual button inside
+    const logoutBtn = document.querySelector('#logoutButton button');
     const confirmLogout = document.getElementById('confirmLogout');
     const cancelLogout = document.getElementById('cancelLogout');
 
