@@ -43,11 +43,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 <th>Time</th>
                 <th>Status</th>
                 <th>Created At</th>
+                <th>Select</th>
             </tr>
         `;
 
         if (data.error || data.length === 0) {
-            table.innerHTML += `<tr><td colspan="6">No results found.</td></tr>`;
+            table.innerHTML += `<tr><td colspan="7">No results found.</td></tr>`;
             return;
         }
 
@@ -64,6 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
                               appointment.status.trim().toLowerCase() === "expired" ? "status-expired" :
                               "status-completed";
 
+            const isActive = appointment.status.trim().toLowerCase() === "active";
+
             table.innerHTML += `
                 <tr>    
                     <td>${appointment.patient_name}</td>
@@ -76,6 +79,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         </span>
                     </td>
                     <td>${createdAt}</td>
+                    <td>
+                        <input type="checkbox" class="selectCheckbox" name="select" value="${appointment.appointment_id}" ${!isActive ? "disabled" : ""}>
+                    </td>
                 </tr>
             `;
         });

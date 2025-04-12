@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 <th>Time</th>
                 <th>Status</th>
                 <th>Created At</th>
-                <th>Select</th>
             </tr>
         `;
 
@@ -45,57 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>${appointment.appointment_time}</td>
                     <td class="status"><span class="${statusClass}">${appointment.status}</span></td>
                     <td>${appointment.created_at}</td>
-                    <td><input type="checkbox" class="selectCheckbox" name="select" value="${appointment.appointment_id}"></td>
                 </tr>
             `;
         });
         
     }
 
-    function getSelectedAppointments() {
-        return [...document.querySelectorAll("input[name='select']:checked")].map(cb => cb.value);
-    }
 
-    function updateStatus() {
-        let selectedAppointments = getSelectedAppointments();
-        if (selectedAppointments.length === 0) return alert("Select at least one appointment!");
-
-        fetch("../process/updateAppointmentStatus.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ appointment_ids: selectedAppointments })
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            fetchAppointments();
-        })
-        .catch(error => console.error("Error updating status:", error));
-        location.reload();
-    }
-
-    function deleteAppointments() {
-        let selectedAppointments = getSelectedAppointments();
-        if (selectedAppointments.length === 0) return alert("Select at least one appointment!");
-
-        if (!confirm("Are you sure you want to delete the selected appointments?")) return;
-
-        fetch("../process/deleteAppointments.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ appointment_ids: selectedAppointments })
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            fetchAppointments();
-        })
-        .catch(error => console.error("Error deleting appointments:", error));
-        location.reload();
-    }
-
-    changeStatusBtn.addEventListener("click", updateStatus);
-    deleteBtn.addEventListener("click", deleteAppointments);
     
     fetchAppointments();
 });

@@ -34,7 +34,6 @@
                                 <th>Time</th>
                                 <th>Status</th>
                                 <th>Created At</th>
-                                <th>Select</th>
                             </tr>
                             <tr>
                                 <td>Juan Dela Cruz</td>
@@ -43,14 +42,9 @@
                                 <td>9:00 AM</td>
                                 <td class="status"><span class="statusText">Active</span></td>
                                 <td>March 25, 2025</td>
-                                <td><input type="checkbox" name="select" id="select" value=""></td>
                             </tr>
                         </table>
                     </form>
-                </div>
-                <div class="buttons" id="buttons">
-                    <button class="changeStatus" id="changeStatus"><p>Change Status</p></button>
-                    <button class="delete" id="delete"><p>Delete</p></button>
                 </div>
             </div>
             <div class="allAppointments">
@@ -98,6 +92,10 @@
                             <td>March 25, 2025</td>
                         </tr>
                     </table>
+                </div>
+                <div class="buttons" id="buttons">
+                    <button class="changeStatus" id="changeStatus"><p>Change Status</p></button>
+                    <button class="delete" id="delete"><p>Cancel Appointment</p></button>
                 </div>
             </div>
             <button class="printButton" id="printAppointmentsBtn"><i class='bx bxs-printer'></i><p>Print Appointment List</p></button>
