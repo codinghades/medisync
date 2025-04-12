@@ -100,6 +100,17 @@
             </div>
             <button class="printButton" id="printAppointmentsBtn"><i class='bx bxs-printer'></i><p>Print Appointment List</p></button>
         </div>
+        <div class="status-modal-overlay" id="statusModalOverlay">
+            <div class="status-modal">
+                <div class="statusIcon"><i class='bx bx-info-circle'></i></div>
+                <p id="statusMessage">This is a sample message</p>
+                <div class="modal-buttons">
+                    <button id="confirmYes">Yes</button>
+                    <button id="confirmNo">No</button>
+                    <button id="okBtn">OK</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

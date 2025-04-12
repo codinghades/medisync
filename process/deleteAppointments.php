@@ -70,10 +70,13 @@ if ($conn->query($queryDelete)) {
         $insertStmt->execute();
         $insertStmt->close();
 
-        // Delete corresponding bill using the new function
-        deleteBillingByAppointmentId($conn, $appointment['id']);
+        if (!deleteBillingByAppointmentId($conn, $appointment['id'])) {
+            echo json_encode(["error" => "Error deleting billing record for appointment ID: " . $appointment['id']]);
+            $conn->close();
+            exit;
+        }
     }
-    echo json_encode(["message" => "Appointments deleted successfully, " . $deletedBillCount . $appiontmentID . " corresponding bills deleted, and notifications sent"]);
+    echo json_encode(["message" => "Appointment(s) cancelled successfully"]);
 } else {
     echo json_encode(["error" => "Error deleting appointments: " . $conn->error]);
 }
