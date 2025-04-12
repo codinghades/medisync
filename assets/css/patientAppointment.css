@@ -132,7 +132,7 @@ input[type='submit']:active{
 }
 
 .appointment-modal .appointmentIcon i {
-    color: #4CAF50; /* Green color for appointment */
+    color: green;
     font-size: 3rem;
 }
 
