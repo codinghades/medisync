@@ -59,6 +59,16 @@
                 </dl>
             </div>
         </div>
+        <div class="appointment-modal-overlay" id="appointmentOverlay">
+            <div class="appointment-modal">
+                <div class="appointmentIcon"><i class='bx bx-calendar-check'></i></div>
+                <p>Are you sure you want to create this appointment?</p>
+                <div class="modal-buttons">
+                    <button id="confirmAppointment">Yes</button>
+                    <button id="cancelAppointment">No</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
