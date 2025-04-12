@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../assets/css/adminSidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="../assets/js/sidebar.js"></script>
-    
 </head>
 <body>
     <div class="mainContainer">
@@ -39,7 +38,7 @@
                     <i class='bx bxs-wallet' ></i>
                     <p>Payments</p>
                 </button>
-                <button type="button" id="paymentsButton" onclick="loadPage('messages')">
+                <button type="button" id="messagesButton" onclick="loadPage('messages')">
                     <i class='bx bxs-chat'></i>
                     <p>Messages</p>
                 </button>

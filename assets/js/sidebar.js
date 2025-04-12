@@ -3,15 +3,7 @@ function loadPage(page) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    fetch('../process/alwaysRun.php')
-        .then(response => response.text())
-        .then(result => {
-            console.log('PHP script executed:', result);
-        })
-        .catch(error => {
-            console.error('Error executing PHP script:', error);
-        });
-
+    // Fetch user data for the sidebar
     fetch("../process/getUser.php")
         .then(response => response.json())
         .then(data => {
@@ -46,5 +38,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
             .catch(() => alert("An error occurred. Please try again."));
+    });
+
+    const buttons = document.querySelectorAll(".navigation button");
+
+    buttons.forEach(btn => {
+        btn.addEventListener("click", function () {
+            buttons.forEach(button => button.classList.remove("active"));
+            btn.classList.add("active");
+        });
+    });
+
+    const currentPage = window.location.pathname.split("/").pop().replace(".php", "");
+
+    buttons.forEach(btn => {
+        const btnPage = btn.getAttribute("onclick")?.match(/loadPage\(['"](.+?)['"]\)/)?.[1];
+        if (btnPage === currentPage) {
+            btn.classList.add("active");
+        }
     });
 });
