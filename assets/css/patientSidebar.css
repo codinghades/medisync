@@ -271,7 +271,7 @@ button[type="submit"] {
 }
 
 .modal-buttons button {
-    padding: 8px 16px;
+    padding: 10px 16px;
     border: none;
     border-radius: 5px;
     font-size: 1rem;

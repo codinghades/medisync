@@ -13,6 +13,10 @@
         </div>
 
         <div class="mainContent">
+            <div class="titleContainer">
+                <div class="title">Messages</div>
+                <div class="subTitle">Manage Patient Messages</div>
+            </div>
             <div class="chatListSection">
                 <h2>Chats</h2>
                 <div id="chatSessionListContainer">
@@ -29,7 +33,7 @@
                     </div>
                     <form id="chatForm" onsubmit="sendMessage(event)">
                         <textarea id="chatInput" placeholder="Type your message..." rows="3"></textarea>
-                        <button type="submit" id="sendButton">Send</button>
+                        <button type="submit" id="sendButton"><i class='bx bxs-send'></i></button>
                     </form>
                 </div>
             </div>
