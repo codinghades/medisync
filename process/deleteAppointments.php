@@ -17,13 +17,13 @@ $appointmentTypes = [
     "ent"         => "Ear, Nose & Throat (ENT)"
 ];
 
-$appointmentIdsToDelete = array_map('intval', $data['appointment_ids']);
-$idsToDeleteString = implode(",", $appointmentIdsToDelete);
+$appointmentIdsToCancel = array_map('intval', $data['appointment_ids']);
+$idsToCancelString = implode(",", $appointmentIdsToCancel);
 
 // Fetch details of the appointments being cancelled for notification
 $querySelectCancelled = "SELECT id, patient_id, appointment_type, appointment_date, appointment_time
                          FROM appointments
-                         WHERE id IN ($idsToDeleteString)";
+                         WHERE id IN ($idsToCancelString)";
 $resultSelectCancelled = $conn->query($querySelectCancelled);
 
 $cancelledAppointments = [];
@@ -52,10 +52,8 @@ function deleteBillingByAppointmentId($conn, $appointmentId) {
     }
 }
 
-// Delete the appointments
-$queryDelete = "DELETE FROM appointments WHERE id IN ($idsToDeleteString)";
-if ($conn->query($queryDelete)) {
-    // Send notifications for each cancelled appointment and delete billing
+$queryUpdate = "UPDATE appointments SET status = 'Cancelled' WHERE id IN ($idsToCancelString)";
+if ($conn->query($queryUpdate)) {
     foreach ($cancelledAppointments as $appointment) {
         $patientId = $appointment['patient_id'];
         $appointmentTypeKey = $appointment['appointment_type'];
@@ -78,7 +76,7 @@ if ($conn->query($queryDelete)) {
     }
     echo json_encode(["message" => "Appointment(s) cancelled successfully"]);
 } else {
-    echo json_encode(["error" => "Error deleting appointments: " . $conn->error]);
+    echo json_encode(["error" => "Error updating appointments: " . $conn->error]);
 }
 
 $conn->close();
