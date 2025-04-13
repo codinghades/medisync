@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(data => {
                     showModal(`${data.message}`, false);
                     if (index === selectedAppointments.length - 1) {
-                        fetchAppointments();
+                        location.reload();
                     }
                 })
                 .catch(error => {
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     showModal(data.error, false);
                 } else {
                     showModal(data.message, false);
-                    fetchAppointments();
+                    location.reload();
                 }
             })
             .catch(error => {
