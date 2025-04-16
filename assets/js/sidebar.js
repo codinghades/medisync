@@ -57,4 +57,14 @@ document.addEventListener("DOMContentLoaded", function () {
             btn.classList.add("active");
         }
     });
+
+    setInterval(() => {
+        fetch("../process/alwaysRun.php")
+            .then(response => response.text())
+            .then(data => {
+                // Optional: handle returned data or logging
+                console.log("alwaysRun.php executed");
+            })
+            .catch(() => console.error("Failed to run alwaysRun.php"));
+    }, 10000);
 });
