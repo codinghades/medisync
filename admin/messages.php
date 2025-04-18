@@ -21,8 +21,7 @@
                 <h2>Chats</h2>
                 <div class="searchBar">
                     <form class="search" id="searchForm" method="post">
-                        <input type="text" name="search" id="searchBar" placeholder="Search Appointment">
-                        <input type="submit" name="searchButton" id="searchButton" value="Search">
+                        <input type="text" name="search" id="searchBar" placeholder="Search Message">
                     </form>
                 </div>
                 <div id="chatSessionListContainer">

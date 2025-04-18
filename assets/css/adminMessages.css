@@ -236,11 +236,9 @@ dd {
 }
 
 .searchBar{
-    display: grid;
     width: 100%;
     gap: 20px;
     align-items: center;
-    grid-template-columns: 1fr;
     position: sticky;
     top: 32px; /* Adjust top value based on the height of the h2 + its margin/padding */
     background-color: var(--primary-bg);

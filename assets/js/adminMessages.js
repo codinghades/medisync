@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatForm = document.getElementById('chatForm');
     const chatInput = document.getElementById('chatInput');
     const sendButton = document.getElementById('sendButton');
+    const searchForm = document.querySelector('.searchBar > form');
+    const searchInput = searchForm.querySelector('input[type="text"]');
     let currentSessionId = null;
+    let latestChatSessions = [];
 
     const textarea = document.querySelector('form textarea');
     textarea.addEventListener('input', () => {
@@ -17,62 +20,73 @@ document.addEventListener('DOMContentLoaded', function() {
         textarea.style.height = textarea.scrollHeight + 'px';
     });
 
+    function renderChatSessions(sessions) {
+        chatSessionListContainer.innerHTML = '';
+        if (sessions && Array.isArray(sessions)) {
+            sessions.forEach(session => {
+                const dlElement = document.createElement('dl');
+                dlElement.classList.add('chatItem');
+                dlElement.setAttribute('data-session-id', session.chat_session_id);
+                dlElement.addEventListener('click', () => loadConversation(session.chat_session_id, session.other_user_name));
+
+                const dtElement = document.createElement('dt');
+                const nameSpan = document.createElement('span');
+                nameSpan.classList.add('name');
+                nameSpan.textContent = session.other_user_name || 'Unknown User';
+
+                const dateSpan = document.createElement('span');
+                dateSpan.classList.add('date');
+                const latestTimeParts = session.latest_timestamp ? session.latest_timestamp.split(' at ') : [];
+                dateSpan.textContent = latestTimeParts[0] || 'No messages yet';
+
+                dtElement.appendChild(nameSpan);
+                dtElement.appendChild(dateSpan);
+
+                const ddElement = document.createElement('dd');
+                const infoSpan = document.createElement('span');
+                infoSpan.classList.add('info');
+                infoSpan.textContent = session.latest_message ? session.latest_message.substring(0, 50) + '...' : 'No messages yet';
+                ddElement.appendChild(infoSpan);
+
+                dlElement.appendChild(dtElement);
+                dlElement.appendChild(ddElement);
+
+                if (session.latest_sender_id && !session.latest_sender_id.startsWith('A-')) {
+                    const unreadDot = document.createElement('span');
+                    unreadDot.classList.add('unread-dot');
+                    dlElement.appendChild(unreadDot);
+                }
+
+                chatSessionListContainer.appendChild(dlElement);
+            });
+
+            if (sessions.length > 0 && !currentSessionId) {
+                const firstSession = sessions[0];
+                loadConversation(firstSession.chat_session_id, firstSession.other_user_name);
+                const firstChatItem = chatSessionListContainer.querySelector(`dl[data-session-id="${firstSession.chat_session_id}"]`);
+                if (firstChatItem) {
+                    firstChatItem.classList.add('selected');
+                }
+                currentSessionId = firstSession.chat_session_id;
+                chatBox.style.display = 'flex';
+            } else if (sessions.length === 0) {
+                chatBox.style.display = 'none';
+                chatSessionListContainer.innerHTML = '<div class="status-none">No chats found.</div>';
+            }
+        } else {
+            chatSessionListContainer.innerHTML = '<div class="status-none">Error loading chats.</div>';
+            chatBox.style.display = 'none';
+            console.error('Invalid data format:', data);
+        }
+    }
+
     function loadLatestMessages() {
         fetch('../process/getLatestMessage.php')
             .then(response => response.json())
             .then(data => {
-                chatSessionListContainer.innerHTML = '';
                 if (data.sessions && Array.isArray(data.sessions)) {
-                    data.sessions.forEach(session => {
-                        const dlElement = document.createElement('dl');
-                        dlElement.classList.add('chatItem');
-                        dlElement.setAttribute('data-session-id', session.chat_session_id);
-                        dlElement.addEventListener('click', () => loadConversation(session.chat_session_id, session.other_user_name)); // Use other_user_name
-
-                        const dtElement = document.createElement('dt');
-                        const nameSpan = document.createElement('span');
-                        nameSpan.classList.add('name');
-                        nameSpan.textContent = session.other_user_name || 'Unknown User'; // Use other_user_name
-
-                        const dateSpan = document.createElement('span');
-                        dateSpan.classList.add('date');
-                        const latestTimeParts = session.latest_timestamp ? session.latest_timestamp.split(' at ') : [];
-                        dateSpan.textContent = latestTimeParts[0] || 'No messages yet';
-
-                        dtElement.appendChild(nameSpan);
-                        dtElement.appendChild(dateSpan);
-
-                        const ddElement = document.createElement('dd');
-                        const infoSpan = document.createElement('span');
-                        infoSpan.classList.add('info');
-                        infoSpan.textContent = session.latest_message ? session.latest_message.substring(0, 50) + '...' : 'No messages yet';
-                        ddElement.appendChild(infoSpan);
-
-                        dlElement.appendChild(dtElement);
-                        dlElement.appendChild(ddElement);
-
-                        if (session.latest_sender_id && !session.latest_sender_id.startsWith('A-')) {
-                            const unreadDot = document.createElement('span');
-                            unreadDot.classList.add('unread-dot');
-                            dlElement.appendChild(unreadDot);
-                        }
-
-                        chatSessionListContainer.appendChild(dlElement);
-                    });
-
-                    if (data.sessions.length > 0) {
-                        const firstSession = data.sessions[0];
-                        loadConversation(firstSession.chat_session_id, firstSession.other_user_name);
-                        const firstChatItem = chatSessionListContainer.querySelector(`dl[data-session-id="${firstSession.chat_session_id}"]`);
-                        if (firstChatItem) {
-                            firstChatItem.classList.add('selected');
-                        }
-                        currentSessionId = firstSession.chat_session_id;
-                        chatBox.style.display = 'flex';
-                    } else {
-                        chatBox.style.display = 'none';
-                        chatSessionListContainer.innerHTML = '<div class="status-none">No chats found.</div>';
-                    }
+                    latestChatSessions = data.sessions;
+                    renderChatSessions(latestChatSessions);
                 } else {
                     chatSessionListContainer.innerHTML = '<div class="status-none">Error loading chats.</div>';
                     chatBox.style.display = 'none';
@@ -178,6 +192,22 @@ document.addEventListener('DOMContentLoaded', function() {
     chatForm.addEventListener('submit', function (e) {
         e.preventDefault();
         sendMessage();
+    });
+
+    // Event listener for input changes on the search input
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.trim().toLowerCase();
+        if (searchTerm) {
+            const filteredSessions = latestChatSessions.filter(session => {
+                const userName = (session.other_user_name || '').toLowerCase();
+                const latestMessage = (session.latest_message || '').toLowerCase();
+                return userName.includes(searchTerm) || latestMessage.includes(searchTerm);
+            });
+            renderChatSessions(filteredSessions);
+        } else {
+            // If the search term is empty, show all latest messages
+            renderChatSessions(latestChatSessions);
+        }
     });
 
     loadLatestMessages();
