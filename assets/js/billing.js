@@ -58,7 +58,7 @@ function displayUnpaidBills(bills) {
     container.innerHTML += totalAmount;
     
     const payButton = `
-        <button class="payNowButton" id="payNowButton">Pay Now</button>`;
+        <button class="payNowButton" id="payNowButton">Pay All</button>`;
     container.innerHTML += payButton;
 
     document.getElementById('payNowButton').addEventListener('click', function() {
