@@ -2,17 +2,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const appointmentForm = document.getElementById("appointmentForm");
     const appointmentList = document.querySelector(".appointmentLists");
 
-    // Confirmation modal elements
     const appointmentOverlay = document.getElementById('appointmentOverlay');
     const confirmAppointmentButton = document.getElementById('confirmAppointment');
     const cancelAppointmentButton = document.getElementById('cancelAppointment');
 
-    // Add event listener for cancel button (outside of the form submission)
     cancelAppointmentButton.addEventListener('click', function () {
         appointmentOverlay.style.display = 'none';
     });
 
-    // Add event listener for confirm button (only once)
+    function autofillUserName() {
+        fetch("../process/getUser.php")
+            .then(response => response.json())
+            .then(user => {
+                if (user && user.firstName && user.lastName && user.contactNumber) {
+                    firstNameInput.value = user.firstName;
+                    lastNameInput.value = user.lastName;
+                    contactNumberInput.value = user.contactNumber;
+                }
+            })
+            .catch(error => {
+                console.error("Failed to fetch user data:", error);
+            });
+    }
+
+    autofillUserName();
+
     const confirmAppointmentHandler = function () {
         const formData = new FormData(appointmentForm);
 
