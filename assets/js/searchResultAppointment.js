@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const reset = document.getElementById("reset");
     const sortSelect = document.getElementById("filter");
     const table = document.querySelector(".allAppointments .list table");
+    let searchTimeout; // Variable to hold the timeout
 
     function fetchAppointments() {
         let query = searchBar.value.trim();
@@ -12,12 +13,18 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("../process/searchPatientAppointment.php", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({ search: query, filter: sortOption }) 
+            body: new URLSearchParams({ search: query, filter: sortOption })
         })
         .then(response => response.json())
         .then(data => updateTable(data))
         .catch(error => console.error("Error fetching appointment data:", error));
     }
+
+    // Update appointments on search input change with a delay
+    searchBar.addEventListener("input", function () {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(fetchAppointments, 300); // Fetch after 300ms of no typing
+    });
 
     searchForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -62,13 +69,13 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             let statusClass = appointment.status.trim().toLowerCase() === "active" ? "status-active" :
-                              appointment.status.trim().toLowerCase() === "expired" ? "status-expired" :
-                              "status-completed";
+                                appointment.status.trim().toLowerCase() === "expired" ? "status-expired" :
+                                "status-completed";
 
             const isActive = appointment.status.trim().toLowerCase() === "active";
 
             table.innerHTML += `
-                <tr>    
+                <tr>
                     <td>${appointment.patient_name}</td>
                     <td>${appointment.appointment_type}</td>
                     <td>${formattedDate}</td>
@@ -86,4 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
         });
     }
+
+    // Initial fetch on page load
+    fetchAppointments();
 });

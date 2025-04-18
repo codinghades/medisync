@@ -54,7 +54,6 @@
                 <div class="searchBar">
                     <form class="search" id="searchForm" method="post">
                         <input type="text" name="search" id="searchBar" placeholder="Search Appointment">
-                        <input type="submit" name="searchButton" id="searchButton" value="Search">
                     </form>
                     <div class="sort">
                         <form id="filterForm" method="post">

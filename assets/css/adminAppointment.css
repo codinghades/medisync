@@ -111,8 +111,7 @@ button[type='submit']{
 }
 .searchBar > form {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 10px;
+    grid-template-columns: 1fr;
 }
 .printButton{
     width: 300px;

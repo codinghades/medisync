@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const reset = document.getElementById("reset");
     const sortSelect = document.getElementById("filter");
     const table = document.querySelector(".list table");
+    let searchTimeout; // Variable to hold the timeout
 
     // Initial fetch (load all patients on page load)
     fetchPatients();
@@ -13,12 +14,14 @@ document.addEventListener("DOMContentLoaded", function () {
         location.reload();
     });
 
-    // Fetch and update patient data based on search
-    searchForm.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevents page refresh
+    // Fetch and update patient data based on search while typing
+    searchBar.addEventListener("input", function () {
+        clearTimeout(searchTimeout); // Clear any existing timeout
 
-        let query = searchBar.value.trim();
-        fetchPatients(query, sortSelect.value);
+        searchTimeout = setTimeout(() => {
+            let query = searchBar.value.trim();
+            fetchPatients(query, sortSelect.value);
+        }, 300); // Wait 300ms after typing to fetch
     });
 
     // Fetch and update patient data based on sorting
@@ -71,11 +74,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 : "<span style='color:gray; font-weight:700;'>None</span>";
 
             table.innerHTML += `
-                <tr>    
+                <tr>
                     <td>${patient.name}</td>
                     <td>${formattedDate}</td>
-                    <td>${patient.active_prescription === "Yes" 
-                        ? "<span style='color:green; font-weight:700;'>Active</span>" 
+                    <td>${patient.active_prescription === "Yes"
+                        ? "<span style='color:green; font-weight:700;'>Active</span>"
                         : "<span style='color:gray; font-weight:700;'>None</span>"}</td>
                     <td>${unpaidBill}</td>
                     <td>${appointment}</td>
@@ -83,4 +86,10 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
         });
     }
+
+    // Prevent default form submission (still useful if JS fails or for accessibility)
+    searchForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        // The 'input' event listener will handle the search on typing
+    });
 });
