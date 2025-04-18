@@ -19,6 +19,12 @@
             </div>
             <div class="chatListSection">
                 <h2>Chats</h2>
+                <div class="searchBar">
+                    <form class="search" id="searchForm" method="post">
+                        <input type="text" name="search" id="searchBar" placeholder="Search Appointment">
+                        <input type="submit" name="searchButton" id="searchButton" value="Search">
+                    </form>
+                </div>
                 <div id="chatSessionListContainer">
                     <div class="status-none">Loading chats...</div>
                 </div>
