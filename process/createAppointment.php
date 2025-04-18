@@ -30,6 +30,19 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             exit;
     }
 
+    // Check for existing active appointment on the selected date
+    $stmtCheck = $conn->prepare("SELECT COUNT(*) FROM appointments WHERE patient_id = ? AND appointment_date = ? AND status = 'Active'");
+    $stmtCheck->bind_param("ss", $patient_id, $date);
+    $stmtCheck->execute();
+    $stmtCheck->bind_result($existingAppointmentCount);
+    $stmtCheck->fetch();
+    $stmtCheck->close();
+
+    if ($existingAppointmentCount > 0) {
+        echo "You already have an active appointment on " . date('F j, Y', strtotime($date));
+        exit;
+    }
+
     // Fetch Consultation Price
     $stmtPrice = $conn->prepare("SELECT price FROM consultationprices WHERE id = ?");
     $stmtPrice->bind_param("i", $consultationTypeID);

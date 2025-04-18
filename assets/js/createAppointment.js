@@ -5,19 +5,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const appointmentOverlay = document.getElementById('appointmentOverlay');
     const confirmAppointmentButton = document.getElementById('confirmAppointment');
     const cancelAppointmentButton = document.getElementById('cancelAppointment');
+    const appointmentExistsOverlay = document.getElementById('appointmentExistsOverlay');
+    const confirmExistingAppointmentButton = appointmentExistsOverlay.querySelector('#confirmAppointment'); // Assuming the 'Ok' button in the new modal has this ID
 
-    cancelAppointmentButton.addEventListener('click', function () {
-        appointmentOverlay.style.display = 'none';
-    });
+    if (cancelAppointmentButton) {
+        cancelAppointmentButton.addEventListener('click', function () {
+            appointmentOverlay.style.display = 'none';
+        });
+    }
 
     function autofillUserName() {
         fetch("../process/getUser.php")
             .then(response => response.json())
             .then(user => {
                 if (user && user.firstName && user.lastName && user.contactNumber) {
-                    firstNameInput.value = user.firstName;
-                    lastNameInput.value = user.lastName;
-                    contactNumberInput.value = user.contactNumber;
+                    const firstNameInput = document.querySelector('input[name="firstName"]');
+                    const lastNameInput = document.querySelector('input[name="lastName"]');
+                    const contactNumberInput = document.querySelector('input[name="contactNumber"]');
+                    if (firstNameInput) firstNameInput.value = user.firstName;
+                    if (lastNameInput) lastNameInput.value = user.lastName;
+                    if (contactNumberInput) contactNumberInput.value = user.contactNumber;
                 }
             })
             .catch(error => {
@@ -30,16 +37,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmAppointmentHandler = function () {
         const formData = new FormData(appointmentForm);
 
-        appointmentOverlay.style.display = 'none';
         fetch("../process/createAppointment.php", {
             method: "POST",
             body: formData
         })
         .then(response => response.text())
         .then(message => {
-            showMessage(message);
-            appointmentForm.reset();
-            loadAppointments();
+            appointmentOverlay.style.display = 'none';
+            if (message.startsWith("You already have an active appointment")) {
+                appointmentExistsOverlay.style.display = 'flex';
+            } else {
+                showMessage(message);
+                appointmentForm.reset();
+                loadAppointments();
+            }
         })
         .catch(error => {
             console.error("Error:", error);
@@ -47,14 +58,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
-    confirmAppointmentButton.addEventListener('click', confirmAppointmentHandler, { once: true });
+    if (confirmAppointmentButton) {
+        confirmAppointmentButton.addEventListener('click', confirmAppointmentHandler);
+    }
 
     if (appointmentForm) {
         appointmentForm.addEventListener("submit", function (event) {
             event.preventDefault();
 
-            // Show the confirmation modal instead of an alert
+            // Show the initial confirmation modal
             appointmentOverlay.style.display = 'flex';
+
+            // Remove the previous listener
+            if (confirmAppointmentButton) {
+                confirmAppointmentButton.removeEventListener('click', confirmAppointmentHandler);
+                // Add the listener again for the current submission
+                confirmAppointmentButton.addEventListener('click', confirmAppointmentHandler);
+            }
         });
     }
 
@@ -88,16 +108,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 }[appt.status.toLowerCase()] || "gray";
 
                 html += `<div class='appointment'>
-                            <dl>
-                                <dt>
-                                    <span class='name'>Appointment for ${appt.type_full} <span style='color: ${color};'>(${appt.status})</span></span>
-                                    <span class='date'>${appt.created_date}</span>
-                                </dt>
-                                <dd>
-                                    <span class='info'>You have booked an appointment for ${appt.type_full} on ${appt.formatted_date} at ${appt.formatted_time}. Please arrive at least 30 minutes early to avoid any issues. Thank you.</span>
-                                </dd>
-                            </dl>
-                         </div>`;
+                                    <dl>
+                                        <dt>
+                                            <span class='name'>Appointment for ${appt.type_full} <span style='color: ${color};'>(${appt.status})</span></span>
+                                            <span class='date'>${appt.created_date}</span>
+                                        </dt>
+                                        <dd>
+                                            <span class='info'>You have booked an appointment for ${appt.type_full} on ${appt.formatted_date} at ${appt.formatted_time}. Please arrive at least 30 minutes early to avoid any issues. Thank you.</span>
+                                        </dd>
+                                    </dl>
+                                </div>`;
             });
         }
 
@@ -122,4 +142,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadAppointments();
     setInterval(loadAppointments, 5000);
+
+    if (confirmExistingAppointmentButton) {
+        confirmExistingAppointmentButton.addEventListener('click', function () {
+            appointmentExistsOverlay.style.display = 'none';
+        });
+    }
 });
