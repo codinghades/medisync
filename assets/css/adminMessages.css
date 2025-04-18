@@ -240,9 +240,9 @@ dd {
     gap: 20px;
     align-items: center;
     position: sticky;
-    top: 32px; /* Adjust top value based on the height of the h2 + its margin/padding */
+    top: 32px;
     background-color: var(--primary-bg);
-    z-index: 20; /* Higher z-index to stay above h2 */
+    z-index: 20;
 }
 .searchBar input[type='text'], select{
     padding: 10px;
@@ -274,6 +274,5 @@ button[type='submit']{
 }
 .searchBar > form {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 10px;
+    grid-template-columns: 1fr;
 }
