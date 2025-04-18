@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
     $count = $row["count"] ?? 0;
-    $new_id = sprintf("P-%s-%04d", $year, $count);
+    $new_id = sprintf("P-%s-%04d", $year, $count + 1); // Increment count for the new user
 
     $stmt->close();
 
@@ -30,9 +30,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssssssss", $new_id, $first_name, $last_name, $gender, $contact_number, $email, $hashed_password, $role);
 
     if ($stmt->execute()) {
-        echo "success";
+        // Insert welcome notification
+        $welcomeTitle = "Welcome to Medisync";
+        $welcomeMessage = "Thank you for using our program!";
+        $createdAt = date("Y-m-d H:i:s");
+
+        $stmtNotification = $conn->prepare("INSERT INTO notifications (user_id, title, message, created_at) VALUES (?, ?, ?, ?)");
+        $stmtNotification->bind_param("ssss", $new_id, $welcomeTitle, $welcomeMessage, $createdAt);
+
+        if ($stmtNotification->execute()) {
+            echo "success";
+        } else {
+            echo "success_with_notification_error"; // Indicate user created, but notification failed
+        }
+        $stmtNotification->close();
+
     } else {
-        echo "Error: " . $stmt->error;
+        echo "error: " . $stmt->error;
     }
 
     $stmt->close();
