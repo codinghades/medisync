@@ -1,32 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("../process/getAdminTotalBill.php") // Update with the correct path
+    fetch("../process/getAdminTotalBill.php")
         .then(response => response.json())
         .then(data => {
-            const unpaidTable = document.querySelector(".unpaidBills .list table");
-            const paidTable = document.querySelector(".paidBills .list table");
+            const unpaidTable = document.querySelector(".unpaidBills .list table tbody");
+            const paidTable = document.querySelector(".paidBills .list table tbody");
 
-            // Clear existing rows (except headers)
-            unpaidTable.innerHTML = `
-                <tr>
-                    <th>Name</th>
-                    <th>Bill</th>
-                    <th>Payment Status</th>
-                    <th>Date</th>
-                </tr>
-            `;
-            paidTable.innerHTML = `
-                <tr>
-                    <th>Name</th>
-                    <th>Bill</th>
-                    <th>Payment Status</th>
-                    <th>Payment Method</th>
-                    <th>Date</th>
-                </tr>
-            `;
+            unpaidTable.innerHTML = "";
+            paidTable.innerHTML = "";
 
-            // Populate unpaid bills
             if (data.unpaid.length === 0) {
-                unpaidTable.innerHTML += `
+                unpaidTable.innerHTML = `
                     <tr>
                         <td colspan="4">No unpaid bills.</td>
                     </tr>
@@ -48,9 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
 
-            // Populate paid bills
             if (data.paid.length === 0) {
-                paidTable.innerHTML += `
+                paidTable.innerHTML = `
                     <tr>
                         <td colspan="5">No paid bills.</td>
                     </tr>

@@ -1,10 +1,14 @@
 @import url(styles.css);
 
 .mainContent{
+    display: grid;
     padding: 20px 20px 20px 240px;
     background-color: var(--white);
     min-height: 100vh;
     height: 100%;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 .title{
     font-size: 1.8rem;
@@ -12,6 +16,7 @@
 }
 .titleContainer{
     margin-bottom: 20px;
+    grid-column: span 2;
 }
 .unpaidBills, .paidBills{
     padding: 20px;
@@ -133,4 +138,30 @@ table td{
         font-size: 2rem;
         margin-bottom: 20px;
     }
+
+    .list{
+        overflow: visible !important;
+    }
+}
+
+.unpaidBills .list table thead th,
+.paidBills   .list table thead th {
+    position: sticky;
+    top: 0;
+    background-color: var(--primary-color);
+    z-index: 2;
+}
+
+.unpaidBills .list,
+.paidBills .list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.unpaidBills,
+.paidBills {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 200px);
+    margin-bottom: 20px;
 }
