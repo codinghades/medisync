@@ -6,24 +6,29 @@
     height: 100%;
     background-color: var(--white);
 }
+
 .title{
     font-size: 1.8rem;
     font-weight: 700;
 }
+
 .titleContainer{
     margin-bottom: 20px;
 }
+
 .patientsList{
     background-color: var(--primary-bg);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 5px 5px 10px var(--shadow-color);
 }
+
 .header p{
     font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 10px;
 }
+
 .searchBar{
     display: grid;
     width: 100%;
@@ -31,17 +36,19 @@
     align-items: center;
     grid-template-columns: 1fr auto auto;
 }
+
 .searchBar input[type='text'], select{
     padding: 10px;
     border-style: solid;
     border-color: var(--primary-color);
     border-width: 1px;
     border-radius: 5px;
-
 }
+
 .searchBar input[type='text']:hover, select:hover{
     background-color: var(--highlight-color);
 }
+
 .searchBar input[type='submit']{
     padding: 10px;
     background-color: var(--primary-color);
@@ -49,39 +56,51 @@
     color: white;
     border-style: solid;
 }
+
 button[type='submit']{
     background-color: var(--primary-color);
     border-radius: 5px;
     color: white;
 }
+
 .searchBar input[type='submit']:hover, button[type='submit']:hover{
     background-color: var(--button-hover);
 }
+
 .searchBar input[type='submit']:active, button[type='submit']:active{
     background-color: var(--button-active);
 }
+
 .searchBar > form {
     display: grid;
     grid-template-columns: 1fr;
 }
+
 .list{
     margin-top: 10px;
+    overflow-y: auto;
+    height: calc(100vh - 300px);
 }
+
 .list table{
     width: 100%;
 }
+
 table td, tr, th{
     text-align: center;
 }
+
 table th{
     padding: 5px 0;
     background-color: var(--primary-color);
     color: white;
 }
+
 table td{
     padding: 10px 0;
     background-color: var(--white);
 }
+
 .printButton{
     width: 300px;
     padding: 10px;
@@ -96,12 +115,15 @@ table td{
     align-items: center;
     margin-bottom: 20px;
 }
+
 .printButton:hover{
     background-color: var(--button-hover);
 }
+
 .printButton:active{
     background-color: var(--button-active);
 }
+
 .printButton i{
     padding: 0;
 }
@@ -121,6 +143,7 @@ table td{
         background: white !important;
         margin: 0;
         padding: 0;
+        overflow: visible !important;
     }
 
     body * {
@@ -129,6 +152,8 @@ table td{
 
     .printContainer, .printContainer * {
         visibility: visible;
+        overflow: visible !important;
+        height: auto !important;
     }
 
     .printContainer {
@@ -139,7 +164,7 @@ table td{
         width: 100%;
         background: white;
         font-size: 1rem;
-        height: calc(100vh - 3rem);
+        height: auto;
         box-sizing: border-box;
         box-shadow: none;
     }
@@ -149,17 +174,11 @@ table td{
         border-collapse: collapse;
         page-break-inside: auto;
         table-layout: fixed;
+        overflow: visible !important;
+        height: auto !important;
     }
 
-    .printContainer th {
-        background-color: var(--primary-color);
-        color: white;
-        text-align: center;
-        padding: 12px;
-        min-width: 100px;
-    }
-
-    .printContainer td {
+    .printContainer th, .printContainer td {
         border: 1px solid black;
         padding: 10px;
         text-align: left;
@@ -169,10 +188,26 @@ table td{
         min-height: 2rem;
     }
 
+    .printContainer th {
+        background-color: var(--primary-color) !important;
+        color: white;
+        text-align: center;
+        padding: 12px;
+    }
+
     .printContainer .header p {
         width: 100%;
         text-align: center;
         font-size: 2rem;
         margin-bottom: 20px;
+    }
+
+    .printContainer td:last-child,
+    .printContainer th:last-child {
+        display: none;
+    }
+
+    .printContainer button {
+        display: none;
     }
 }

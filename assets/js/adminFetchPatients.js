@@ -2,21 +2,12 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("../process/adminPatients.php")
         .then(response => response.json())
         .then(data => {
-            const table = document.querySelector(".list table");
+            const tbody = document.querySelector(".list table tbody");
 
-            // Clear existing rows (except headers)
-            table.innerHTML = `
-                <tr>
-                    <th>Name</th>
-                    <th>Register Date</th>
-                    <th>Prescription Status</th>
-                    <th>Unpaid Bill</th>
-                    <th>Appointment</th>
-                </tr>
-            `;
+            tbody.innerHTML = "";
 
             if (!data || data.length === 0) {
-                table.innerHTML += `
+                tbody.innerHTML = `
                     <tr>
                         <td colspan="5">No registered patients.</td>
                     </tr>
@@ -25,17 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             data.forEach(patient => {
-                // Format registration date
                 const formattedDate = new Date(patient.registration_date).toLocaleDateString('en-US', {
                     year: 'numeric', month: 'long', day: 'numeric'
                 });
 
-                // Ensure unpaid bill is displayed correctly
                 const unpaidBill = parseFloat(patient.unpaid_bill) >= 1
                     ? `<span style='color:red; font-weight:700;'>₱${patient.unpaid_bill}</span>`
                     : "<span style='color:gray; font-weight:700;'>None</span>";
 
-                // Appointment is already formatted in PHP (Y-m-d H:i), convert it
                 const appointment = patient.closest_appointment !== "None"
                     ? `<span style='font-weight:700;'>${new Date(patient.closest_appointment).toLocaleString('en-US', {
                         month: 'long', day: 'numeric', year: 'numeric',
@@ -52,7 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>${appointment}</td>
                     </tr>
                 `;
-                table.innerHTML += row;
+
+                tbody.innerHTML += row;
             });
         })
         .catch(error => console.error("Error fetching patient data:", error));

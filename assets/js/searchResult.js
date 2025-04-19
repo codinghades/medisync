@@ -1,95 +1,84 @@
 document.addEventListener("DOMContentLoaded", function () {
     const searchForm = document.getElementById("searchForm");
-    const searchBar = document.getElementById("searchBar");
-    const reset = document.getElementById("reset");
+    const searchBar  = document.getElementById("searchBar");
+    const resetBtn   = document.getElementById("reset");
     const sortSelect = document.getElementById("filter");
-    const table = document.querySelector(".list table");
-    let searchTimeout; // Variable to hold the timeout
-
-    // Initial fetch (load all patients on page load)
-    fetchPatients();
-
-    // Reload page on reset button click
-    reset.addEventListener("click", function () {
-        location.reload();
+    const tbody      = document.querySelector(".list table tbody");
+    let   searchTimeout;
+  
+    // 1) On load, fetch the default ordering:
+    fetchDefaultPatients();
+  
+    // 2) Reset button reloads default:
+    resetBtn.addEventListener("click", e => {
+      e.preventDefault();
+      searchBar.value = "";
+      sortSelect.value = "";
+      fetchDefaultPatients();
     });
-
-    // Fetch and update patient data based on search while typing
-    searchBar.addEventListener("input", function () {
-        clearTimeout(searchTimeout); // Clear any existing timeout
-
-        searchTimeout = setTimeout(() => {
-            let query = searchBar.value.trim();
-            fetchPatients(query, sortSelect.value);
-        }, 300); // Wait 300ms after typing to fetch
-    });
-
-    // Fetch and update patient data based on sorting
-    sortSelect.addEventListener("change", function () {
+  
+    // 3) Live search (+ sort) uses the search endpoint:
+    searchBar.addEventListener("input", () => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
         fetchPatients(searchBar.value.trim(), sortSelect.value);
+      }, 300);
     });
-
-    // Function to fetch patient data with optional search & sorting
+  
+    sortSelect.addEventListener("change", () => {
+      fetchPatients(searchBar.value.trim(), sortSelect.value);
+    });
+  
+    searchForm.addEventListener("submit", e => e.preventDefault());
+  
+    function fetchDefaultPatients() {
+      fetch("../process/adminPatients.php")
+        .then(res => res.json())
+        .then(updateTable)
+        .catch(err => console.error(err));
+    }
+  
     function fetchPatients(search = "", filter = "") {
-        fetch("../process/searchPatient.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams({ search: search, filter: filter })
-        })
-        .then(response => response.json())
-        .then(data => updateTable(data))
-        .catch(error => console.error("Error fetching patient data:", error));
+      fetch("../process/searchPatient.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ search, filter })
+      })
+      .then(res => res.json())
+      .then(updateTable)
+      .catch(err => console.error(err));
     }
-
-    // Function to update the table with patient data
+  
     function updateTable(data) {
-        table.innerHTML = `
-            <tr>
-                <th>Name</th>
-                <th>Register Date</th>
-                <th>Prescription Status</th>
-                <th>Unpaid Bill</th>
-                <th>Appointment</th>
-            </tr>
-        `;
-
-        if (!Array.isArray(data) || data.length === 0) {
-            table.innerHTML += `<tr><td colspan="5">No results found.</td></tr>`;
-            return;
-        }
-
-        data.forEach(patient => {
-            const formattedDate = patient.registration_date
-                ? new Date(patient.registration_date).toLocaleDateString('en-US', {
-                    year: 'numeric', month: 'long', day: 'numeric'
-                })
-                : "Unknown";
-
-            const unpaidBill = parseFloat(patient.unpaid_bill) > 0
-                ? `<span style='color:red; font-weight:700;'>₱${patient.unpaid_bill}</span>`
-                : "<span style='color:gray; font-weight:700;'>None</span>";
-
-            const appointment = patient.closest_appointment !== "None"
-                ? `<span style='font-weight:700;'>${patient.closest_appointment}</span>`
-                : "<span style='color:gray; font-weight:700;'>None</span>";
-
-            table.innerHTML += `
-                <tr>
-                    <td>${patient.name}</td>
-                    <td>${formattedDate}</td>
-                    <td>${patient.active_prescription === "Yes"
-                        ? "<span style='color:green; font-weight:700;'>Active</span>"
-                        : "<span style='color:gray; font-weight:700;'>None</span>"}</td>
-                    <td>${unpaidBill}</td>
-                    <td>${appointment}</td>
-                </tr>
-            `;
-        });
+      tbody.innerHTML = "";
+      if (!Array.isArray(data) || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5">No results found.</td></tr>`;
+        return;
+      }
+      data.forEach(pt => {
+        const rd = pt.registration_date
+          ? new Date(pt.registration_date)
+              .toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"})
+          : "Unknown";
+        const ub = parseFloat(pt.unpaid_bill)>0
+          ? `<span style="color:red;font-weight:700;">₱${pt.unpaid_bill}</span>`
+          : `<span style="color:gray;font-weight:700;">None</span>`;
+        const ap = pt.closest_appointment!=="None"
+          ? `<span style="font-weight:700;">${pt.closest_appointment}</span>`
+          : `<span style="color:gray;font-weight:700;">None</span>`;
+        tbody.innerHTML += `
+          <tr>
+            <td>${pt.name}</td>
+            <td>${rd}</td>
+            <td>${
+              pt.active_prescription==="Yes"
+                ? `<span style="color:green;font-weight:700;">Active</span>`
+                : `<span style="color:gray;font-weight:700;">None</span>`
+            }</td>
+            <td>${ub}</td>
+            <td>${ap}</td>
+          </tr>`;
+      });
     }
-
-    // Prevent default form submission (still useful if JS fails or for accessibility)
-    searchForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        // The 'input' event listener will handle the search on typing
-    });
-});
+  });
+  

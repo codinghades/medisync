@@ -33,7 +33,7 @@
                             <select name="filter" id="filter">
                                 <option value="" hidden selected>Default</option>
                                 <option value="1">By Name Ascending (A-Z)</option>
-                                <option value="2">By Name Decending (Z-A) </option>
+                                <option value="2">By Name Descending (Z-A)</option>
                                 <option value="3">Newest Registration</option>
                                 <option value="4">Oldest Registration</option>
                                 <option value="5">Active Prescription</option>
@@ -46,20 +46,18 @@
                 </div>
                 <div class="list">
                     <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Register Date</th>
-                            <th>Prescription Status</th>
-                            <th>Unpaid Bill</th>
-                            <th>Appointment</th>
-                        </tr>
-                        <tr>
-                            <td>Juan Dela Cruz</td>
-                            <td>March 26, 2025</td>
-                            <td>Active</td>
-                            <td>None</td>
-                            <td>Active</td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Register Date</th>
+                                <th>Prescription Status</th>
+                                <th>Unpaid Bill</th>
+                                <th>Appointment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic rows will be inserted here -->
+                        </tbody>
                     </table>
                 </div>
             </div>
