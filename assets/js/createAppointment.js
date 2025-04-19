@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 showMessage(message);
                 appointmentForm.reset();
                 loadAppointments();
+                autofillUserName();
             }
         })
         .catch(error => {
@@ -66,13 +67,10 @@ document.addEventListener("DOMContentLoaded", function () {
         appointmentForm.addEventListener("submit", function (event) {
             event.preventDefault();
 
-            // Show the initial confirmation modal
             appointmentOverlay.style.display = 'flex';
 
-            // Remove the previous listener
             if (confirmAppointmentButton) {
                 confirmAppointmentButton.removeEventListener('click', confirmAppointmentHandler);
-                // Add the listener again for the current submission
                 confirmAppointmentButton.addEventListener('click', confirmAppointmentHandler);
             }
         });
