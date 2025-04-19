@@ -72,9 +72,18 @@
         <div class="appointment-modal-overlay" id="appointmentExistsOverlay">
             <div class="appointment-modal">
                 <div class="appointmentIcon"><i class='bx bx-error'></i></div>
-                <p>You have an active appointment on the selected date.</p>
+                <p class="message-text">You have an active appointment on the selected date.</p>
                 <div class="modal-buttons">
                     <button id="confirmAppointment">Ok</button>
+                </div>
+            </div>
+        </div>
+        <div class="appointment-modal-overlay" id="appointmentSuccessOverlay">
+            <div class="appointment-modal">
+                <div class="appointmentIcon"><i class='bx bx-calendar-check'></i></div>
+                <p id="appointmentSuccessMessage">Appointment created successfully.</p>
+                <div class="modal-buttons">
+                    <button id="closeSuccessModal">Ok</button>
                 </div>
             </div>
         </div>

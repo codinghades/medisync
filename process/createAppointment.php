@@ -2,7 +2,7 @@
 session_start();
 include '../config/database.php';
 
-if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     if (!isset($_SESSION["user_id"])) {
         echo "User not logged in";
         exit;
@@ -13,24 +13,33 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $lastName = trim($_POST['lastName']);
     $contactNumber = trim($_POST['contactNumber']);
     $type = trim($_POST['type']);
-    $date = trim($_POST['date']);
-    $time = trim($_POST['time']);
+    $date = trim($_POST['date']); // format: YYYY-MM-DD
+    $time = trim($_POST['time']); // format: HH:MM
     $details = trim($_POST['details']);
 
-    // Determine Consultation Type ID
-    $consultationTypeID = null;
-    switch ($type) {
-        case 'laboratory': $consultationTypeID = 1; break;
-        case 'opd': $consultationTypeID = 2; break;
-        case 'pedia': $consultationTypeID = 3; break;
-        case 'obgyn': $consultationTypeID = 4; break;
-        case 'ent': $consultationTypeID = 5; break;
-        default:
-            echo "Invalid appointment type";
-            exit;
+    // Validate date and time
+    $appointmentDateTime = "$date $time";
+    if (strtotime($appointmentDateTime) < time()) {
+        echo " Selected appointment date and time is in the past.";
+        exit;
     }
 
-    // Check for existing active appointment on the selected date
+    // Validate consultation type
+    $consultationTypeID = match ($type) {
+        'laboratory' => 1,
+        'opd'        => 2,
+        'pedia'      => 3,
+        'obgyn'      => 4,
+        'ent'        => 5,
+        default      => null
+    };
+
+    if (!$consultationTypeID) {
+        echo "Invalid appointment type";
+        exit;
+    }
+
+    // Check for existing active appointment on the same date
     $stmtCheck = $conn->prepare("SELECT COUNT(*) FROM appointments WHERE patient_id = ? AND appointment_date = ? AND status = 'Active'");
     $stmtCheck->bind_param("ss", $patient_id, $date);
     $stmtCheck->execute();
@@ -43,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         exit;
     }
 
-    // Fetch Consultation Price
+    // Fetch consultation price
     $stmtPrice = $conn->prepare("SELECT price FROM consultationprices WHERE id = ?");
     $stmtPrice->bind_param("i", $consultationTypeID);
     $stmtPrice->execute();
@@ -56,32 +65,30 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         exit;
     }
 
-    $currentDate = date("Y-m-d");
-
+    // Insert into appointments
+    $status = "Active";
     $stmt = $conn->prepare("INSERT INTO appointments (patient_id, appointment_type, appointment_date, appointment_time, contact_number, notes, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
-    $status = (strtotime("$date $time") >= time()) ? "Active" : "Expired";
     $stmt->bind_param("sssssss", $patient_id, $type, $date, $time, $contactNumber, $details, $status);
 
     if ($stmt->execute()) {
-        $appointmentId = $conn->insert_id; // Get the ID of the newly inserted appointment
+        $appointmentId = $conn->insert_id;
+        $currentDate = date("Y-m-d");
+        $paymentStatus = "Unpaid";
 
-        // Corrected INSERT query to include appointment_id
+        // Insert into Billing
         $stmtBilling = $conn->prepare("INSERT INTO Billing (patient_id, appointment_id, ConsultationTypeID, Amount, PaymentStatus, created_at) VALUES (?, ?, ?, ?, ?, ?)");
-        $paymentStatus = 'Unpaid';
-        // Corrected bind_param to use 's' for patient_id (VARCHAR)
         $stmtBilling->bind_param("siidss", $patient_id, $appointmentId, $consultationTypeID, $consultationPrice, $paymentStatus, $currentDate);
 
         if ($stmtBilling->execute()) {
-            echo "Appointment booked and billing record created successfully";
+            echo "Appointment booked successfully";
         } else {
-            echo "Failed to create billing record";
+            echo "Appointment booked but failed to create billing record";
         }
 
         $stmtBilling->close();
     } else {
         echo "Failed to book appointment";
     }
-
 
     $stmt->close();
     $conn->close();

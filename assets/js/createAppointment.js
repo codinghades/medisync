@@ -44,13 +44,18 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.text())
         .then(message => {
             appointmentOverlay.style.display = 'none';
-            if (message.startsWith("You already have an active appointment")) {
+        
+            if (message.includes("already have an active appointment") || message.includes("in the past")) {
+                const messageText = appointmentExistsOverlay.querySelector(".message-text");
+                if (messageText) messageText.textContent = message;
                 appointmentExistsOverlay.style.display = 'flex';
-            } else {
+            } else if (message.toLowerCase().includes("success")) {
                 showMessage(message);
                 appointmentForm.reset();
                 loadAppointments();
                 autofillUserName();
+            } else {
+                showMessage("An unexpected response occurred. Please try again.");
             }
         })
         .catch(error => {
@@ -77,19 +82,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showMessage(message) {
-        const messageModal = document.createElement('div');
-        messageModal.classList.add('message-modal');
-        messageModal.innerHTML = `
-            <div class="message-content">
-                <p>${message}</p>
-                <button class="close-message">Close</button>
-            </div>
-        `;
-        document.body.appendChild(messageModal);
-
-        messageModal.querySelector('.close-message').addEventListener('click', function () {
-            document.body.removeChild(messageModal);
-        });
+        const successOverlay = document.getElementById("appointmentSuccessOverlay");
+        const successMessage = document.getElementById("appointmentSuccessMessage");
+        const closeBtn = document.getElementById("closeSuccessModal");
+    
+        if (successOverlay && successMessage && closeBtn) {
+            successMessage.textContent = message;
+            successOverlay.style.display = "flex";
+    
+            closeBtn.addEventListener("click", function () {
+                successOverlay.style.display = "none";
+            }, { once: true }); // prevent multiple bindings
+        }
     }
 
     function renderAppointments(data) {
