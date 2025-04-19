@@ -3,19 +3,33 @@ async function loadUpcomingAppointments() {
         const response = await fetch('../process/adminDashboardSummary.php');
         const data = await response.json();
 
-        const tableBody = document.querySelector(".upcomingAppointments .list table");
-        tableBody.innerHTML = `
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-            </tr>
+        const table = document.querySelector(".upcomingAppointments");
+        table.innerHTML = `
+            <div class="header">
+                <p>Upcoming Appointments</p>
+            </div>
+            <div class="wrapper">
+                <div class="list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
         `;
 
+        const tableBody = table.querySelector("tbody");
+
         if (!data.upcomingAppointments || data.upcomingAppointments.length === 0) {
-            tableBody.innerHTML += `<tr><td colspan="6">No upcoming appointments found.</td></tr>`;
+            tableBody.innerHTML += `<tr><td colspan="5">No upcoming appointments found.</td></tr>`;
             return;
         }
 
@@ -36,6 +50,8 @@ async function loadUpcomingAppointments() {
         console.error("Error loading upcoming appointments:", error);
     }
 }
+
+
 
 async function fetchSummaryData() {
     try {
@@ -68,16 +84,30 @@ async function fetchActivePatientList() {
         let response = await fetch('../process/adminDashboardSummary.php');
         let data = await response.json();
 
-        let tableBody = document.querySelector(".activePatientList .list table");
+        const container = document.querySelector(".activePatientList");
+        container.innerHTML = `
+            <div class="header">
+                <p>Active Patient List</p>
+            </div>
+            <div class="wrapper">
+                <div class="list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Register Date</th>
+                                <th>Prescription Status</th>
+                                <th>Unpaid Bill</th>
+                                <th>Appointment</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        `;
 
-        tableBody.innerHTML = `
-            <tr>
-                <th>Name</th>
-                <th>Register Date</th>
-                <th>Prescription Status</th>
-                <th>Unpaid Bill</th>
-                <th>Appointment</th>
-            </tr>`;
+let tableBody = container.querySelector("tbody");
 
         if (data.activePatients.length === 0) {
             tableBody.innerHTML += `<tr><td colspan="5">No active patients found.</td></tr>`;
@@ -86,7 +116,7 @@ async function fetchActivePatientList() {
 
         data.activePatients.forEach(patient => {
             let prescriptionClass = patient.prescription_status === "Active" ? "status-active" : "status-none";
-            let unpaidClass = patient.unpaid_bill != 'None'? "status-unpaid" : "status-none";
+            let unpaidClass = patient.unpaid_bill !== 'None' ? "status-unpaid" : "status-none";
             let appointmentClass = patient.active_appointment === "Active" ? "status-active" : "status-none";
 
             let row = `

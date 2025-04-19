@@ -29,6 +29,9 @@
     font-size: 1.3rem;
     font-weight: 600;
 }
+.activePatientList .header{
+    padding: 10px 0;
+}
 .upcomingAppointments, .summaryCards, .unpaidBills, .activePatientList{
     background-color: var(--primary-bg);
     padding: 20px;
@@ -36,15 +39,13 @@
     box-shadow: 5px 5px 10px var(--shadow-color);
     height: auto;
 }
-.list, .cards, .totalUnpaidBills{
+.cards, .totalUnpaidBills{
     padding-top: 10px;
 }
 
 /* Upcoming Appointments Styles */
 .upcomingAppointments {
     grid-row: span 2;
-    overflow-y: auto;
-    overflow-x: hidden;
     position: relative;
     padding: 0 20px;
     max-height: 500px;
@@ -160,4 +161,27 @@ table td{
 .status-unpaid {
     color: red;
     font-weight: 700;
+}
+
+.activePatientList{
+    max-height: calc(100vh - 550px);
+}
+
+.wrapper{
+    max-height: 90%;
+    overflow-y: auto;
+}
+
+.wrapper .list {
+    width: 100%;
+}
+
+.wrapper .list thead {
+    position: sticky;
+    top: 0;
+    background-color: var(--primary-bg);
+    z-index: 1;
+}
+.upcomingAppointments .wrapper{
+    max-height: 83%;
 }
