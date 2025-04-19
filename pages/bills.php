@@ -21,13 +21,14 @@
         <div class="billingContainer">
             <div class="unpaidBills">
                 <p class="title">Unpaid Bills</p>
+                <div class="wrapper unpaidWrapper"></div>
                 <div class="totalAmount">
                     <strong>Total: </strong> <span>₱0.00</span>
                 </div>
             </div>
-
             <div class="paidBills">
                 <p class="title">Billing History</p>
+                <div class="wrapper paidWrapper"></div>
             </div>
         </div>
     </div>

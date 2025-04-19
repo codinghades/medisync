@@ -18,23 +18,19 @@ function fetchBills() {
 }
 
 function displayUnpaidBills(bills) {
-    const container = document.querySelector('.unpaidBills');
+    const wrapper = document.querySelector('.unpaidWrapper');
     const totalAmountElement = document.querySelector('.totalAmount span');
-    container.innerHTML = ''; // Clear previous content
+    wrapper.innerHTML = ''; // Clear only the bill list
     let total = 0;
-    const title = `
-        <div class='header'><p class='header'>Unpaid Bills</p></div>`;
-    container.innerHTML += title;
+
     if (bills.length === 0) {
-        container.innerHTML += '<p>No unpaid bills.</p>';
+        wrapper.innerHTML += '<p>No unpaid bills.</p>';
     } else {
         bills.forEach(bill => {
             const amount = parseFloat(bill.Amount);
-            if (isNaN(amount)) {
-                console.error('Invalid amount for bill:', bill);
-                return;
-            }
-            const billElement = `
+            if (isNaN(amount)) return;
+
+            wrapper.innerHTML += `
                 <div class="bill">
                     <dl>
                         <dt>
@@ -47,26 +43,22 @@ function displayUnpaidBills(bills) {
                         </dd>
                     </dl>
                 </div>`;
-            container.innerHTML += billElement;
-            total += amount; // Add to total
+            total += amount;
         });
-    }  
-    const totalAmount = `
-        <div class="totalAmount">
-            <strong>Total: </strong> <span>₱${total.toFixed(2)}</span>
-        </div>`;
-    container.innerHTML += totalAmount;
-    
-    const payButton = `
-        <button class="payNowButton" id="payNowButton">Pay All</button>`;
-    container.innerHTML += payButton;
+    }
 
-    document.getElementById('payNowButton').addEventListener('click', function() {
-        showPaymentModal();
-    });
+    totalAmountElement.textContent = `₱${total.toFixed(2)}`;
 
-    if (total == 0){
-        document.getElementById('payNowButton').style.display = 'none';
+    let payBtn = document.querySelector("#payNowButton");
+    if (payBtn) payBtn.remove();
+
+    if (total > 0) {
+        const payButton = document.createElement('button');
+        payButton.className = 'payNowButton';
+        payButton.id = 'payNowButton';
+        payButton.textContent = 'Pay All';
+        document.querySelector('.unpaidBills').appendChild(payButton);
+        payButton.addEventListener('click', showPaymentModal);
     }
 }
 
@@ -123,13 +115,7 @@ function markAllBillsAsPaid(paymentMethod) {
 }
 
 function displayPaidBills(bills) {
-    const container = document.querySelector('.paidBills');
-    container.innerHTML = ''
-
-    const title = `
-    <div class='header'><p class='header'>Paid Bills</p></div>`;
-    container.innerHTML += title;
-
+    const container = document.querySelector('.paidWrapper');
     if (bills.length === 0) {
         container.innerHTML += '<p>No paid bills.</p>';
     } else {

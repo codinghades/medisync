@@ -35,11 +35,23 @@
     background-color: var(--primary-bg);
     padding: 20px;
     box-shadow: 5px 5px 10px var(--shadow-color);
+    max-height: 70vh;
+    padding-bottom: 40px;
 }
 
-.title {
+.wrapper{
+    max-height: 99%;
+    overflow-y: auto;
+}
+
+.unpaidWrapper{
+    max-height: 80%;
+}
+
+.unpaidBills .title, .paidBills .title {
     font-size: 1.3rem;
     font-weight: bold;
+    padding-bottom: 5px;
 }
 
 .bill {
