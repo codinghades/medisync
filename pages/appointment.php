@@ -71,7 +71,7 @@
         </div>
         <div class="appointment-modal-overlay" id="appointmentExistsOverlay">
             <div class="appointment-modal">
-                <div class="appointmentIcon"><i class='bx bx-calendar-check'></i></div>
+                <div class="appointmentIcon"><i class='bx bx-error'></i></div>
                 <p>You have an active appointment on the selected date.</p>
                 <div class="modal-buttons">
                     <button id="confirmAppointment">Ok</button>
