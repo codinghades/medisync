@@ -23,31 +23,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateTable(data) {
-        allTable.innerHTML = `
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Created At</th>
-                <th>Select</th>
-            </tr>
+        const container = document.querySelector(".allAppointments .wrapper");
+        
+        container.innerHTML = `
+                <div class="list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                                <th>Select</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
         `;
-
+    
+        const tbody = container.querySelector("tbody");
+    
         if (!Array.isArray(data) || data.length === 0) {
-            allTable.innerHTML += `<tr><td colspan="7">No appointments found.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7">No appointments found.</td></tr>`;
             return;
         }
-
+    
         data.forEach(appointment => {
             const status = appointment.status.trim().toLowerCase();
             const isActive = status === "active";
             const statusClass = isActive ? "status-active" :
                                 status === "expired" ? "status-expired" :
                                 "status-completed";
-
-            allTable.innerHTML += `
+    
+            const row = `
                 <tr>
                     <td>${appointment.patient_name}</td>
                     <td>${appointment.appointment_type}</td>
@@ -64,8 +75,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     </td>
                 </tr>
             `;
+    
+            tbody.innerHTML += row;
         });
-    }
+    }    
 
     function getSelectedAppointments() {
         return [...document.querySelectorAll("input[name='select']:checked")].map(cb => cb.value);

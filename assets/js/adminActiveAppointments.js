@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const allTable = document.querySelector(".activeAppointments .list table");
+    const container = document.querySelector(".activeAppointments");
     const changeStatusBtn = document.getElementById("changeStatus");
     const deleteBtn = document.getElementById("delete");
     let user_id;
-    
+
     function fetchAppointments() {
         fetch("../process/adminActiveAppointments.php", {
             method: "POST",
@@ -15,28 +15,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateTable(data) {
-        allTable.innerHTML = `
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Created At</th>
-            </tr>
+        container.innerHTML = `
+            <div class="header">
+                <p>Active Appointments</p>
+            </div>
+            <div class="wrapper">
+                <div class="list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
         `;
 
+        const tbody = container.querySelector("tbody");
+
         if (data.length === 0) {
-            allTable.innerHTML += `<tr><td colspan="7">No appointments found.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="6">No appointments found.</td></tr>`;
             return;
         }
 
         data.forEach(appointment => {
             let statusClass = appointment.status.trim().toLowerCase() === "active" ? "status-active" :
-            appointment.status.trim().toLowerCase() === "expired" ? "status-expired" :
-            "status-completed";
-        
-            allTable.innerHTML += `
+                              appointment.status.trim().toLowerCase() === "expired" ? "status-expired" :
+                              "status-completed";
+
+            const row = `
                 <tr>
                     <td>${appointment.patient_name}</td>
                     <td>${appointment.appointment_type}</td>
@@ -46,11 +60,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>${appointment.created_at}</td>
                 </tr>
             `;
+            tbody.innerHTML += row;
         });
-        
     }
 
-
-    
     fetchAppointments();
 });

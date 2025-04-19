@@ -72,25 +72,27 @@
                     </div>
                     <button type="submit" id="reset"><i class='bx bx-revision'></i></button>
                 </div>
-                <div class="list">
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                        </tr>
-                        <tr>
-                            <td>Juan Dela Cruz</td>
-                            <td>General Medicine (OPD)</td>
-                            <td>March 29, 2025</td>
-                            <td>9:00 AM</td>
-                            <td class="status"><span class="statusText">Expired</span></td>
-                            <td>March 25, 2025</td>
-                        </tr>
-                    </table>
+                <div class="wrapper">       
+                    <div class="list">
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                            </tr>
+                            <tr>
+                                <td>Juan Dela Cruz</td>
+                                <td>General Medicine (OPD)</td>
+                                <td>March 29, 2025</td>
+                                <td>9:00 AM</td>
+                                <td class="status"><span class="statusText">Expired</span></td>
+                                <td>March 25, 2025</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <div class="buttons" id="buttons">
                     <button class="changeStatus" id="changeStatus"><p>Change Status</p></button>
