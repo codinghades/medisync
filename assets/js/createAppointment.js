@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmAppointmentButton = document.getElementById('confirmAppointment');
     const cancelAppointmentButton = document.getElementById('cancelAppointment');
     const appointmentExistsOverlay = document.getElementById('appointmentExistsOverlay');
-    const confirmExistingAppointmentButton = appointmentExistsOverlay.querySelector('#confirmAppointment'); // Assuming the 'Ok' button in the new modal has this ID
+    const confirmExistingAppointmentButton = appointmentExistsOverlay.querySelector('#confirmAppointment');
 
     if (cancelAppointmentButton) {
         cancelAppointmentButton.addEventListener('click', function () {
@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.appointments.length === 0) {
             html += `<p class='nothing'>No appointments found.</p>`;
         } else {
+            html += '<div class="wrapper">'
             data.appointments.forEach(appt => {
                 let color = {
                     active: "green",
@@ -121,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     </dl>
                                 </div>`;
             });
+            html += '</div>'
         }
 
         appointmentList.innerHTML = html;

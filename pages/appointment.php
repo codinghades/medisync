@@ -58,6 +58,7 @@
                     </dd>
                 </dl>
             </div>
+            <div class="spacer"></div>
         </div>
         <div class="appointment-modal-overlay" id="appointmentOverlay">
             <div class="appointment-modal">

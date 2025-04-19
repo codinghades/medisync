@@ -69,8 +69,25 @@
     border-radius: 10px;
     margin: 0 0 20px 0;
     background-color: var(--primary-bg);
-    padding: 20px;
+    padding: 0 20px;
     box-shadow: 5px 5px 10px var(--shadow-color);
+    max-height: 55vh;
+    padding-bottom: 20px;
+}
+.appointmentLists .wrapper{
+    max-height: 90%;
+    overflow-y: scroll;
+}
+.appointmentLists .header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: var(--primary-bg);
+    padding: 20px 0 10px 0;
+}
+.appointmentsWrapper {
+    padding-bottom: 2rem;
 }
 .appointmentLists dl{
     margin: 10px 0;

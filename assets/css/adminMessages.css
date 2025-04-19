@@ -27,7 +27,7 @@
     overflow-y: auto;
     max-height: calc(100vh - 120px);
     display: flex;
-    flex-direction: column; /* Ensure h2 and searchBar are stacked */
+    flex-direction: column;
 }
 
 .chatConversationSection {
