@@ -194,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
         sendMessage();
     });
 
-    // Event listener for input changes on the search input
     searchInput.addEventListener('input', function() {
         const searchTerm = this.value.trim().toLowerCase();
         if (searchTerm) {
@@ -205,7 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             renderChatSessions(filteredSessions);
         } else {
-            // If the search term is empty, show all latest messages
             renderChatSessions(latestChatSessions);
         }
     });

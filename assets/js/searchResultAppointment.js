@@ -3,27 +3,37 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchBar = document.getElementById("searchBar");
     const reset = document.getElementById("reset");
     const sortSelect = document.getElementById("filter");
-    const table = document.querySelector(".allAppointments .list table");
-    let searchTimeout; // Variable to hold the timeout
+    const tbody = document.querySelector(".allAppointments .wrapper .list table tbody");
+    let searchTimeout;
 
     function fetchAppointments() {
         let query = searchBar.value.trim();
         let sortOption = sortSelect.value;
+
+        console.log("Fetching appointments with search query:", query, "and sort option:", sortOption);
 
         fetch("../process/searchPatientAppointment.php", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams({ search: query, filter: sortOption })
         })
-        .then(response => response.json())
-        .then(data => updateTable(data))
-        .catch(error => console.error("Error fetching appointment data:", error));
+        .then(response => {
+            console.log("Response received:", response);
+            return response.json();
+        })
+        .then(data => {
+            console.log("Data received from server:", data);
+            updateTable(data);
+        })
+        .catch(error => {
+            console.error("Error fetching appointment data:", error);
+        });
     }
 
     // Update appointments on search input change with a delay
     searchBar.addEventListener("input", function () {
         clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(fetchAppointments, 300); // Fetch after 300ms of no typing
+        searchTimeout = setTimeout(fetchAppointments, 300);
     });
 
     searchForm.addEventListener("submit", function (event) {
@@ -42,20 +52,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function updateTable(data) {
-        table.innerHTML = `
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Created At</th>
-                <th>Select</th>
-            </tr>
-        `;
+        console.log("Updating table with data:", data); // Debugging
+
+        tbody.innerHTML = ""; // Clear existing rows first
 
         if (data.error || data.length === 0) {
-            table.innerHTML += `<tr><td colspan="7">No results found.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7">No results found.</td></tr>`;
             return;
         }
 
@@ -74,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const isActive = appointment.status.trim().toLowerCase() === "active";
 
-            table.innerHTML += `
+            tbody.innerHTML += `
                 <tr>
                     <td>${appointment.patient_name}</td>
                     <td>${appointment.appointment_type}</td>

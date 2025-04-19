@@ -23,34 +23,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateTable(data) {
-        const container = document.querySelector(".allAppointments .wrapper");
+        const tbody = document.querySelector(".allAppointments .wrapper .list table tbody");
         
-        container.innerHTML = `
-                <div class="list">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Select</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-        `;
-    
-        const tbody = container.querySelector("tbody");
+        tbody.innerHTML = "";
     
         if (!Array.isArray(data) || data.length === 0) {
             tbody.innerHTML = `<tr><td colspan="7">No appointments found.</td></tr>`;
             return;
         }
-    
+
         data.forEach(appointment => {
             const status = appointment.status.trim().toLowerCase();
             const isActive = status === "active";
@@ -78,7 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
             tbody.innerHTML += row;
         });
-    }    
+    }
+    
 
     function getSelectedAppointments() {
         return [...document.querySelectorAll("input[name='select']:checked")].map(cb => cb.value);
