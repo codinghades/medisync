@@ -38,12 +38,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmtNotification = $conn->prepare("INSERT INTO notifications (user_id, title, message, created_at) VALUES (?, ?, ?, ?)");
         $stmtNotification->bind_param("ssss", $new_id, $welcomeTitle, $welcomeMessage, $createdAt);
 
-        if ($stmtNotification->execute()) {
-            echo "success";
-        } else {
-            echo "success_with_notification_error"; // Indicate user created, but notification failed
+        if (!$stmtNotification->execute()) {
+            echo "success_with_notification_error";
         }
         $stmtNotification->close();
+
+        // Create chat session
+        $admin_id = 'A-2025-0001';
+        $stmtChat = $conn->prepare("INSERT INTO chat_sessions (user_id, admin_id, created_at) VALUES (?, ?, NOW())");
+        $stmtChat->bind_param("ss", $new_id, $admin_id);
+
+        if (!$stmtChat->execute()) {
+            echo "success_with_chat_error";
+        } else {
+            echo "success";
+        }
+        $stmtChat->close();
 
     } else {
         echo "error: " . $stmt->error;

@@ -425,34 +425,34 @@ INSERT IGNORE INTO Billing (patient_id, appointment_id, ConsultationTypeID, crea
 ('P-2025-0029', 65, 4, '2025-04-27 14:00:00', 1200.00, 'Unpaid', 'None'),
 ('P-2025-0029', 66, 3, '2025-05-04 18:00:00', 800.00, 'Unpaid', 'None');
 
-INSERT INTO chat_sessions (user_id, admin_id)
-VALUES ('P-2025-0000', 'A-2025-0001'),
-       ('P-2025-0003', 'A-2025-0001'),
-       ('P-2025-0007', 'A-2025-0001'),
-       ('P-2025-0012', 'A-2025-0001'),
-       ('P-2025-0016', 'A-2025-0001'),
-       ('P-2025-0021', 'A-2025-0001'),
-       ('P-2025-0025', 'A-2025-0001');
+INSERT INTO chat_sessions (chat_session_id, user_id, admin_id)
+VALUES (1, 'P-2025-0000', 'A-2025-0001'),
+       (2, 'P-2025-0003', 'A-2025-0001'),
+       (3, 'P-2025-0007', 'A-2025-0001'),
+       (4, 'P-2025-0012', 'A-2025-0001'),
+       (5, 'P-2025-0016', 'A-2025-0001'),
+       (6, 'P-2025-0021', 'A-2025-0001'),
+       (7, 'P-2025-0025', 'A-2025-0001');
 
 INSERT INTO messages (sender, message_content, chat_session_id) VALUES 
-('P-2025-0020', 'Hello, I need assistance with my account.', 1),
+('P-2025-0000', 'Hello, I need assistance with my account.', 1),
 ('A-2025-0001', 'Hi there! How can I help you today?', 1),
-('P-2025-0020', 'I have a question about my recent bill.', 1),
+('P-2025-0000', 'I have a question about my recent bill.', 1),
 
-('P-2025-0020', "Good morning, I\'d like to reschedule my appointment.", 2),
+('P-2025-0003', "Good morning, I\'d like to reschedule my appointment.", 2),
 ('A-2025-0001', 'Certainly, can you please provide your appointment details?', 2),
 
-('P-2025-0018', "Hi, I\'m having trouble logging in.", 3),
+('P-2025-007', "Hi, I\'m having trouble logging in.", 3),
 ('A-2025-0001', 'I can help with that. What seems to be the issue?', 3),
 
-('P-2025-0011', 'Hello, I wanted to confirm my appointment for tomorrow.', 4),
+('P-2025-0012', 'Hello, I wanted to confirm my appointment for tomorrow.', 4),
 ('A-2025-0001', 'Yes, your appointment is scheduled for...', 4),
 
-('P-2025-0010', 'Good day, I have a question about a medication.', 5),
+('P-2025-0016', 'Good day, I have a question about a medication.', 5),
 ('A-2025-0001', 'Please provide the name of the medication.', 5),
 
-('P-2025-0019', 'Hi, I need to book a new appointment.', 6),
+('P-2025-0021', 'Hi, I need to book a new appointment.', 6),
 ('A-2025-0001', 'What type of consultation are you looking for?', 6),
 
-('P-2025-0012', "Hello, I haven\'t received my lab results yet.", 7),
+('P-2025-0025', "Hello, I haven\'t received my lab results yet.", 7),
 ('A-2025-0001', 'Let me check on that for you.', 7);

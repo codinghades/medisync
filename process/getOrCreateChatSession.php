@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../config/database.php'; // Adjust path as needed
+include '../config/database.php';
 
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['error' => 'User not logged in']);
