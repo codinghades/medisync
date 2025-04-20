@@ -238,7 +238,11 @@ i {
     font-size: 2rem;
 }
 
-#cancelAccountPasswordBtn, #cancelButton{
+#cancelAccountPasswordBtn, #cancelButton, #cancelPasswordChangeBtn{
     background-color: var(--white);
     color: var(--primary-color);
+}
+
+#newPasswordError, #currentPasswordError, #confirmNewPasswordError{
+    padding-top: 10px;
 }

@@ -77,7 +77,7 @@ async function loadUserInfo() {
   
     document.querySelector('#saveButton').addEventListener('click', (e) => {
         e.preventDefault();
-        
+
         document.getElementById('accountPasswordInput').value = '';
         document.getElementById('accountPasswordInput').style.border = '';
         
@@ -122,17 +122,23 @@ async function loadUserInfo() {
         const data = await res.json();
   
         if (data.success) {
-          document.getElementById('accountPasswordOverlay').style.display = 'none';
-          document.getElementById('accountSuccessOverlay').style.display = 'flex';
+            document.getElementById('accountPasswordOverlay').style.display = 'none';
+            document.getElementById('accountSuccessOverlay').style.display = 'flex';
         } else {
-          if (data.error === 'email_taken' && emailError) {
+        if (data.error === 'email_taken' && emailError) {
             emailError.textContent = 'Email is already taken.';
-          } else if (data.error === 'password_incorrect' && passwordError) {
+            setTimeout(() => {
+            emailError.textContent = '';
+            }, 3000);
+        } else if (data.error === 'password_incorrect' && passwordError) {
             passwordError.textContent = 'Incorrect password.';
-          } else {
+            setTimeout(() => {
+            passwordError.textContent = '';
+            }, 3000);
+        } else {
             document.getElementById('accountPasswordInput').style.border = '1px solid red';
             document.getElementById('accountPasswordInput').value = '';
-          }
+        }
         }
       } catch (err) {
         console.error('Error updating user info:', err);
