@@ -48,5 +48,26 @@
             </div>
         </div>
     </div>
+
+    <div class="account-modal-overlay" id="accountPasswordOverlay" style="display: none;">
+        <div class="account-modal">
+            <p class="account-modal-text">Enter your password to save changes:</p>
+            <input type="password" id="accountPasswordInput" placeholder="Password">
+            <div class="account-modal-buttons">
+                <button id="confirmAccountPasswordBtn">Confirm</button>
+                <button id="cancelAccountPasswordBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="account-modal-overlay" id="accountSuccessOverlay" style="display: none;">
+        <div class="account-modal">
+            <div class="account-modal-icon"><i class='bx bx-check-circle'></i></div>
+            <p class="account-modal-text">User information changed successfully.</p>
+            <div class="account-modal-buttons">
+                <button id="confirmAccountSuccessBtn">Ok</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

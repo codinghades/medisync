@@ -74,5 +74,52 @@ async function loadUserInfo() {
       autofillUserInfo();
       toggleFields(false);
     });
+  
+    document.querySelector('#saveButton').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('accountPasswordOverlay').style.display = 'flex';
+    });
+  
+    document.getElementById('cancelAccountPasswordBtn').addEventListener('click', () => {
+      document.getElementById('accountPasswordOverlay').style.display = 'none';
+    });
+  
+    document.getElementById('confirmAccountPasswordBtn').addEventListener('click', async () => {
+      const password = document.getElementById('accountPasswordInput').value;
+      const firstName = document.getElementById('firstNameInput').value;
+      const lastName = document.getElementById('lastNameInput').value;
+      const email = document.getElementById('emailInput').value;
+      const contactNumber = document.getElementById('contactNumberInput').value;
+  
+      const formData = new FormData();
+      formData.append('password', password);
+      formData.append('firstName', firstName);
+      formData.append('lastName', lastName);
+      formData.append('email', email);
+      formData.append('contactNumber', contactNumber);
+  
+      const res = await fetch('../process/updateUserInfo.php', {
+        method: 'POST',
+        body: formData
+      });
+  
+      const data = await res.json();
+  
+      if (data.success) {
+        document.getElementById('accountPasswordOverlay').style.display = 'none';
+        document.getElementById('accountSuccessOverlay').style.display = 'flex';
+      } else {
+        document.getElementById('accountPasswordInput').style.border = '1px solid red';
+        document.getElementById('accountPasswordInput').value = '';
+      }
+    });
+  
+    document.getElementById('confirmAccountSuccessBtn').addEventListener('click', () => {
+        document.getElementById('accountSuccessOverlay').style.display = 'none';
+        loadUserInfo();
+        autofillUserInfo();
+        toggleFields(false);
+      });
+    
   });
   
