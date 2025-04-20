@@ -1,0 +1,156 @@
+@import url('styles.css');
+
+.mainContent {
+    padding: 20px 20px 20px 240px;
+    background-color: var(--white);
+    min-height: 100vh;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 20px;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.card {
+    background-color: var(--primary-bg);
+    width: 30%;
+    height: fit-content;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px var(--shadow-color);
+    padding: 20px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 20px;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    width: 100%;
+}
+
+.header .name .userName {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.header .name .userID {
+    font-weight: normal;
+}
+
+.header .headerLogo {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header .headerLogo img {
+    height: 60px;
+}
+
+.form form{
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(6, auto);
+    gap: 15px;
+    width: 100%;
+}
+
+#firstNameInput,
+#lastNameInput,
+#emailInput,
+#contactNumberInput {
+    padding: 10px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    background-color: var(--primary-bg);
+    width: 100%;
+}
+
+#emailInput,
+#contactNumberInput{
+    grid-column: span 2;
+}
+
+#firstNameInput:hover,
+#lastNameInput:hover,
+#emailInput:hover,
+#contactNumberInput:hover {
+    background-color: var(--highlight-color);
+}
+
+#firstNameInput:disabled,
+#lastNameInput:disabled,
+#emailInput:disabled,
+#contactNumberInput:disabled {
+    cursor: not-allowed;
+}
+
+#changePasswordButton,
+#editButton,
+#saveButton,
+#cancelButton {
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+#changePasswordButton,
+#editButton{
+    grid-column: span 2;
+}
+
+#changePasswordButton:hover,
+#editButton:hover,
+#saveButton:hover,
+#cancelButton:hover {
+    background-color: var(--button-hover);
+}
+
+#changePasswordButton:active,
+#editButton:active,
+#saveButton:active,
+#cancelButton:active {
+    background-color: var(--button-active);
+}
+
+.editButton {
+    grid-column: span 2;
+}
+
+.saveCancelButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    grid-column: span 2;
+}
+
+.saveCancelButtons input[type='submit'] {
+    width: 100%;
+}
+
+.saveCancelButtons input[type='submit']:hover {
+    background-color: var(--button-hover);
+}
+
+.saveCancelButtons input[type='submit']:active {
+    background-color: var(--button-active);
+}

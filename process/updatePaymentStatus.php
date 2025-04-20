@@ -18,7 +18,6 @@ $selectedBills = isset($data["selectedBills"]) ? $data["selectedBills"] : [];
 $currentDate = date("Y-m-d");
 
 if (!empty($selectedBills)) {
-    // Partial payment: only update selected bills
     $placeholders = implode(',', array_fill(0, count($selectedBills), '?'));
     $types = str_repeat('s', count($selectedBills));
     $params = array_merge([$currentDate, $paymentMethod, $user_id], $selectedBills);
@@ -28,7 +27,6 @@ if (!empty($selectedBills)) {
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sss" . $types, ...$params);
 } else {
-    // Full payment: update all unpaid bills
     $query = "UPDATE Billing SET PaymentStatus = 'Paid', created_at = ?, PaymentMethod = ?
               WHERE patient_id = ? AND PaymentStatus = 'Unpaid'";
     $stmt = $conn->prepare($query);

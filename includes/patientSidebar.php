@@ -37,6 +37,10 @@
                     <i class='bx bxs-wallet' ></i>
                     <p>Bills</p>
                 </button>
+                <button type="button" id="accountButton" onclick="loadPage('account')">
+                    <i class='bx bxs-user'></i>
+                    <p>Account</p>
+                </button>
             </div>
             <div class="logout" id="logoutButton">
                 <button type="button">

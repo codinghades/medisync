@@ -42,6 +42,10 @@
                     <i class='bx bxs-chat'></i>
                     <p>Messages</p>
                 </button>
+                <button type="button" id="accountButton" onclick="loadPage('account')">
+                    <i class='bx bxs-user'></i>
+                    <p>Account</p>
+                </button>
             </div>
             <div class="accounts" id="logoutButton">
                 <button type="button">
