@@ -32,6 +32,7 @@ function displayUnpaidBills(bills) {
 
             wrapper.innerHTML += `
                 <div class="bill">
+                    <input type="checkbox" class="billCheckbox" amount="${bill.Amount}" value="${bill.BillingID}" style="display: none; width: auto;" >
                     <dl>
                         <dt>
                             <div class="name">${bill.ConsultationType} Fee</div>
@@ -59,9 +60,41 @@ function displayUnpaidBills(bills) {
         payButton.textContent = 'Pay All';
         document.querySelector('.unpaidBills').appendChild(payButton);
         payButton.addEventListener('click', showPaymentModal);
-    }
+    
+        const partialWrapper = document.createElement('div');
+        partialWrapper.className = 'partialPayOption';
+    
+        const partialLabel = document.createElement('label');
+        partialLabel.textContent = 'Pay Partially';
+        partialLabel.htmlFor = 'payPartialCheckbox';
+    
+        const partialCheckbox = document.createElement('input');
+        partialCheckbox.type = 'checkbox';
+        partialCheckbox.id = 'payPartialCheckbox';
+    
+        partialWrapper.appendChild(partialLabel);
+        partialWrapper.appendChild(partialCheckbox);
+        document.querySelector('.unpaidBills').appendChild(partialWrapper);
+    
+        partialCheckbox.addEventListener('change', function () {
+            const isChecked = partialCheckbox.checked;
+            const billCheckboxes = document.querySelectorAll('.billCheckbox');
+    
+            billCheckboxes.forEach(cb => {
+                cb.style.display = isChecked ? 'flex' : 'none';
+                cb.style.width = isChecked ? 'auto' : '0';
+                if (!isChecked) cb.checked = false;
+            });
+    
+            const billHeaders = document.querySelectorAll('.bill');
+            billHeaders.forEach(item => {
+                item.style.display = 'grid';
+                item.style.gridTemplateColumns = isChecked ? 'auto 1fr' : '1fr';
+                payButton.textContent = isChecked ? 'Pay Bill(s)' : 'Pay All';
+            });
+        });
+    }    
 }
-
 function showPaymentModal() {
     const modal = document.getElementById('paymentModal');
     modal.style.display = 'flex';
@@ -88,19 +121,38 @@ function showPaymentModal() {
 window.onclick = function(event) {
     const modal = document.getElementById('paymentModal');
     if (event.target === modal) {
-        modal.style.display = 'none'; // Hide the modal
+        modal.style.display = 'none';
     }
 }
 
 function markAllBillsAsPaid(paymentMethod) {
-    const totalAmount = document.querySelector(".totalAmount span").textContent.replace("₱", "").trim();
+    const checkboxes = document.querySelectorAll('.billCheckbox');
+    const selectedBills = [];
+    let totalAmount = 0;
+
+    checkboxes.forEach(cb => {
+        const amount = parseFloat(cb.getAttribute('amount') || 0);
+        if (cb.checked) {
+            selectedBills.push(cb.value);
+            totalAmount += amount;
+        }
+    });
+
+    // If none selected, use the overall total
+    if (selectedBills.length === 0) {
+        totalAmount = parseFloat(document.querySelector(".totalAmount span").textContent.replace("₱", "").trim());
+    }
 
     fetch("../process/updatePaymentStatus.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ totalAmount, paymentMethod }),
+        body: JSON.stringify({ 
+            totalAmount, 
+            paymentMethod, 
+            selectedBills 
+        }),
     })
     .then(response => response.json())
     .then(data => {
@@ -116,6 +168,7 @@ function markAllBillsAsPaid(paymentMethod) {
 
 function displayPaidBills(bills) {
     const container = document.querySelector('.paidWrapper');
+    console.log(bills.length)
     if (bills.length === 0) {
         container.innerHTML += '<p>No paid bills.</p>';
     } else {

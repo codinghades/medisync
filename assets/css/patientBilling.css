@@ -60,11 +60,15 @@
     border-radius: 10px;
     margin-bottom: 10px;
     margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
 }
 
-.bill dt {
+.bill dt { 
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr auto;
 }
 
 dt .name {
@@ -75,6 +79,7 @@ dt .amount {
     text-align: end;
     font-weight: bold;
     color: var(--primary-color);
+    padding-left: 10px;
 }
 
 dd {
@@ -117,7 +122,7 @@ dd {
     background-color: var(--button-active);
 }
 
-.totalAmount {
+.totalAmount, .partialPayOption{
     font-size: 1.2rem;
     font-weight: bold;
     text-align: right;
@@ -193,4 +198,18 @@ dd {
 .payButtons{
     display: flex;
     gap: 10px;
+}
+
+.partialPayOption{
+    padding: 10px 0;
+    width: 100%;
+    text-align: end;
+}
+
+.partialPayOption input[type='checkbox']{
+    margin: 0 10px;
+}
+
+.partialPayOption label{
+    font-weight: normal;
 }
