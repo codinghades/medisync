@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/account.css">
     <title>Account</title>
+    <script src="../assets/js/account.js"></script>
 </head>
 <body>
     <div class="mainContainer"></div>
@@ -20,8 +21,8 @@
             <div class="card">
                 <div class="header">
                     <div class="name">
-                        <p class="userName">Juan Dela Cruz</p>
-                        <p class="userID">P-2025-0000</p>
+                        <p class="userName">Name</p>
+                        <p class="userID">User ID</p>
                     </div>
                     <div class="headerLogo"><img src="../assets/images/Medisync Logo.png" alt="Medisync Logo"></div>
                 </div>

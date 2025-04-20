@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/account.css">
     <title>Account</title>
+    <script src="../assets/js/account.js"></script>
 </head>
 <body>
     <div class="mainContainer"></div>
