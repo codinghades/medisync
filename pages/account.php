@@ -53,9 +53,11 @@
         <div class="account-modal">
             <p class="account-modal-text">Enter your password to save changes:</p>
             <input type="password" id="accountPasswordInput" placeholder="Password">
+                <div id="passwordError" class="error-message"></div>
+                <div id="emailError" class="error-message"></div>
             <div class="account-modal-buttons">
-                <button id="confirmAccountPasswordBtn">Confirm</button>
-                <button id="cancelAccountPasswordBtn">Cancel</button>
+            <button id="confirmAccountPasswordBtn">Confirm</button>
+            <button id="cancelAccountPasswordBtn">Cancel</button>
             </div>
         </div>
     </div>

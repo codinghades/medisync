@@ -5,7 +5,7 @@ require '../config/database.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(['success' => false, 'message' => 'Invalid request']);
+    echo json_encode(['success' => false, 'error' => 'invalid_request']);
     exit;
 }
 
@@ -17,7 +17,7 @@ $email = $_POST['email'] ?? '';
 $contactNumber = $_POST['contactNumber'] ?? '';
 
 if (!$user_id || !$password) {
-    echo json_encode(['success' => false, 'message' => 'Missing user or password']);
+    echo json_encode(['success' => false, 'error' => 'missing_user_or_password']);
     exit;
 }
 
@@ -27,7 +27,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if (!$result || $result->num_rows === 0) {
-    echo json_encode(['success' => false, 'message' => 'User not found']);
+    echo json_encode(['success' => false, 'error' => 'user_not_found']);
     exit;
 }
 
@@ -35,7 +35,7 @@ $row = $result->fetch_assoc();
 $hashedPassword = $row['password'];
 
 if (!password_verify($password, $hashedPassword)) {
-    echo json_encode(['success' => false, 'message' => 'Incorrect password']);
+    echo json_encode(['success' => false, 'error' => 'password_incorrect']);
     exit;
 }
 
@@ -45,7 +45,7 @@ $emailCheck->execute();
 $emailResult = $emailCheck->get_result();
 
 if ($emailResult->num_rows > 0) {
-    echo json_encode(['success' => false, 'message' => 'Email already in use']);
+    echo json_encode(['success' => false, 'error' => 'email_taken']);
     exit;
 }
 
@@ -56,7 +56,7 @@ $success = $update->execute();
 if ($success) {
     echo json_encode(['success' => true]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Update failed']);
+    echo json_encode(['success' => false, 'error' => 'update_failed']);
 }
 exit;
 ?>

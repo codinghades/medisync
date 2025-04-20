@@ -10,7 +10,6 @@ $lastName = "";
 if (isset($_SESSION["user_id"])) {
     $userId = $_SESSION["user_id"];
     
-    // Query to fetch first name, last name, email, and contact number from the database
     $query = "SELECT first_name, last_name, contact_number, email FROM users WHERE user_id = ?";
 
     if ($stmt = $conn->prepare($query)) {
