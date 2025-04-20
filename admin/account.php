@@ -21,8 +21,8 @@
             <div class="card">
                 <div class="header">
                     <div class="name">
-                        <p class="userName">Juan Dela Cruz</p>
-                        <p class="userID">P-2025-0000</p>
+                        <p class="userName">Name</p>
+                        <p class="userID">User ID</p>
                     </div>
                     <div class="headerLogo"><img src="../assets/images/Medisync Logo.png" alt="Medisync Logo"></div>
                 </div>
@@ -45,6 +45,58 @@
                     </div>
                 </div>
                 <div class="footer"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="account-modal-overlay" id="accountPasswordOverlay" style="display: none;">
+        <div class="account-modal">
+            <p class="account-modal-text">Enter your password to save changes:</p>
+            <input type="password" id="accountPasswordInput" placeholder="Password">
+                <div id="passwordError" class="error-message"></div>
+                <div id="emailError" class="error-message"></div>
+            <div class="account-modal-buttons">
+            <button id="confirmAccountPasswordBtn">Confirm</button>
+            <button id="cancelAccountPasswordBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="account-modal-overlay" id="accountSuccessOverlay" style="display: none;">
+        <div class="account-modal">
+            <div class="account-modal-icon"><i class='bx bx-check-circle'></i></div>
+            <p class="account-modal-text">User information changed successfully.</p>
+            <div class="account-modal-buttons">
+                <button id="confirmAccountSuccessBtn">Ok</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="account-modal-overlay" id="changePasswordOverlay" style="display: none;">
+        <div class="account-modal">
+            <div class="account-modal-icon"><i class='bx bx-lock-alt'></i></div>
+            <p class="account-modal-text">Change your password</p>
+
+            <div class="form-group">
+            <input type="password" id="currentPassword" placeholder="Current Password" />
+            <div id="currentPasswordError" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+            <input type="password" id="newPassword" placeholder="New Password" />
+            <div id="newPasswordError" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+            <input type="password" id="confirmNewPassword" placeholder="Confirm New Password" />
+            <div id="confirmNewPasswordError" class="error-message"></div>
+            </div>
+
+            <div id="passwordError" class="error-message"></div>
+
+            <div class="account-modal-buttons">
+            <button id="confirmPasswordChangeBtn">Save</button>
+            <button id="cancelPasswordChangeBtn">Cancel</button>
             </div>
         </div>
     </div>

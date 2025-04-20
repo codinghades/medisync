@@ -173,59 +173,74 @@ async function loadUserInfo() {
     
     document.getElementById('confirmPasswordChangeBtn').addEventListener('click', async (event) => {
         event.preventDefault();
-    
+      
         const currentPassword = document.getElementById('currentPassword').value;
         const newPassword = document.getElementById('newPassword').value;
         const confirmNewPassword = document.getElementById('confirmNewPassword').value;
-    
-        document.getElementById('currentPasswordError').textContent = '';
-        document.getElementById('newPasswordError').textContent = '';
-        document.getElementById('confirmNewPasswordError').textContent = '';
-    
+      
+        const currentError = document.getElementById('currentPasswordError');
+        const newError = document.getElementById('newPasswordError');
+        const confirmError = document.getElementById('confirmNewPasswordError');
+      
+        currentError.textContent = '';
+        newError.textContent = '';
+        confirmError.textContent = '';
+      
+        currentError.classList.remove('active');
+        newError.classList.remove('active');
+        confirmError.classList.remove('active');
+      
         if (newPassword !== confirmNewPassword) {
-            document.getElementById('confirmNewPasswordError').textContent = 'Passwords do not match.';
-            setTimeout(() => {
-                document.getElementById('confirmNewPasswordError').textContent = '';
-            }, 3000);
-            return;
+          confirmError.textContent = 'Passwords do not match.';
+          confirmError.classList.add('active');
+          setTimeout(() => {
+            confirmError.textContent = '';
+            confirmError.classList.remove('active');
+          }, 3000);
+          return;
         }
-    
+      
         const formData = new FormData();
         formData.append('currentPassword', currentPassword);
         formData.append('newPassword', newPassword);
         formData.append('confirmNewPassword', confirmNewPassword);
-    
+      
         try {
-            const res = await fetch('../process/changePassword.php', {
-                method: 'POST',
-                body: formData,
-            });
-    
-            const data = await res.json();
-    
-            if (data.success) {
-                document.getElementById('changePasswordOverlay').style.display = 'none';
-                document.getElementById('accountSuccessOverlay').style.display = 'flex';
+          const res = await fetch('../process/changePassword.php', {
+            method: 'POST',
+            body: formData,
+          });
+      
+          const data = await res.json();
+      
+          if (data.success) {
+            document.getElementById('changePasswordOverlay').style.display = 'none';
+            document.getElementById('accountSuccessOverlay').style.display = 'flex';
+          } else {
+            if (data.error === 'incorrect_password') {
+              currentError.textContent = 'Current password is incorrect.';
+              currentError.classList.add('active');
+              setTimeout(() => {
+                currentError.textContent = '';
+                currentError.classList.remove('active');
+              }, 3000);
+            } else if (data.error === 'password_mismatch') {
+              confirmError.textContent = 'New passwords do not match.';
+              confirmError.classList.add('active');
+              setTimeout(() => {
+                confirmError.textContent = '';
+                confirmError.classList.remove('active');
+              }, 3000);
             } else {
-                if (data.error === 'incorrect_password') {
-                    document.getElementById('currentPasswordError').textContent = 'Current password is incorrect.';
-                    setTimeout(() => {
-                        document.getElementById('currentPasswordError').textContent = '';
-                    }, 3000);
-                } else if (data.error === 'password_mismatch') {
-                    document.getElementById('confirmNewPasswordError').textContent = 'New passwords do not match.';
-                    setTimeout(() => {
-                        document.getElementById('confirmNewPasswordError').textContent = '';
-                    }, 3000);
-                } else {
-                    alert('An error occurred while changing your password. Please try again.');
-                }
+              alert('An error occurred while changing your password. Please try again.');
             }
+          }
         } catch (err) {
-            console.error('Error:', err);
-            alert('An error occurred while communicating with the server. Please try again.');
+          console.error('Error:', err);
+          alert('An error occurred while communicating with the server. Please try again.');
         }
-    });
+      });
+      
     
     document.getElementById('confirmAccountSuccessBtn').addEventListener('click', () => {
         document.getElementById('accountSuccessOverlay').style.display = 'none';

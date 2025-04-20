@@ -243,6 +243,12 @@ i {
     color: var(--primary-color);
 }
 
-#newPasswordError, #currentPasswordError, #confirmNewPasswordError{
+.error-message {
+    padding-top: 0;
+    transition: padding-top 0.2s;
+}
+
+.error-message.active {
     padding-top: 10px;
+    background-color: var(--primary-bg);
 }
