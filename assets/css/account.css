@@ -252,3 +252,10 @@ i {
     padding-top: 10px;
     background-color: var(--primary-bg);
 }
+
+#inputError{
+    width: 100%;
+    text-align: center;
+    grid-column: span 2;
+    transition: padding-top 0.2s;
+}

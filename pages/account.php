@@ -33,6 +33,7 @@
                             <input type="text" name="lastName" id="lastNameInput" placeholder="Last Name" value="" disabled>
                             <input type="email" name="email" id="emailInput" placeholder="Email" value="" disabled>
                             <input type="tel" name="contactNumber" id="contactNumberInput" placeholder="Contact Number" value="" disabled>
+                            <div id="inputError" class="error-message"></div>
                             <input type="submit" name="changePassword" id="changePasswordButton" value="Change Password">
                             <div class="editButton">
                                 <input type="submit" name="edit" id="editButton" value="Edit">
