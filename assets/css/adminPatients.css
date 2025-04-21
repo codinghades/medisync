@@ -202,10 +202,10 @@ table td{
         margin-bottom: 20px;
     }
 
-    .printContainer td:last-child,
+    /* .printContainer td:last-child,
     .printContainer th:last-child {
         display: none;
-    }
+    } */
 
     .printContainer button {
         display: none;

@@ -84,7 +84,7 @@
                                     <th>Time</th>
                                     <th>Status</th>
                                     <th>Created At</th>
-                                    <th>Select</th>
+                                    <th class="checkboxHeader">Select</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -95,7 +95,7 @@
                                     <td>9:00 AM</td>
                                     <td class="status"><span class="statusText">Expired</span></td>
                                     <td>March 25, 2025</td>
-                                    <td><input type="checkbox" disabled></td>
+                                    <td class="checkboxCell"><input type="checkbox" disabled></td>
                                 </tr>
                             </tbody>
                         </table>
