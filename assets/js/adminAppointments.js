@@ -37,8 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const status = appointment.status.trim().toLowerCase();
             const isActive = status === "active";
             const statusClass = isActive ? "status-active" :
-                                status === "expired" ? "status-expired" :
-                                "status-completed";
+                    status === "expired" ? "status-expired" :
+                    status === "cancelled" ? "status-cancelled" :
+                    "status-completed";
     
             const row = `
                 <tr>

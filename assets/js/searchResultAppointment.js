@@ -71,8 +71,9 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             let statusClass = appointment.status.trim().toLowerCase() === "active" ? "status-active" :
-                                appointment.status.trim().toLowerCase() === "expired" ? "status-expired" :
-                                "status-completed";
+                  appointment.status.trim().toLowerCase() === "expired" ? "status-expired" :
+                  appointment.status.trim().toLowerCase() === "cancelled" ? "status-cancelled" :
+                  "status-completed";
 
             const isActive = appointment.status.trim().toLowerCase() === "active";
 

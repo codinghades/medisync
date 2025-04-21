@@ -87,6 +87,9 @@ table td {
 .status-expired {
     color: red;
 }
+.status-cancelled {
+    color: gray;
+}
 
 .searchBar {
     display: grid;
