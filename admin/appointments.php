@@ -67,6 +67,7 @@
                                 <option value="5">Active Appointments</option>
                                 <option value="6">Expired Appointments</option>
                                 <option value="7">Completed Appointments</option>
+                                <option value="8">Cancelled Appointments</option>
                             </select>
                         </form>
                     </div>

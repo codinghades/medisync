@@ -38,33 +38,36 @@ if (!empty($search)) {
 
 // Apply sorting filter
 switch ($filter) {
-    case '1': // Sort by Name ASC
+    case '1':
         $query .= " ORDER BY u.first_name ASC, u.last_name ASC";
         break;
-    case '2': // Sort by Name DESC
+    case '2':
         $query .= " ORDER BY u.first_name DESC, u.last_name DESC";
         break;
-    case '3': // Sort by Newest Appointment
+    case '3':
         $query .= " ORDER BY a.created_at DESC";
         break;
-    case '4': // Sort by Oldest Appointment
+    case '4':
         $query .= " ORDER BY a.created_at ASC";
         break;
-    case '5': // Active Appointments
+    case '5':
         $query .= " AND a.status = 'Active' ORDER BY a.appointment_date DESC, a.appointment_time ASC";
         break;
-    case '6': // Expired Appointments
+    case '6':
         $query .= " AND a.status = 'Expired' ORDER BY a.appointment_date DESC, a.appointment_time ASC";
         break;
-    case '7': // Completed Appointments
+    case '7':
         $query .= " AND a.status = 'Completed' ORDER BY a.appointment_date DESC, a.appointment_time ASC";
+        break;
+    case '8':
+        $query .= " AND a.status = 'Cancelled' ORDER BY a.appointment_date DESC, a.appointment_time ASC";
         break;
     default:
         $query .= " ORDER BY a.created_at DESC";
         break;
 }
 
-// Prepare and bind parameters if necessary
+
 $stmt = $conn->prepare($query);
 if (!empty($params)) {
     $stmt->bind_param($types, ...$params);
