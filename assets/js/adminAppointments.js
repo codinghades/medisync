@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    let shouldReload = false;
     const allTable = document.querySelector(".allAppointments .list table");
     const changeStatusBtn = document.getElementById("changeStatus");
     const deleteBtn = document.getElementById("delete");
@@ -66,24 +67,18 @@ document.addEventListener("DOMContentLoaded", function () {
         return [...document.querySelectorAll("input[name='select']:checked")].map(cb => cb.value);
     }
 
-    function showModal(message, showYesNo = false) {
+    function showModal(message, showYesNo = false, reload = false) {
         const statusMessage = document.getElementById("statusMessage");
-        const modal = document.querySelector(".status-modal");
-        
         statusMessage.textContent = message;
-
-        if (showYesNo) {
-            confirmYes.style.display = "inline-block";
-            confirmNo.style.display = "inline-block";
-            okBtn.style.display = "none";
-        } else {
-            confirmYes.style.display = "none";
-            confirmNo.style.display = "none";
-            okBtn.style.display = "inline-block";
-        }
-
+        shouldReload = reload;
+    
+        confirmYes.style.display = showYesNo ? "inline-block" : "none";
+        confirmNo.style.display = showYesNo ? "inline-block" : "none";
+        okBtn.style.display = showYesNo ? "none" : "inline-block";
+    
         statusModalOverlay.style.display = "flex";
     }
+    
 
     function closeModal() {
         statusModalOverlay.style.display = "none";
@@ -106,10 +101,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    showModal(`${data.message}`, false);
-                    if (index === selectedAppointments.length - 1) {
-                        location.reload();
-                    }
+                    const isLast = index === selectedAppointments.length - 1;
+                    showModal(`${data.message}`, false, isLast);
                 })
                 .catch(error => {
                     showModal("Error updating appointment status!", false);
@@ -141,8 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.error) {
                     showModal(data.error, false);
                 } else {
-                    showModal(data.message, false);
-                    location.reload();
+                    showModal(data.message, false, true);
                 }
             })
             .catch(error => {
@@ -158,7 +150,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (changeStatusBtn) changeStatusBtn.addEventListener("click", updateStatus);
     if (deleteBtn) deleteBtn.addEventListener("click", deleteAppointments);
 
-    okBtn.addEventListener("click", closeModal);
+    okBtn.addEventListener("click", () => {
+        closeModal();
+        if (shouldReload) {
+            location.reload();
+        }
+    });
 
     fetchAppointments();
 });
