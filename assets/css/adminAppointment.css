@@ -247,7 +247,7 @@ button[type='submit'] {
     .wrapper {
         overflow: visible !important;
     }
-}
+} 
 
 .status-modal-overlay {
     display: none;
