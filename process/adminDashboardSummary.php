@@ -11,7 +11,6 @@ $appointmentTypes = [
     "ent"        => "Ear, Nose & Throat (ENT)"
 ];
 
-// Fetch 5 upcoming appointments
 $upcomingAppointmentsQuery = "
     SELECT a.appointment_type, 
         a.appointment_date, 
@@ -29,6 +28,7 @@ $upcomingAppointments = $upcomingAppointmentsResult->fetch_all(MYSQLI_ASSOC);
 
 foreach ($upcomingAppointments as &$row) {
     $row['appointment_type'] = $appointmentTypes[$row['appointment_type']] ?? "Unknown";
+    $row['appointment_time'] = date("g:i A", strtotime($row['appointment_time']));
 }
 unset($row);
 
