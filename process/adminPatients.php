@@ -47,7 +47,7 @@ while ($row = $result->fetch_assoc()) {
         'registration_date' => $row['created_at'],
         'active_prescription' => $row['active_prescription'],
         'unpaid_bill' => number_format($row['total_unpaid_bill'], 2),
-        'closest_appointment' => ($row['closest_appointment'] !== 'None') ? date('Y-m-d H:i', strtotime($row['closest_appointment'])) : 'None'
+        'closest_appointment' => ($row['closest_appointment'] !== 'None') ? date('F j, Y g:i A', strtotime($row['closest_appointment'])) : 'None'
     ];
 }
 

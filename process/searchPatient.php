@@ -46,27 +46,26 @@ if (!empty($search)) {
     $types .= "sss";
 }
 
-// Apply sorting filter
 switch ($filter) {
-    case '1': // Sort by Name ASC
+    case '1': 
         $query .= " ORDER BY u.first_name ASC, u.last_name ASC";
         break;
-    case '2': // Sort by Name DESC
+    case '2': 
         $query .= " ORDER BY u.first_name DESC, u.last_name DESC";
         break;
-    case '3': // Sort by Newest Registration
+    case '3':
         $query .= " ORDER BY u.created_at DESC";
         break;
-    case '4': // Sort by Oldest Registration
+    case '4':
         $query .= " ORDER BY u.created_at ASC";
         break;
-    case '5': // Patients with Active Prescriptions
+    case '5':
         $query .= " AND p.active_prescription = 'Yes' ORDER BY u.first_name ASC, u.last_name ASC";
         break;
-    case '6': // Patients with Unpaid Bills (Highest to Lowest)
+    case '6':
         $query .= " AND b.total_unpaid > 0 ORDER BY b.total_unpaid DESC, u.first_name ASC, u.last_name ASC";
         break;
-    case '7': // Patients with Active Appointments
+    case '7':
         $query .= " AND a.closest_appointment IS NOT NULL ORDER BY a.closest_appointment ASC";
         break;
     default:
@@ -75,7 +74,6 @@ switch ($filter) {
 }
 
 
-// Prepare and bind parameters if necessary
 $stmt = $conn->prepare($query);
 if (!empty($params)) {
     $stmt->bind_param($types, ...$params);
